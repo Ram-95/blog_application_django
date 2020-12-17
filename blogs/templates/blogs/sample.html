@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample - Flex</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 100%;
+            margin: 2px auto;
+        }
+
+        .child1,
+        .child2 {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .child1 {
+            flex: 2;
+        }
+
+        .child2 {
+            flex: 1;
+            margin-left: 10px;
+            background-color: #fff;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        p,
+        h2 {
+            text-align: center;
+        }
+
+        .child2 p {
+            font-size: large;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex">
+        <div class="child1">
+            <h2>Block-1</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae dignissimos, culpa explicabo
+                cupiditate eaque repellendus? Unde assumenda, placeat necessitatibus eveniet sapiente obcaecati, quas
+                nulla consequatur ullam adipisci rem omnis repudiandae!
+                Veritatis, aperiam minus laborum dignissimos pariatur fugiat eveniet sed dolores totam at quisquam
+                doloribus odit quos ipsum possimus molestiae debitis architecto inventore earum culpa delectus
+                aspernatur iure. At, consequuntur harum.
+                Aliquam commodi dignissimos cum perferendis aut consequatur rerum odio in. Excepturi vitae quis sed
+                doloremque illum eligendi neque vero, minus quaerat libero consectetur dicta quasi adipisci quia
+                similique id inventore.
+                Culpa cupiditate esse ipsam doloribus delectus repellat voluptatibus labore obcaecati eaque iusto. Sed
+                dolorum laborum quasi, incidunt culpa tempora adipisci minus natus facere dignissimos. Unde, ducimus
+                perspiciatis! Totam, aliquid assumenda!
+                A, placeat libero excepturi necessitatibus aliquam eaque deleniti repellat natus corporis, assumenda
+                dolores veritatis nesciunt ipsum culpa soluta ex pariatur vel corrupti, tempore atque nam molestiae
+                fugit quo iste! Fugiat.
+                Mollitia, itaque? Hic facilis temporibus quod, iure ipsum non saepe, quidem dolorem omnis sunt ipsa fuga
+                exercitationem magni deleniti blanditiis assumenda fugiat ut atque reprehenderit delectus nostrum!
+                Labore, earum obcaecati?
+                Ullam accusamus numquam repellat magnam quis doloribus reprehenderit maiores rem facere quia, expedita
+                sapiente reiciendis voluptatibus quidem veritatis, quam magni id quasi aut. Amet recusandae voluptatibus
+                repudiandae incidunt sapiente harum.
+                Atque iusto voluptate quae laborum a culpa accusantium sequi itaque ipsa commodi suscipit eum laboriosam
+                libero ex molestias iste nihil officiis temporibus distinctio in, eius cupiditate saepe non alias. Et!
+                Praesentium nam earum accusantium ad distinctio autem, eaque numquam dolores quia dolorem nobis officiis
+                laboriosam consectetur aspernatur iusto nulla qui porro cupiditate mollitia. Tempora, ratione asperiores
+                rem et voluptate autem?
+                Quam, quia? Expedita explicabo vitae deserunt aperiam dolore ducimus voluptatibus nisi? Porro voluptates
+                labore ratione quasi recusandae laborum similique eius! Iste incidunt veritatis amet deserunt aspernatur
+                quo qui doloremque expedita.</p>
+        </div>
+        <div class="child2">
+            <p>Latest Blogs</p>
+            <ul style="list-style-type: none;">
+                <li>Blog1</li>
+                <li>Blog2</li>
+                <li>Blog3</li>
+            </ul>
+            <hr>
+            <p>Trending Blogs</p>
+            <ul>
+                <li>T-Blog1</li>
+                <li>T-Blog2</li>
+                <li>T-Blog3</li>
+            </ul>
+            <hr>
+            <p>Misc</p>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

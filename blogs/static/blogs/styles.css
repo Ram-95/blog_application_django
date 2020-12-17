@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Hind+Siliguri&family=Nunito:wght@300&family=Roboto+Slab&display=swap');
+* {
+    box-sizing: border-box;
+    /*font-family: 'Hind Siliguri', sans-serif;*/
+    padding: 0;
+    margin: 0;
+}
+
+.navbar {
+    background-color: black;
+    height: 70px;
+}
+
+.logo {
+    color: #fff;
+}
+
+.container {
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.blog_container {
+    max-width: 100%;
+}
+
+.flex_container {
+    display: flex;
+    padding: 10px;
+}
+
+.blog_container {
+    flex: 2;
+}
+
+.side_container {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 15px;
+    height: fit-content;
+    max-width: 360px;
+}
+
+.side_container ol {
+    padding-left: 0.5em;
+}
+ol li {
+    margin-left: 1em;
+    list-style-position: outside; 
+    list-style-type: decimal;
+}
+.side_container p {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    margin: 10px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar .flex {
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.main_container {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 20px;
+    max-width: 100%;
+}
+
+.navbar li>a {
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.navbar li>a:hover {
+    border-bottom: 2px solid #fff;
+}
+
+.blog_container article {
+    border: 1px solid #bababd;
+    box-shadow: 3px 3px rgb(214, 214, 214);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 8px auto;
+}
+
+.blog_container p {
+    padding: 10px 0;
+    line-height: 1.3;
+}
+
+.blog_container section {
+    padding: 5px;
+}
+
+.blog_container i {
+    font-size: 18px;
+    color: gray;
+}
+
+.blog_container section>a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.blog_container section>a:hover {
+    color: blue;
+    font-weight: bold;
+}
+
+/* CSS for create_post.html*/
+
+.new_post_container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.required {
+    color: red;
+}
+
+.post_title {
+    height: 2rem;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #b4becb;
+    font-size: 1.2rem;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.new_post_container textarea {
+    height: 25rem;
+    width: 100%;
+    font-size: 1rem;
+    padding: 5px;
+    margin: 10px auto;
+    border: 1px solid #b4becb;
+}
+
+.new_post input, .new_post textarea:focus {
+    outline: none;
+}
+
+.btn_class {
+    padding: 5px;
+    font-size: 1.1rem;
+    color: #fff;
+    border-radius: 5px;
+    margin: 8px auto;
+    cursor: pointer;
+}
+
+.submit_btn {
+    background-color: green;
+}
+
+.discard_btn {
+    background-color: red;
+    margin: auto 15px;
+}
+
+.new_post {
+    margin: 10px auto;
+}
+
+.new_post h3 {
+    font-size: 1.4rem;
+}
+
+/* CSS for register.html */
+.content-section {
+    max-width: 700px;
+    margin: 0 auto;
+}
