@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 
 # Tells cripsy forms to use bootstrap 4
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Tells which page to show when user successfully logs in
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'

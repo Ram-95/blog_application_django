@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    
+
     <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <!-- CSS File -->
     <link rel="stylesheet" href="{% static 'blogs/styles.css' %}">
 
     <!-- JQuery and AJAX CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <!-- Javascript File-->
     <script type="text/javascript" src="{% static 'blogs/script.js' %}"></script>
 
@@ -42,10 +43,17 @@
             </a>
             <nav>
                 <ul>
+                    {% if user.is_authenticated %}
                     <li>
-                        <a href="#">Login</a>
+                        <a href="{% url 'profile' %}">Profile</a>
+                    </li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
                     </li>
                     <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
