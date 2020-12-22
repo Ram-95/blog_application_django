@@ -1,7 +1,12 @@
 {% extends "blogs/base.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
     <h2>Welcome {{ user.username }}</h2>
+    <h5>Posts</h5>
+    <ol>
+        {% for blog in user_blogs %}
+        <li><a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a></li>
+        {% endfor %}
+    </ol>
 </div>
 {% endblock content %}

@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Blog
 from django.contrib.auth.models import User
 from django.db.models import Count
+
 
 
 def index(request):
@@ -37,3 +38,15 @@ def create_post(request):
     # Passes the title of the webpage to the base.html file
     title = 'Create New Post'
     return render(request, 'blogs/create_post.html', {'title': title})
+
+
+def view_post(request, pk):
+    # Shows a particular post based on it's ID passed via URL
+    blog = get_object_or_404(Blog, pk=pk)
+    title = 'Post ' + str(pk)
+    context = {
+        'blog': blog,
+        'title': title,
+    }
+    return render(request, 'blogs/view_post.html', context)
+

@@ -1,0 +1,25 @@
+{% extends "blogs/base.html" %}
+{% block content %}
+<div class="content-section">
+    <article id="{{ blog.id }}" class="border border-info" style="background-color: cornsilk; padding: 12px;">
+        <div style="display: flex; flex-direction: row;">
+            <div class="votes_container">
+                <i class="fas fa-caret-up post_up_down"></i>
+                <span id="votes_count">{{ blog.likes }}</span>
+                <i class="fas fa-caret-down post_up_down"></i>
+            </div>
+            <div style="flex: 2;">
+                <h2 style="font-size: 24px;">{{ blog.title }}</h2>
+                <a href="#" style="text-decoration: none;"><small
+                        style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
+                <br>
+                <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+            </div>
+        </div>
+
+        <hr>
+        <p>{{ blog.description }}</p>
+
+    </article>
+</div>
+{% endblock content %}
