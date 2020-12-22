@@ -4,18 +4,32 @@
 <div class="flex_container">
     <div class="blog_container">
         {% for blog in blogs_list %}
-        <article>
-            <h2 style="font-size: 24px;">{{ blog.title }}</h2>
-            <a href="#" style="text-decoration: none;"><small
-                    style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
-            <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+        <article id="{{ blog.id }}">
+            <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; flex-direction: column; align-items:center; flex: 1; max-width: 50px; max-height: 30px; margin: -5px 0;">
+                    <i class="fas fa-caret-up post_up_down"></i>
+                    <span style="text-align: center; font-size: 1.61538462rem;">{{ blog.likes }}</span>
+                    <i class="fas fa-caret-down post_up_down"></i>
+                </div>
+                <div style="flex: 2; max-width: 100%;">
+                    <h2 style="font-size: 24px;">{{ blog.title }}</h2>
+                    <a href="#" style="text-decoration: none;"><small
+                            style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
+                    <br>
+                    <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+                </div>
+            </div>
+
             <hr>
             <p>{{ blog.description }}</p>
-            <hr>
+            <!--
             <section>
-                <a><i class="far fa-thumbs-up like_post_{{ blog.id }}"></i> Like</a>
-                <a style="margin-left: 20px;"><i class="far fa-comment comment_post_{{ blog.id }}"></i> Comment</a>
+                <a class="like_post"><i class="fa fa-thumbs-up"></i>&nbsp;Like</a>
+                <a style="margin-left: 20px;"><i class="fa fa-comment comment_post_{{ blog.id }}"></i>&nbsp;Comment</a>
+                
             </section>
+            -->
+
         </article>
         {% endfor %}
     </div>
@@ -35,7 +49,7 @@
             <li><a href="#">{{ item }}</a></li>
             {% endfor %}
         </ol>
-        
+
     </div>
 </div>
 </body>

@@ -23,7 +23,7 @@
 .blog_container {
     flex: 2;
     max-width: 100%;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     margin-right: 10px;
     /*padding: 13px;*/
 }
@@ -33,8 +33,9 @@
     border: 1px solid #ccc;
     padding: 10px;
     margin-left: 10px;
-    
     height: fit-content;
+    border-radius: 8px;
+    margin-top: 8px;
     max-width: 360px;
     background-color: #edf2f8;
 }
@@ -100,7 +101,7 @@ ol li {
 }
 
 .blog_container article {
-    /*border: 1px solid #bababd;*/
+    border: 1px solid #bababd;
     box-shadow: 3px 3px rgb(214, 214, 214);
     border-radius: 10px;
     padding: 10px;
@@ -120,21 +121,31 @@ ol li {
 }
 
 .blog_container i {
-    font-size: 18px;
-    color: gray;
+    color: grey;
 }
 
 .blog_container section>a {
     text-decoration: none;
-    color: black;
     cursor: pointer;
 }
 
 .blog_container section>a:hover {
-    color: blue;
     font-weight: bold;
+    color: green;
 }
 
+.post_up_down {
+    cursor: pointer;
+    font-size: 36px;
+}
+
+.fa-caret-up:hover {
+    color: green;
+}
+
+.fa-caret-down:hover {
+    color: red;
+}
 /* CSS for create_post.html*/
 
 .new_post_container {
