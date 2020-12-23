@@ -10,7 +10,7 @@
             </div>
             <div style="flex: 2;">
                 <h2 style="font-size: 24px;">{{ blog.title }}</h2>
-                <a href="#" style="text-decoration: none;"><small
+                <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                         style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
                 <br>
                 <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>

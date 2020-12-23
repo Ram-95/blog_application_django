@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from blogs.models import Blog
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -24,10 +25,28 @@ def register(request):
 
 @login_required
 def profile(request):
+    '''Shows current logged in users profile'''
     user = request.user
     user_blogs = user.blog_set.all()
+    title = 'My Profile'
     context = {
         'user_blogs': user_blogs,
+        'title': title,
     }
-    #print(user.blog_set.all())
+    # print(user.blog_set.all())
     return render(request, 'users/profile.html', context)
+
+
+def view_profile(request, username):
+    '''Allows users to view other users profile'''
+    user = get_object_or_404(User, username=username)
+    #user = User.objects.filter(username=username).first()
+    user_blogs = user.blog_set.all()
+    title = username
+    context = {
+        'user': user,
+        'user_blogs': user_blogs,
+        'title': title,
+    }
+    # print(user.blog_set.all())
+    return render(request, 'users/view_profile.html', context)

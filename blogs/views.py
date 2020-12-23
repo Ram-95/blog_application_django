@@ -5,14 +5,13 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 
 
-
 def index(request):
     ''' Views the Homepage. '''
     # Gets all the blogs by all the users
     blogs_list = Blog.objects.order_by('-publish_date')
 
     # Gets the top 5 visited/Liked posts - INCOMPLETE
-    blogs_list_top5 = blogs_list[:5]
+    blogs_list_top5 = Blog.objects.order_by('-likes')[:5]
 
     # Gets the top 5 authors/contributors
     top_authors = Blog.objects.all().values('author').annotate(
