@@ -37,7 +37,7 @@
 <body>
     <!-- Navigation bar -->
     <div class="navbar">
-        <div class="container flex">
+        <div class="flex container">
             <a class="logo" href="{% url 'index' %}">
                 <h1>Blog App</h1>
             </a>
@@ -47,12 +47,16 @@
                     <li>
                         <a href="{% url 'profile' %}">Profile</a>
                     </li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
                     {% else %}
                     <li>
                         <a href="{% url 'login' %}">Login</a>
                     </li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li>
+                        <a href="{% url 'register' %}">Register</a>
+                    </li>
                     {% endif %}
                 </ul>
             </nav>

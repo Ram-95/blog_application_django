@@ -4,11 +4,11 @@
     <article id="{{ blog.id }}" class="border border-info" style="background-color: cornsilk; padding: 12px;">
         <div style="display: flex; flex-direction: row;">
             <div class="votes_container">
-                <i class="fas fa-caret-up post_up_down"></i>
+                <i class="fas fa-caret-up post_up_down vote_up"></i>
                 <span id="votes_count">{{ blog.likes }}</span>
-                <i class="fas fa-caret-down post_up_down"></i>
+                <i class="fas fa-caret-down post_up_down vote_down"></i>
             </div>
-            <div style="flex: 2;">
+            <div class="post_header" style="flex: 2;">
                 <h2 style="font-size: 24px;">{{ blog.title }}</h2>
                 <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                         style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>

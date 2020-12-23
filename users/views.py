@@ -36,7 +36,7 @@ def profile(request):
     # print(user.blog_set.all())
     return render(request, 'users/profile.html', context)
 
-
+@login_required
 def view_profile(request, username):
     '''Allows users to view other users profile'''
     user = get_object_or_404(User, username=username)

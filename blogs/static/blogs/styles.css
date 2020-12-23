@@ -11,6 +11,13 @@
     height: 70px;
 }
 
+.nav_container {
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0 40px;
+}
+
 .logo {
     color: #fff;
 }
@@ -54,6 +61,7 @@ ol li {
 .side_container p {
     font-weight: bold;
     font-size: 20px;
+    color:rgb(70 6 247 / 88%);
     text-align: center;
 }
 
@@ -137,6 +145,11 @@ ol li {
 .post_up_down {
     cursor: pointer;
     font-size: 36px;
+}
+
+.post_header {
+    margin-top: 8px;
+    margin-left: 2px;
 }
 
 .fa-caret-up:hover {

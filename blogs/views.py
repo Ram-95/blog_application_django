@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Blog
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -49,3 +50,26 @@ def view_post(request, pk):
     }
     return render(request, 'blogs/view_post.html', context)
 
+
+@csrf_exempt
+def vote_up(request):
+    if request.method == 'POST':
+        post_id = request.POST['post_id']
+        post = Blog.objects.get(id=post_id)
+        post.likes += 1
+        post.save()
+        return HttpResponse('Upvote Done')
+    else:
+        return HttpResponse('Request Method is not Post.')
+
+
+@csrf_exempt
+def vote_down(request):
+    if request.method == 'POST':
+        post_id = request.POST['post_id']
+        post = Blog.objects.get(id=post_id)
+        post.likes -= 1
+        post.save()
+        return HttpResponse('Downvote Done')
+    else:
+        return HttpResponse('Request Method is not Post.')
