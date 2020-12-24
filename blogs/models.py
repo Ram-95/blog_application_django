@@ -12,3 +12,11 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Likes_Table(models.Model):
+    '''Table to store which User has Liked/Disliked which Post. Used to highlight Up/Down carets when a particular user is logged in'''
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    # Denotes the Like status -> 1: User has Liked Post  0: User has Disliked Post
+    like_status_id = models.BooleanField()

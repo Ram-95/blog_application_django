@@ -4,6 +4,7 @@ from .models import Blog
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -52,6 +53,7 @@ def view_post(request, pk):
 
 
 @csrf_exempt
+@login_required
 def vote_up(request):
     if request.method == 'POST':
         post_id = request.POST['post_id']
