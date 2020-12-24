@@ -61,7 +61,7 @@ ol li {
 .side_container p {
     font-weight: bold;
     font-size: 20px;
-    color:rgb(70 6 247 / 88%);
+    color: rgb(70 6 247 / 88%);
     text-align: center;
 }
 
@@ -173,6 +173,14 @@ ol li {
 #votes_count {
     text-align: center;
     font-size: 1.61538462rem;
+}
+
+.blog_title_index {
+    color: black;
+}
+
+.blog_title_index:hover {
+    text-decoration: none;
 }
 
 /* CSS for create_post.html*/

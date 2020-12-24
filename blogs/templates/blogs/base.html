@@ -45,6 +45,9 @@
                 <ul>
                     {% if user.is_authenticated %}
                     <li>
+                        <a href="{% url 'create_post' %}">New Post</a>
+                    </li>
+                    <li>
                         <a href="{% url 'profile' %}">Profile</a>
                     </li>
                     <li>

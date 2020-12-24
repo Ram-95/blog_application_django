@@ -12,7 +12,7 @@
                     <i class="fas fa-caret-down post_up_down vote_down" title="Vote Down"></i>
                 </div>
                 <div class="post_header" style="flex: 2;">
-                    <h2 style="font-size: 24px;">{{ blog.title }}</h2>
+                    <a class="blog_title_index" href="{% url 'view_post' blog.id %}"><h2 style="font-size: 24px;">{{ blog.title }}</h2></a>
                     <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                             style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
                     <br>
