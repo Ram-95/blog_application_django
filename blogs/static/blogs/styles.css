@@ -183,6 +183,30 @@ ol li {
     text-decoration: none;
 }
 
+.my_btn {
+    padding: 7px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: gray;
+    margin: 5px;
+}
+
+.my_btn:hover {
+    text-decoration: none;
+    color: white;
+    padding: 8px;
+}
+
+.update_btn:hover {
+    background-color: rgb(3, 119, 134);
+}
+
+.delete_btn:hover {
+    background-color: red;
+}
+
 /* CSS for create_post.html*/
 
 .new_post_container {

@@ -7,9 +7,9 @@
         <article id="{{ blog.id }}">
             <div style="display: flex; flex-direction: row;">
                 <div class="votes_container">
-                    <i class="fas fa-caret-up post_up_down vote_up" title="Vote Up"></i>
+                    <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
                     <span id="votes_count">{{ blog.likes }}</span>
-                    <i class="fas fa-caret-down post_up_down vote_down" title="Vote Down"></i>
+                    <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
                 </div>
                 <div class="post_header" style="flex: 2;">
                     <a class="blog_title_index" href="{% url 'view_post' blog.id %}"><h2 style="font-size: 24px;">{{ blog.title }}</h2></a>

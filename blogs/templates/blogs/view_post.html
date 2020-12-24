@@ -13,8 +13,14 @@
                 <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                         style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
                 <br>
-                <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+                <small style="font-size: 12px; margin-right: 10px;">{{ blog.publish_date|date:"F d, Y" }}</small>
             </div>
+            {% if blog.author == user %}
+            <div class="update_delete_section mt-2">
+                    <a class="update_btn my_btn" href="{% url 'update_post' blog.id %}">Update</a>
+                    <a class="delete_btn my_btn" href="{% url 'delete_post' blog.id %}">Delete</a>
+            </div>
+            {% endif %}
         </div>
 
         <hr>
