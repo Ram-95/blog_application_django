@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from .models import Blog
+from .models import Blog, Likes_Table
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.contrib import messages
@@ -53,7 +53,7 @@ class PostListView(ListView):
         #context['now'] = timezone.now()
         # Gets all the blogs by all the users
         blogs_list = Blog.objects.order_by('-publish_date')
-
+        
         # Gets the top 5 visited/Liked posts - INCOMPLETE
         blogs_list_top5 = Blog.objects.order_by('-likes')[:5]
 
@@ -122,12 +122,21 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def view_post(request, pk):
-    # Shows a particular post based on it's ID passed via URL
+    # Shows a particular post based on it's PK passed via URL
     blog = get_object_or_404(Blog, pk=pk)
+    posts_liked_id = Likes_Table.objects.filter(user_id=request.user).first().post_id.pk
+    like_status = Likes_Table.objects.filter(user_id=request.user).first().like_status_id
+    if request is not None:
+        u = request.user.likes_table_set.all()
+        posts_liked = {}
+        for i in u:
+            posts_liked[i.post_id.pk] = i.like_status_id
+        print(posts_liked)
     title = blog.title
     context = {
         'blog': blog,
         'title': title,
+        'posts_liked': posts_liked,
     }
     return render(request, 'blogs/view_post.html', context)
 

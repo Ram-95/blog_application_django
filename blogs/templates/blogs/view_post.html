@@ -1,12 +1,33 @@
 {% extends "blogs/base.html" %}
+{% load dict_key %}
 {% block content %}
 <div class="content-section">
     <article id="{{ blog.id }}" class="border border-info" style="background-color: cornsilk; padding: 12px;">
         <div style="display: flex; flex-direction: row;">
             <div class="votes_container">
-                <i class="fas fa-caret-up post_up_down vote_up"></i>
-                <span id="votes_count">{{ blog.likes }}</span>
-                <i class="fas fa-caret-down post_up_down vote_down"></i>
+                    {% if user.is_authenticated %}
+                            {% if blog.id in posts_liked %}
+                                {% if posts_liked|dict_key:blog.id is True %}
+                                    <i class="fas fa-caret-up post_up_down vote_up" style="color: green;" title="Upvote"></i>
+                                    <span id="votes_count">{{ blog.likes }}</span>
+                                    <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                                {% else %}
+                                    <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                                    <span id="votes_count">{{ blog.likes }}</span>
+                                    <i class="fas fa-caret-down post_up_down vote_down" style="color: red;" title="Downvote"></i>
+                                {% endif %}
+                            
+                            {% else %}
+                                <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                                <span id="votes_count">{{ blog.likes }}</span>
+                                <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                            {% endif  %}
+                        
+                    {% else %}
+                        <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                        <span id="votes_count">{{ blog.likes }}</span>
+                        <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                    {% endif %}
             </div>
             <div class="post_header" style="flex: 2;">
                 <h2 style="font-size: 24px;">{{ blog.title }}</h2>
@@ -17,8 +38,8 @@
             </div>
             {% if blog.author == user %}
             <div class="update_delete_section mt-2">
-                    <a class="update_btn my_btn" href="{% url 'update_post' blog.id %}">Update</a>
-                    <a class="delete_btn my_btn" href="{% url 'delete_post' blog.id %}">Delete</a>
+                <a class="update_btn my_btn" href="{% url 'update_post' blog.id %}">Update</a>
+                <a class="delete_btn my_btn" href="{% url 'delete_post' blog.id %}">Delete</a>
             </div>
             {% endif %}
         </div>
