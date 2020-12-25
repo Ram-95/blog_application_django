@@ -12,7 +12,8 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-
+    
+    # This code redirects to 'post/<post_id>/' after successful creation of a Post
     def get_absolute_url(self):
         return reverse('view_post', kwargs={'pk': self.pk})
 
@@ -23,4 +24,6 @@ class Likes_Table(models.Model):
     post_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
     # Denotes the Like status -> 1: User has Liked Post  0: User has Disliked Post
     like_status_id = models.BooleanField()
+
+    
         
