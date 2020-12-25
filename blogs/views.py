@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
+import json
+from django.http import HttpResponse, JsonResponse
 from .models import Blog, Likes_Table
 from django.contrib.auth.models import User
 from django.db.models import Count
@@ -124,14 +125,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def view_post(request, pk):
     # Shows a particular post based on it's PK passed via URL
     blog = get_object_or_404(Blog, pk=pk)
-    posts_liked_id = Likes_Table.objects.filter(user_id=request.user).first().post_id.pk
-    like_status = Likes_Table.objects.filter(user_id=request.user).first().like_status_id
+    # Dictionary to store the posts liked by the current logged in user.
+    # Stores {<post_id>: <like_status>}
+    posts_liked = {}
     if request is not None:
         u = request.user.likes_table_set.all()
-        posts_liked = {}
         for i in u:
             posts_liked[i.post_id.pk] = i.like_status_id
-        print(posts_liked)
+        #print(posts_liked)
     title = blog.title
     context = {
         'blog': blog,
@@ -150,13 +151,13 @@ def vote_up(request):
         if request.user != post.author:
             post.likes += 1
             post.save()
-            print('Upvote Success')
-            return HttpResponse('Upvote Done')
+            #print('Upvote Success')
+            return JsonResponse({'status': 'success'})
         else:
-            print('You cannot like your own post!')
-            return HttpResponse('You cannot like your own post!')
+            #print('You cannot like your own post!')
+            return JsonResponse({'status': 'You cannot Upvote your own post!'})
     else:
-        return HttpResponse('Request Method is not Post.')
+        return JsonResponse({'status': 'Request Method is not Post.'})
 
 
 @csrf_exempt
@@ -168,10 +169,10 @@ def vote_down(request):
         if request.user != post.author:
             post.likes -= 1
             post.save()
-            print('Downvote Success')
-            return HttpResponse('Downvote Done')
+            #print('Downvote Success')
+            return JsonResponse({'status': 'success'})
         else:
-            print('You cannot downvote your own post!')
-            return HttpResponse('You cannot downvote your own post!')
+            #print('You cannot downvote your own post!')
+            return JsonResponse({'status': 'You cannot Downvote your own post!'})
     else:
-        return HttpResponse('Request Method is not Post.')
+        return JsonResponse({'status': 'Request Method is not Post.'})

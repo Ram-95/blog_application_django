@@ -18,13 +18,19 @@ $(document).ready(function () {
                 post_id: post_id,
             },
             success: function (data) {
-                likes++;
-                $("#" + post_id).find("#votes_count").text(likes);
-                //console.log('Upvote Success ' + likes);
+                //alert(data.status);
+                if (data.status == 'success') {
+                    likes++;
+                    $("#" + post_id).find("#votes_count").text(likes);
+                }
+                else {
+                    alert(data.status);
+                }
             }
         });
     });
 });
+
 
 /* Function to send Downvote data to server */
 $(document).on("click", ".vote_down", function () {
@@ -39,9 +45,14 @@ $(document).on("click", ".vote_down", function () {
             post_id: post_id,
         },
         success: function (data) {
-            likes--;
-            $("#" + post_id).find("#votes_count").text(likes);
-            //console.log('Downvote Success ' + likes);
+            if (data.status == 'success') {
+                likes--;
+                $("#" + post_id).find("#votes_count").text(likes);
+                //console.log('Downvote Success ' + likes);
+            }
+            else {
+                alert(data.status);
+            }
         }
     });
 });
