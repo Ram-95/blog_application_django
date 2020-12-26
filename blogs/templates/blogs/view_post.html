@@ -8,25 +8,25 @@
                     {% if user.is_authenticated %}
                             {% if blog.id in posts_liked %}
                                 {% if posts_liked|dict_key:blog.id is True %}
-                                    <i class="fas fa-caret-up post_up_down vote_up" style="color: green;" title="Upvote"></i>
+                                    <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" style="color: green;" title="Upvote"></i>
                                     <span id="votes_count">{{ blog.likes }}</span>
-                                    <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                                    <i class="fas fa-caret-down post_up_down vote_down" id= "downvote_{{ blog.id }}" title="Downvote"></i>
                                 {% else %}
-                                    <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                                    <i class="fas fa-caret-up post_up_down vote_up" id= "upvote_{{ blog.id }}" title="Upvote"></i>
                                     <span id="votes_count">{{ blog.likes }}</span>
-                                    <i class="fas fa-caret-down post_up_down vote_down" style="color: red;" title="Downvote"></i>
+                                    <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" style="color: red;" title="Downvote"></i>
                                 {% endif %}
                             
                             {% else %}
-                                <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
                                 <span id="votes_count">{{ blog.likes }}</span>
-                                <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                                <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
                             {% endif  %}
                         
                     {% else %}
-                        <i class="fas fa-caret-up post_up_down vote_up" title="Upvote"></i>
+                        <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
                         <span id="votes_count">{{ blog.likes }}</span>
-                        <i class="fas fa-caret-down post_up_down vote_down" title="Downvote"></i>
+                        <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
                     {% endif %}
             </div>
             <div class="post_header" style="flex: 2;">

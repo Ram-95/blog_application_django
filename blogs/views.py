@@ -128,11 +128,11 @@ def view_post(request, pk):
     # Dictionary to store the posts liked by the current logged in user.
     # Stores {<post_id>: <like_status>}
     posts_liked = {}
-    if request is not None:
+    if request.user.is_authenticated:
         u = request.user.likes_table_set.all()
         for i in u:
             posts_liked[i.post_id.pk] = i.like_status_id
-        #print(posts_liked)
+        print(posts_liked) 
     title = blog.title
     context = {
         'blog': blog,
@@ -148,11 +148,34 @@ def vote_up(request):
     if request.method == 'POST':
         post_id = request.POST['post_id']
         post = Blog.objects.get(id=post_id)
+        print(f'Post PK: {post.pk}')
         if request.user != post.author:
-            post.likes += 1
-            post.save()
-            #print('Upvote Success')
-            return JsonResponse({'status': 'success'})
+            # Dictionary to store the posts liked by the current logged in user. Stores {<post_id>: <like_status>}
+            posts_liked = {}
+            u = request.user.likes_table_set.all()
+            for i in u:
+                posts_liked[i.post_id.pk] = i.like_status_id
+            print(f'Vote UP: {posts_liked}')
+            
+            if posts_liked.get(post.pk, None) is False:
+            # If post is already downvoted, then increment the counter and delete the record
+                post.likes += 1
+                post.save()
+                Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).delete()
+                print('Already Downvoted. Removing record.')
+                return JsonResponse({'status': 'success'})
+            elif posts_liked.get(post.pk, None) is True:
+            # if the post is already upvoted, No Action
+                print('Already Upvoted')
+                return JsonResponse({'status': 'Already Upvoted.'})
+            else:
+            # If the post is not present in the table, increment the counter and insert as True
+                lt_post = Likes_Table(user_id=request.user, post_id=post,like_status_id=True)
+                lt_post.save()
+                post.likes += 1
+                post.save()
+                print('Upvote Success. Inserted Record.')
+                return JsonResponse({'status': 'success'})
         else:
             #print('You cannot like your own post!')
             return JsonResponse({'status': 'You cannot Upvote your own post!'})
@@ -166,13 +189,38 @@ def vote_down(request):
     if request.method == 'POST':
         post_id = request.POST['post_id']
         post = Blog.objects.get(id=post_id)
+        
         if request.user != post.author:
-            post.likes -= 1
-            post.save()
-            #print('Downvote Success')
-            return JsonResponse({'status': 'success'})
+            # Dictionary to store the posts liked by the current logged in user. Stores {<post_id>: <like_status>}
+            posts_liked = {}
+            u = request.user.likes_table_set.all()
+            for i in u:
+                posts_liked[i.post_id.pk] = i.like_status_id
+            print(f'Vote Down: {posts_liked}')
+            
+            if posts_liked.get(post.pk, None) is True:
+            # If post is already upvoted, then decrement the counter and delete the record
+                post.likes -= 1
+                post.save()
+                Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).delete()
+                print('Already Upvoted. Removing record.')
+                return JsonResponse({'status': 'success'})
+            elif posts_liked.get(post.pk, None) is False:
+            # If post is already downvoted, then No Action
+                print('Already Downvoted')
+                return JsonResponse({'status': 'Already Downvoted'})
+            else:
+            # If post is not present in table, then decrement counter and inserted record as False
+                post.likes -= 1
+                post.save()
+                dlt_post = Likes_Table(user_id=request.user, post_id=post, like_status_id=False)
+                dlt_post.save()
+                print('Downvote Success')
+                return JsonResponse({'status': 'success'})
         else:
             #print('You cannot downvote your own post!')
             return JsonResponse({'status': 'You cannot Downvote your own post!'})
     else:
         return JsonResponse({'status': 'Request Method is not Post.'})
+    
+        

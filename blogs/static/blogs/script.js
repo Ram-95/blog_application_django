@@ -22,9 +22,17 @@ $(document).ready(function () {
                 if (data.status == 'success') {
                     likes++;
                     $("#" + post_id).find("#votes_count").text(likes);
+                    if (likes > 0) {
+                        $('#upvote_' + post_id).css('color', 'green');
+                    }
+                    if (likes == 0) {
+                        $("#upvote_" + post_id).css('color', '');
+                        $("#downvote_" + post_id).css('color', '');
+                    }
                 }
                 else {
-                    alert(data.status);
+                    //alert(data.status);
+
                 }
             }
         });
@@ -48,10 +56,18 @@ $(document).on("click", ".vote_down", function () {
             if (data.status == 'success') {
                 likes--;
                 $("#" + post_id).find("#votes_count").text(likes);
+                if (likes < 0) {
+                    $('#downvote_' + post_id).css('color', 'red');
+                }
+                if (likes == 0) {
+                    $("#upvote_" + post_id).css('color', '');
+                    $("#downvote_" + post_id).css('color', '');
+                }
                 //console.log('Downvote Success ' + likes);
             }
             else {
-                alert(data.status);
+                //alert(data.status);
+
             }
         }
     });
