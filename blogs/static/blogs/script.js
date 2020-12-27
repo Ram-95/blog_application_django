@@ -31,8 +31,9 @@ $(document).ready(function () {
                     }
                 }
                 else {
-                    //alert(data.status);
-
+                    if (data.status == 'Login Required') {
+                        alert(data.status);
+                    }
                 }
             }
         });
@@ -66,8 +67,9 @@ $(document).on("click", ".vote_down", function () {
                 //console.log('Downvote Success ' + likes);
             }
             else {
-                //alert(data.status);
-
+                if (data.status == 'Login Required') {
+                    alert(data.status);
+                }
             }
         }
     });

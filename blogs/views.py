@@ -88,6 +88,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        '''Function to pass the context data to the HTML page. Here I am adding title of the page to context.'''
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'New Post'
+        return context
+    
 
 # Class based view to Update a post
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -97,9 +103,14 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        '''Function to pass the context data to the HTML page. Here I am adding title of the page to context'''
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update Post'
+        return context
 
     # Checks if the post that is to be updated belongs to the current logged user
-
     def test_func(self):
         post = self.get_object()
         # Checks if the author of post is same as the logged in user
@@ -108,7 +119,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-# Class based view to Update a post
+# Class based view to Delete a post
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
     success_url = '/'
@@ -121,8 +132,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+    def get_context_data(self, **kwargs):
+        '''Function to pass the context data to the HTML page. Here I am adding title of the page to context'''
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete Post'
+        return context
 
-def view_post(request, pk):
+
+def view_post(request,pk):
     # Shows a particular post based on it's PK passed via URL
     blog = get_object_or_404(Blog, pk=pk)
     # Dictionary to store the posts liked by the current logged in user.
@@ -143,9 +160,9 @@ def view_post(request, pk):
 
 
 @csrf_exempt
-@login_required
+#@login_required
 def vote_up(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated and request.method == 'POST':
         post_id = request.POST['post_id']
         post = Blog.objects.get(id=post_id)
         print(f'Post PK: {post.pk}')
@@ -165,7 +182,7 @@ def vote_up(request):
                 print('Already Downvoted. Removing record.')
                 return JsonResponse({'status': 'success'})
             elif posts_liked.get(post.pk, None) is True:
-            # if the post is already upvoted, No Action
+            # if the post is already upvoted by the user, No Action
                 print('Already Upvoted')
                 return JsonResponse({'status': 'Already Upvoted.'})
             else:
@@ -177,16 +194,16 @@ def vote_up(request):
                 print('Upvote Success. Inserted Record.')
                 return JsonResponse({'status': 'success'})
         else:
-            #print('You cannot like your own post!')
+            print('You cannot like your own post!')
             return JsonResponse({'status': 'You cannot Upvote your own post!'})
     else:
-        return JsonResponse({'status': 'Request Method is not Post.'})
+        return JsonResponse({'status': 'Login Required'})
 
 
 @csrf_exempt
-@login_required
+#@login_required
 def vote_down(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated and request.method == 'POST':
         post_id = request.POST['post_id']
         post = Blog.objects.get(id=post_id)
         
@@ -218,9 +235,9 @@ def vote_down(request):
                 print('Downvote Success')
                 return JsonResponse({'status': 'success'})
         else:
-            #print('You cannot downvote your own post!')
+            print('You cannot downvote your own post!')
             return JsonResponse({'status': 'You cannot Downvote your own post!'})
     else:
-        return JsonResponse({'status': 'Request Method is not Post.'})
+        return JsonResponse({'status': 'Login Required'})
     
         

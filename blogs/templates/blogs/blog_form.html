@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">
@@ -11,8 +11,8 @@
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
-            <a href="{% url 'view_post' object.id %}" class="btn btn-outline-danger ml-3">Cancel</a>
+            <button class="btn btn-outline-info" type="submit">Post</button>
+            <a class="btn btn-outline-danger ml-4" href="{% url 'index' %}">Cancel</a>
         </div>
     </form>
 </div>

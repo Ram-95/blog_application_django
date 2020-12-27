@@ -10,8 +10,7 @@
         crossorigin="anonymous" />
 
     <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- CSS File -->
     <link rel="stylesheet" href="{% static 'blogs/styles.css' %}">
@@ -36,6 +35,7 @@
 
 <body>
     <!-- Navigation bar -->
+    
     <div class="navbar">
         <div class="flex container">
             <a class="logo" href="{% url 'index' %}">
@@ -45,7 +45,7 @@
                 <ul>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'profile' %}" style="color: antiquewhite; font-weight: 700;">{{ user.username}}</a>
+                        <a href="{% url 'profile' %}" style="color: antiquewhite; font-weight: 700;">{{ user.username }}</a>
                     </li>
                     <li>
                         <a href="{% url 'create_post' %}">New Post</a>
@@ -62,10 +62,55 @@
                     </li>
                     {% endif %}
                 </ul>
-            </nav>
+        </div>
+        </nav>
+    </div>
+
+
+<!--New Navbar-->
+<!--
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-indigo fixed-top">
+        <a class="navbar-brand font-weight-bold" href="{% url 'index' %}" style="font-size: 38px;">Blog App</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}" style="color: rgb(240, 229, 85);"
+                        title="View Profile">
+                        <img class="rounded-circle" width="28" height="28" src="#">
+                        <strong>{{ user.username }}</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_post' %}" style="color: white;"><strong>New Post</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}" style="color: white;"><strong>Logout</strong></a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}" style="color: white;">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}" style="color: white;">Register</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
 
-    </div>
+    </nav>
+</header>
+-->
+<!--End-->
+
+
     <main role="main" class="main_container">
         <!-- Notification section -->
         <div class="col">
