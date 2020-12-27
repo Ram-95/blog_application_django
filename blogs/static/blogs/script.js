@@ -32,7 +32,7 @@ $(document).ready(function () {
                 }
                 else {
                     if (data.status == 'Login Required') {
-                        alert(data.status);
+                        //alert(data.status);
                     }
                 }
             }
@@ -68,7 +68,7 @@ $(document).on("click", ".vote_down", function () {
             }
             else {
                 if (data.status == 'Login Required') {
-                    alert(data.status);
+                    //alert(data.status);
                 }
             }
         }

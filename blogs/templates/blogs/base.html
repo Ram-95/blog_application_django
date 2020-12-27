@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,8 @@
         crossorigin="anonymous" />
 
     <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- CSS File -->
     <link rel="stylesheet" href="{% static 'blogs/styles.css' %}">
@@ -35,7 +38,7 @@
 
 <body>
     <!-- Navigation bar -->
-    
+
     <div class="navbar">
         <div class="flex container">
             <a class="logo" href="{% url 'index' %}">
@@ -45,7 +48,7 @@
                 <ul>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'profile' %}" style="color: antiquewhite; font-weight: 700;">{{ user.username }}</a>
+                        <a href="{% url 'profile' %}">My Profile</a>
                     </li>
                     <li>
                         <a href="{% url 'create_post' %}">New Post</a>
@@ -67,8 +70,8 @@
     </div>
 
 
-<!--New Navbar-->
-<!--
+    <!--New Navbar-->
+    <!--
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-indigo fixed-top">
         <a class="navbar-brand font-weight-bold" href="{% url 'index' %}" style="font-size: 38px;">Blog App</a>
@@ -108,7 +111,7 @@
     </nav>
 </header>
 -->
-<!--End-->
+    <!--End-->
 
 
     <main role="main" class="main_container">
@@ -116,15 +119,48 @@
         <div class="col">
             {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
+            <div class="alert alert-dismissible alert-info fade show">
                 {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             {% endfor %}
             {% endif %}
             <!-- Content goes here -->
             {% block content %}{% endblock %}
         </div>
+        <!-- Modal to show - Login Required -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Login Required</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group">
+                                <h6>Please Sign-in to perform your action.</h6>
+                                <a href="{% url 'login' %}" class="btn btn-outline-success mt-3">Sign In</a>
+                            </div>
+                        </form>
+                        <div class="border-top pt-3">
+                            <small class="text-muted">
+                                Do you need an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
-
 </html>

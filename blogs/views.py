@@ -1,19 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import json
+# To use messages in Class based views - Use SuccessMessageMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, JsonResponse
 from .models import Blog, Likes_Table
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.contrib import messages
-# Class based View
+# Class based View - List, Detail, Create,Update, Delete
 from django.views.generic import (ListView, CreateView, UpdateView, DeleteView)
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
+
 ''' Function Based View'''
-
-
 def index(request):
     ''' Views the Homepage. '''
     # Gets all the blogs by all the users
@@ -43,14 +44,15 @@ def index(request):
 
 
 ''' Class Based View - ListView'''
-
-
 class PostListView(ListView):
     model = Blog
     template_name = 'blogs/index.html'
 
     def get_context_data(self, **kwargs):
+        '''This function is used to add extra details to context.'''
+        # Fetching the context details of the Super class
         #context = super().get_context_data(**kwargs)
+        # Adding the extra data that we'd like to store in context
         #context['now'] = timezone.now()
         # Gets all the blogs by all the users
         blogs_list = Blog.objects.order_by('-publish_date')
@@ -80,10 +82,11 @@ class PostListView(ListView):
 
 
 # Class Based View to create a post - The file it takes is <app>/<model>_form.html
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Blog
     fields = ['title', 'description']
-
+    success_message = 'Post created successfully.'
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -96,9 +99,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     
 
 # Class based view to Update a post
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     fields = ['title', 'description']
+    success_message = 'Post Updated successfully.'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -1,37 +1,44 @@
 {% extends "blogs/base.html" %}
 {% load dict_key %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
+    <!-- Button trigger modal -->
+    <!--
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Launch demo modal
+    </button>
+    -->
     <article id="{{ blog.id }}" class="border border-info" style="background-color: cornsilk; padding: 12px;">
         <div style="display: flex; flex-direction: row;">
             <div class="votes_container">
+                {% if user.is_authenticated %}
+                {% if blog.id in posts_liked %}
+                {% if posts_liked|dict_key:blog.id is True %}
+                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" style="color: green;"
+                    title="Upvote"></i>
+                <span id="votes_count">{{ blog.likes }}</span>
+                <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
+                {% else %}
+                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
+                <span id="votes_count">{{ blog.likes }}</span>
+                <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" style="color: red;"
+                    title="Downvote"></i>
+                {% endif %}
+
+                {% else %}
                 <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
                 <span id="votes_count">{{ blog.likes }}</span>
                 <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
-                <!--
-                    {% if user.is_authenticated %}
-                            {% if blog.id in posts_liked %}
-                                {% if posts_liked|dict_key:blog.id is True %}
-                                    <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" style="color: green;" title="Upvote"></i>
-                                    <span id="votes_count">{{ blog.likes }}</span>
-                                    <i class="fas fa-caret-down post_up_down vote_down" id= "downvote_{{ blog.id }}" title="Downvote"></i>
-                                {% else %}
-                                    <i class="fas fa-caret-up post_up_down vote_up" id= "upvote_{{ blog.id }}" title="Upvote"></i>
-                                    <span id="votes_count">{{ blog.likes }}</span>
-                                    <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" style="color: red;" title="Downvote"></i>
-                                {% endif %}
-                            
-                            {% else %}
-                                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
-                                <span id="votes_count">{{ blog.likes }}</span>
-                                <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
-                            {% endif  %}
-            
-                    {% else %}
-                        <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
-                        <span id="votes_count">{{ blog.likes }}</span>
-                        <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
-                     {% endif %} -->
+                {% endif %}
+
+                {% else %}
+                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"
+                    data-toggle="modal" data-target="#exampleModalCenter"></i>
+                <span id="votes_count">{{ blog.likes }}</span>
+                <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"
+                    data-toggle="modal" data-target="#exampleModalCenter"></i>
+                {% endif %}
             </div>
             <div class="post_header" style="flex: 2;">
                 <h2 style="font-size: 24px;">{{ blog.title }}</h2>
