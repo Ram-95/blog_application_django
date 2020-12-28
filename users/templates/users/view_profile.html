@@ -2,9 +2,11 @@
 {% block content %}
 <div class="content-section">
     <div class="profile_pane flex border">
-        <img src="https://www.endeavorcareers.com/wp-content/uploads/2017/03/default-profile-pic.png"
+        <img src="{{ user.profile.profile_pic.url }}"
             alt="profile_image" height= "150px" width= "150px">
-        <h2 style="margin: 10px; padding: 10px;">{{ user.username }}</h2>
+            <div style="margin: 10px;">
+                <h2>{{ user.username }}</h2>
+            </div>
     </div>
     <div class="posts_container border">
         <h5>Posts</h5>

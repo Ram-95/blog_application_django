@@ -9,6 +9,7 @@ class Blog(models.Model):
     publish_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)
+    
 
     def __str__(self):
         return self.title

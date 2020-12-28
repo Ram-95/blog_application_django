@@ -3,12 +3,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from blogs.models import Blog
+from .forms import UserRegisterForm
 from django.contrib.auth.models import User
 
 
 def register(request):
-    form = UserCreationForm()
+    form = UserRegisterForm()
     title = 'Register'
+    
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -19,7 +21,7 @@ def register(request):
                 request, f'Your account has been created successfully. You can now login')
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form, 'title': title})
 
 

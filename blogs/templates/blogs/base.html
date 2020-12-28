@@ -48,7 +48,11 @@
                 <ul>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'profile' %}">My Profile</a>
+
+                        <a href="{% url 'profile' %}"><img class="rounded-circle mr-2" width="28" height="28"
+                                src="{{ user.profile.profile_pic.url }}"
+                                alt="profile_img">My Profile</a>
+
                     </li>
                     <li>
                         <a href="{% url 'create_post' %}">New Post</a>
@@ -122,7 +126,7 @@
             <div class="alert alert-dismissible alert-info fade show">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             {% endfor %}
@@ -163,4 +167,5 @@
         </div>
     </main>
 </body>
+
 </html>
