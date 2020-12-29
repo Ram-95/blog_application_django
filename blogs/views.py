@@ -19,7 +19,7 @@ def index(request):
     ''' Views the Homepage. '''
     # Gets all the blogs by all the users
     blogs_list = Blog.objects.order_by('-publish_date')
-
+        
     # Gets the top 5 visited/Liked posts - INCOMPLETE
     blogs_list_top5 = Blog.objects.order_by('-likes')[:5]
 

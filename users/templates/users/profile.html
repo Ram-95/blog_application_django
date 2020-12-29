@@ -2,8 +2,8 @@
 {% block content %}
 <div class="content-section">
     <div class="profile_pane border flex">
-        <img src="{{ user.profile.profile_pic.url }}"
-            alt="profile_image" height="150px" width="150px">
+        <img class="rounded-circle border" src="{{ user.profile.profile_pic.url }}"
+            alt="profile_image" height="120px" width="120px">
         <div style="margin: 10px;">
             <h2>{{ user.username }}</h2>
             <small>{{ user.email }}</small>

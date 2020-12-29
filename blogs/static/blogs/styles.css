@@ -286,3 +286,8 @@ ol li {
     padding: 10px;
     margin: 10px auto;
 }
+
+.blog_image {
+    max-height: 300px;
+    max-width: 300px;
+}

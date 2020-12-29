@@ -57,8 +57,8 @@
 
         <hr>
         <p>{{ blog.description }}</p>
-        {% if blog.image %}
-        <img src="{{ blog.image.url }}" alt="">
+        {% if blog.image.url is not null %}
+            <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
         {% endif %}
 
     </article>
