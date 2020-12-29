@@ -57,6 +57,9 @@
 
         <hr>
         <p>{{ blog.description }}</p>
+        {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="">
+        {% endif %}
 
     </article>
 </div>

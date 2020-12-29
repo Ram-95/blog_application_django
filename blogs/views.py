@@ -84,7 +84,7 @@ class PostListView(ListView):
 # Class Based View to create a post - The file it takes is <app>/<model>_form.html
 class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'image']
     success_message = 'Post created successfully.'
     
     def form_valid(self, form):
@@ -101,7 +101,7 @@ class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 # Class based view to Update a post
 class PostUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'image']
     success_message = 'Post Updated successfully.'
 
     def form_valid(self, form):
