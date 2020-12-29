@@ -56,7 +56,9 @@
         </div>
 
         <hr>
+        <pre>
         <p>{{ blog.description }}</p>
+    </pre>
         {% if blog.image.url is not null %}
             <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
         {% endif %}

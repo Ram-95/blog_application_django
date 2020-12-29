@@ -199,7 +199,7 @@ def vote_up(request):
                 return JsonResponse({'status': 'success'})
         else:
             print('You cannot like your own post!')
-            return JsonResponse({'status': 'You cannot Upvote your own post!'})
+            return JsonResponse({'status': 'Invalid'})
     else:
         return JsonResponse({'status': 'Login Required'})
 
@@ -240,7 +240,7 @@ def vote_down(request):
                 return JsonResponse({'status': 'success'})
         else:
             print('You cannot downvote your own post!')
-            return JsonResponse({'status': 'You cannot Downvote your own post!'})
+            return JsonResponse({'status': 'Invalid'})
     else:
         return JsonResponse({'status': 'Login Required'})
     

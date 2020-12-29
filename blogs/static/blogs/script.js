@@ -31,8 +31,8 @@ $(document).ready(function () {
                     }
                 }
                 else {
-                    if (data.status == 'Login Required') {
-                        //alert(data.status);
+                    if (data.status == 'Invalid') {
+                        alert('You cannot vote on your own post!');
                     }
                 }
             }
@@ -67,8 +67,8 @@ $(document).on("click", ".vote_down", function () {
                 //console.log('Downvote Success ' + likes);
             }
             else {
-                if (data.status == 'Login Required') {
-                    //alert(data.status);
+                if (data.status == 'Invalid') {
+                    alert('You cannot vote on your own post!');
                 }
             }
         }

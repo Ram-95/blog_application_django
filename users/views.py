@@ -46,7 +46,7 @@ def view_profile(request, username):
     user_blogs = user.blog_set.all()
     title = username
     context = {
-        'user': user,
+        'curr_user': user,
         'user_blogs': user_blogs,
         'title': title,
     }

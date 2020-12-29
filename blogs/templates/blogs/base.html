@@ -49,9 +49,9 @@
                     {% if user.is_authenticated %}
                     <li>
 
-                        <a href="{% url 'profile' %}" style="font-weight: 600;"><!--<img class="rounded-circle mr-2" width="28" height="28"
+                        <a href="{% url 'profile' %}" style="font-weight: 600;"><img class="rounded-circle mr-2" width="28" height="28"
                                 src="{{ user.profile.profile_pic.url }}"
-                                alt="profile_img">-->My Profile</a>
+                                alt="profile_img">{{ user.username }}</a>
 
                     </li>
                     <li>
