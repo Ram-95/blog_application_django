@@ -1,0 +1,171 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="{% static 'blogs/styles.css' %}">
+
+    <!-- JQuery and AJAX CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Javascript File-->
+    <script type="text/javascript" src="{% static 'blogs/script.js' %}"></script>
+
+    <!-- Popper.js and JS for Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    {% if title %}
+    <title>Blog - {{ title }}</title>
+    {% else %}
+    <title>Blog</title>
+    {% endif %}
+</head>
+
+<body>
+    <!-- Navigation bar -->
+
+    <div class="navbar">
+        <div class="flex container">
+            <a class="logo" href="{% url 'index' %}">
+                <h1>Blog App</h1>
+            </a>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li>
+
+                        <a href="{% url 'profile' %}" style="font-weight: 600;"><!--<img class="rounded-circle mr-2" width="28" height="28"
+                                src="{{ user.profile.profile_pic.url }}"
+                                alt="profile_img">-->My Profile</a>
+
+                    </li>
+                    <li>
+                        <a href="{% url 'create_post' %}">New Post</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+        </div>
+        </nav>
+    </div>
+
+
+    <!--New Navbar-->
+    <!--
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-indigo fixed-top">
+        <a class="navbar-brand font-weight-bold" href="{% url 'index' %}" style="font-size: 38px;">Blog App</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}" style="color: rgb(240, 229, 85);"
+                        title="View Profile">
+                        <img class="rounded-circle" width="28" height="28" src="#">
+                        <strong>{{ user.username }}</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_post' %}" style="color: white;"><strong>New Post</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}" style="color: white;"><strong>Logout</strong></a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}" style="color: white;">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}" style="color: white;">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </nav>
+</header>
+-->
+    <!--End-->
+
+
+    <main role="main" class="main_container">
+        <!-- Notification section -->
+        <div class="col">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-dismissible alert-info fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- Content goes here -->
+            {% block content %}{% endblock %}
+        </div>
+        <!-- Modal to show - Login Required -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Login Required</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group">
+                                <h6>Please Sign-in to perform your action.</h6>
+                                <a href="{% url 'login' %}" class="btn btn-outline-success mt-3">Sign In</a>
+                            </div>
+                        </form>
+                        <div class="border-top pt-3">
+                            <small class="text-muted">
+                                Do you need an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
