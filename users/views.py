@@ -14,7 +14,7 @@ def register(request):
     title = 'Register'
     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             # This statement will save the form contents to the Users table in the DB
             form.save()

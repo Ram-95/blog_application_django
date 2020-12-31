@@ -10,9 +10,9 @@ class Profile(models.Model):
         return f'{self.user.username}\'s Profile'
 
     # Overriding the default save() method. To decrease the resolution of Profile Images
-    def save(self):
+    def save(self, *args, **kwargs):
         # saves the data of Profile class
-        super().save()
+        super(Profile, self).save(*args, **kwargs)
         img = Image.open(self.profile_pic.path)
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
