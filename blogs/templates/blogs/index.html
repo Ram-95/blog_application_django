@@ -32,9 +32,18 @@
             </div>
 
             <hr>
-            
-            <p><pre>{{ blog.description }}</pre></p>
-
+            <div class="index_blog_description">
+                <p>
+                <pre>{{ blog.description }}</pre>
+                </p>
+            </div>
+            <hr>
+            <!-- Comments part -->
+            {% if blog.number_of_comments %}
+                <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">{{ blog.number_of_comments }} Comment{{ blog.number_of_comments|pluralize }}</small>
+            {% else %}
+            <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">No comments yet</small>
+            {% endif %}
         </article>
         {% endfor %}
     </div>
@@ -54,7 +63,7 @@
             <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
             {% endfor %}
         </ol>
-        
+
     </div>
 </div>
 </body>

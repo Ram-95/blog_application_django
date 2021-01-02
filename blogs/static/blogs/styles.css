@@ -116,7 +116,7 @@ ol li {
     padding: 10px;
     background-color: mintcream;
     margin: 8px auto;
-    max-height: 350px;
+    max-height: fit-content;
     max-width: 900px;
     overflow: hidden;
 }
@@ -312,6 +312,15 @@ pre {
     word-break: break-word;
 }
 
-@media only screen and (max-width: 600px) {
-    
+.index_blog_description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100px;
 }
+
+.comments {
+    font-style: italic;
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 600px) {}

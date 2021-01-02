@@ -54,16 +54,48 @@
             </div>
             {% endif %}
         </div>
-
         <hr>
         {% if blog.image.url is not null %}
-            <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
+        <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
         {% endif %}
         <pre>
         <p>{{ blog.description }}</p>
     </pre>
+</article>
+        <hr>
+        <!--Comment section-->
+        {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ comment_form|crispy }}
+                <button class="btn btn-info">Add comment <i class="fas fa-comments"></i></button>
+            </div>
+        </form>
+        {% endif %}
+        {% if comments %}
+        <p class="comments">{{ no_of_comments }} Comment{{ no_of_comments|pluralize }}</p>
+        <div class="comment_container border p-2">
+        <ul class="media-list" style="list-style-type: none;">
+            {% for comment in comments %}
+            <li class="media">
+                <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                    <div class="media-body">
+                        <strong class="text-info">{{ comment.author }} </strong>
+                        <small class="text-muted">| {{ comment.date_posted }}</small>
+                    <p class="mt-1">
+                        {{ comment.content|safe }}
+                    </p>
+                </div>
+            </li>
+            <hr>
         
-
-    </article>
+            {% endfor %}
+        </ul>
+    </div>
+        {% else %}
+        <p class="text-secondary">No comments yet...</p>
+        {% endif %}
+    
 </div>
 {% endblock content %}
