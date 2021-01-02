@@ -1,15 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import json
+from .forms import CommentForm
 # To use messages in Class based views - Use SuccessMessageMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, JsonResponse
-from .models import Blog, Likes_Table
+from .models import Blog, Likes_Table, Blog_comments
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.contrib import messages
 # Class based View - List, Detail, Create,Update, Delete
-from django.views.generic import (ListView, CreateView, UpdateView, DeleteView)
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
@@ -44,9 +45,53 @@ def index(request):
 
 
 ''' Class Based View - ListView'''
+class PostDetailView(DetailView):
+    '''Post Detail View'''
+    model = Blog
+    template_name = 'blogs/view_post.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        blog = self.get_object()
+        pk = blog.pk
+        posts_liked = {}
+        title = blog.title
+        comments = Blog_comments.objects.filter(blogpost=pk).order_by('-date_posted')
+        no_of_comments = comments.count()
+        no_of_likes = Likes_Table.objects.filter(post_id=pk).count()
+        context = {
+            'blog': blog,
+            'title': title,
+            'no_of_likes': no_of_likes,
+            'comments': comments,
+            'no_of_comments': no_of_comments,
+        }
+        
+        if self.request.user.is_authenticated:
+            u = self.request.user.likes_table_set.all()
+            comment_form = CommentForm(instance=self.request.user)
+            for i in u:
+                posts_liked[i.post_id.pk] = i.like_status_id
+            #print(posts_liked)
+            context['posts_liked'] = posts_liked
+            context['comment_form'] = comment_form 
+        
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        new_comment = Blog_comments(content=request.POST.get('content'),
+                                  author=self.request.user,
+                                  blogpost=self.get_object())
+        new_comment.save()
+        return self.get(self, request, *args, **kwargs)
+    
+
+
 class PostListView(ListView):
     model = Blog
     template_name = 'blogs/index.html'
+
 
     def get_context_data(self, **kwargs):
         '''This function is used to add extra details to context.'''
@@ -65,6 +110,7 @@ class PostListView(ListView):
             total=Count('author')).order_by('-total')[:5]
         # List to store the top 5 authors usernames
         authors_list = []
+        number_of_comments = 1
         # Iterating over the top 5 authors queryset and extracting their usernames
         for i in top_authors:
             authors_list.append(User.objects.filter(
@@ -76,6 +122,7 @@ class PostListView(ListView):
             'title': title,
             'blogs_list_top5': blogs_list_top5,
             'top_authors': authors_list,
+            'number_of_comments': number_of_comments,
         }
 
         return context
@@ -143,24 +190,41 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return context
 
 
+
+
+
+
+
+# Function based view - Not currently using
 def view_post(request,pk):
     # Shows a particular post based on it's PK passed via URL
     blog = get_object_or_404(Blog, pk=pk)
     # Dictionary to store the posts liked by the current logged in user.
     # Stores {<post_id>: <like_status>}
     posts_liked = {}
-    if request.user.is_authenticated:
-        u = request.user.likes_table_set.all()
-        for i in u:
-            posts_liked[i.post_id.pk] = i.like_status_id
-        print(posts_liked) 
     title = blog.title
+    comments = Blog_comments.objects.filter(blogpost=pk).order_by('-date_posted')
+    no_of_comments = comments.count()
+    no_of_likes = Likes_Table.objects.filter(post_id=pk).count()
     context = {
         'blog': blog,
         'title': title,
-        'posts_liked': posts_liked,
+        'no_of_likes': no_of_likes,
+        'comments': comments,
+        'no_of_comments': no_of_comments,
     }
+    
+    if request.user.is_authenticated:
+        u = request.user.likes_table_set.all()
+        comment_form = CommentForm(instance=request.user)
+        for i in u:
+            posts_liked[i.post_id.pk] = i.like_status_id
+        #print(posts_liked)
+        context['posts_liked'] = posts_liked
+        context['comment_form'] = comment_form 
+    
     return render(request, 'blogs/view_post.html', context)
+
 
 
 @csrf_exempt
