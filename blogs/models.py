@@ -5,7 +5,7 @@ from django.urls import reverse
 
 class Blog(models.Model):
     title = models.CharField(max_length=30)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=5000)
     publish_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)
@@ -19,6 +19,11 @@ class Blog(models.Model):
     def get_absolute_url(self):
         return reverse('view_post', kwargs={'pk': self.pk})
 
+    
+    # Function to return the Number of comments for this post
+    def number_of_comments(self):
+        return Blog_comments.objects.filter(blogpost=self).count()
+
 
 class Likes_Table(models.Model):
     '''Table to store which User has Liked/Disliked which Post. Used to highlight Up/Down carets when a particular user is logged in'''
@@ -28,4 +33,12 @@ class Likes_Table(models.Model):
     like_status_id = models.BooleanField()
 
     
-        
+class Blog_comments(models.Model):
+    blogpost = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+
+    def __str__(self):
+        return f'{str(self.author)}, {self.blogpost.title[:30]}'
+     
