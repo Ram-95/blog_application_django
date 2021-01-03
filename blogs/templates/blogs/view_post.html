@@ -69,7 +69,7 @@
             {% csrf_token %}
             <div class="form-group">
                 {{ comment_form|crispy }}
-                <button class="btn btn-info">Add comment <i class="fas fa-comments"></i></button>
+                <button class="btn btn-info">Comment <i class="fas fa-comments"></i></button>
             </div>
         </form>
         {% endif %}
@@ -81,7 +81,7 @@
             <li class="media">
                 <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
                     <div class="media-body">
-                        <strong class="text-info">{{ comment.author }} </strong>
+                        <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
                         <small class="text-muted">| {{ comment.date_posted }}</small>
                     <p class="mt-1">
                         {{ comment.content|safe }}
