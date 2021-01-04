@@ -373,4 +373,12 @@ pre {
     font-size: 14px;
 }
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+    .profile_pane h2 {
+        font-size: 24px;
+    }
+    .profile_pane img {
+        height: 110px;
+        width: 110px;
+    }
+}
