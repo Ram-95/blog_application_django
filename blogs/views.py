@@ -56,7 +56,7 @@ class PostDetailView(DetailView):
         pk = blog.pk
         posts_liked = {}
         title = blog.title
-        comments = Blog_comments.objects.filter(blogpost=pk).order_by('-date_posted')
+        comments = Blog_comments.objects.filter(blogpost=pk).order_by('date_posted')
         no_of_comments = comments.count()
         no_of_likes = Likes_Table.objects.filter(post_id=pk).count()
         context = {
@@ -78,12 +78,13 @@ class PostDetailView(DetailView):
         
         return context
 
-
+    # This method saves the contents to Blog_comments table
     def post(self, request, *args, **kwargs):
         new_comment = Blog_comments(content=request.POST.get('content'),
                                   author=self.request.user,
                                   blogpost=self.get_object())
         new_comment.save()
+        print('Comment Inserted.')
         return self.get(self, request, *args, **kwargs)
     
 
@@ -169,6 +170,19 @@ class PostUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixi
             return True
         return False
 
+'''
+class CommentUpdateView(UpdateView):
+    model = Blog_comments
+    fields = ['content']    
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+'''
 
 # Class based view to Delete a post
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -307,5 +321,15 @@ def vote_down(request):
             return JsonResponse({'status': 'Invalid'})
     else:
         return JsonResponse({'status': 'Login Required'})
-    
-        
+
+
+@csrf_exempt        
+def delete_comment(request):
+    if request.user.is_authenticated and request.method == 'POST':
+        comment_id = request.POST['comment_id']
+        Blog_comments.objects.filter(pk=comment_id).delete()
+        print(f'Comment Deleted!')
+        return HttpResponse('success')
+    else:
+        return HttpResponse('Request method is not POST')
+

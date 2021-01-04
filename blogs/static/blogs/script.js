@@ -75,6 +75,44 @@ $(document).on("click", ".vote_down", function () {
     });
 });
 
+/* Script to delete a comment  */
+$(document).on("click", ".delete_comment", function () {
+    comment_id = $(this).closest("li").attr("id");
+    //alert('Comment: '+ comment_id);
+    $.ajax({
+        type: 'POST',
+        url: '/delete_comment/',
+        cache: false,
+        data: {
+            comment_id: comment_id,
+        },
+        success: function () {
+            //alert('Success');
+            $("#" + comment_id).hide();
+        }
+    });
+});
+
+/* Script to edit a comment */
+$(document).on("click", ".edit_comment", function () {
+    comment_id = $(this).closest("li").attr("id");
+    comment = $("#" + comment_id).find("p").text().trim();
+    alert(comment);
+    $("#" + comment_id).find('.comment_p').html("<textarea rows='2'>"+ comment +"</textarea>");
+    //alert('Comment: '+ comment_id);
+    /*$.ajax({
+        type: 'POST',
+        url: '/delete_comment/',
+        cache: false,
+        data: {
+            comment_id: comment_id,
+        },
+        success: function () {
+            alert('Success');
+            $("#" + comment_id).hide();
+        }
+    });*/
+});
 
 
 

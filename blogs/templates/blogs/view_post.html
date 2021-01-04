@@ -59,7 +59,7 @@
         <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
         {% endif %}
         <pre>
-        <p>{{ blog.description }}</p>
+        <p style="margin: 0; padding: 0;">{{ blog.description }}</p>
     </pre>
 </article>
         <hr>
@@ -78,14 +78,22 @@
         <div class="comment_container border p-2">
         <ul class="media-list" style="list-style-type: none;">
             {% for comment in comments %}
-            <li class="media">
+            <li class="media" id="{{ comment.pk }}">
                 <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
                     <div class="media-body">
                         <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
                         <small class="text-muted">| {{ comment.date_posted }}</small>
-                    <p class="mt-1">
+                        {% if comment.author == user %}
+                        <span style="float: right;">
+                            <small><a class="mr-2 edit_comment" href="#">Edit</a>
+                                <a class="mr-2 delete_comment" href="#">Delete</a></small>
+                    </span>
+                    {% endif %}
+                    <div class="mt-1 comment_p">
+                        <p style="font-size: 14px;">
                         {{ comment.content|safe }}
-                    </p>
+                    </div>
+                    </p>        
                 </div>
             </li>
             <hr>
