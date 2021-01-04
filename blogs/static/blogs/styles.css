@@ -48,14 +48,14 @@
     background-color: #edf2f8;
 }
 
-.side_container ol {
+.side_container ul {
     padding-left: 0.5em;
 }
 
-ol li {
+.side_container li {
     margin-left: 1em;
     list-style-position: outside;
-    list-style-type: decimal;
+    list-style-type: none;
     font-weight: bold;
 }
 
@@ -209,6 +209,18 @@ ol li {
     background-color: red;
 }
 
+.posts_container ul {
+    list-style-type: none;
+}
+
+.posts_container li {
+    font-weight: 600;
+}
+
+.posts_container a:hover {
+    text-decoration: none;
+}
+
 /* CSS for create_post.html*/
 
 .new_post_container {
@@ -321,6 +333,44 @@ pre {
 .comments {
     font-style: italic;
     font-weight: 700;
+}
+
+.save_edit_btn {
+    background-color: blueviolet;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.cancel_edit_btn {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.save_edit_btn:hover {
+    text-decoration: none;
+    color: yellow;
+}
+
+.cancel_edit_btn:hover {
+    text-decoration: none;
+    color: yellow;
+}
+
+.comment_edit_text {
+    font-size: 14px;
+}
+
+.comment_text {
+    font-size: 14px;
 }
 
 @media only screen and (max-width: 600px) {}

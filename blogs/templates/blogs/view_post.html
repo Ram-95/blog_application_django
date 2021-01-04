@@ -74,7 +74,7 @@
         </form>
         {% endif %}
         {% if comments %}
-        <p class="comments">{{ no_of_comments }} Comment{{ no_of_comments|pluralize }}</p>
+        <!--<p class="comments">{{ no_of_comments }} Comment{{ no_of_comments|pluralize }}</p>-->
         <div class="comment_container border p-2">
         <ul class="media-list" style="list-style-type: none;">
             {% for comment in comments %}
@@ -84,13 +84,13 @@
                         <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
                         <small class="text-muted">| {{ comment.date_posted }}</small>
                         {% if comment.author == user %}
-                        <span style="float: right;">
+                        <span class="edit_delete" style="float: right;">
                             <small><a class="mr-2 edit_comment" href="#">Edit</a>
                                 <a class="mr-2 delete_comment" href="#">Delete</a></small>
                     </span>
                     {% endif %}
                     <div class="mt-1 comment_p">
-                        <p style="font-size: 14px;">
+                        <p class="comment_text">
                         {{ comment.content|safe }}
                     </div>
                     </p>        

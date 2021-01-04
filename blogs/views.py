@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import json
+from django.utils import timezone
 from .forms import CommentForm
 # To use messages in Class based views - Use SuccessMessageMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -333,3 +334,17 @@ def delete_comment(request):
     else:
         return HttpResponse('Request method is not POST')
 
+
+@csrf_exempt
+def edit_comment(request):
+    if request.user.is_authenticated and request.method == 'POST':
+        comment_id = request.POST['comment_id']
+        edit_comment = request.POST['edit_comment']
+        bc = Blog_comments.objects.filter(pk=comment_id).first()
+        bc.content = edit_comment
+        bc.date_posted = timezone.now()
+        bc.save()
+        print('Comment Edit Saved!')
+        return HttpResponse('success')
+    else:
+        return HttpResponse('Request method is not POST')
