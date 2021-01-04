@@ -13,11 +13,11 @@
     </div>
     <div class="posts_container border">
         <h5>Posts</h5>
-        <ol>
+        <ul>
             {% for blog in user_blogs %}
             <li><a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a></li>
             {% endfor %}
-        </ol>
+        </ul>
     </div>
 </div>
 {% endblock content %}

@@ -49,13 +49,13 @@
     </div>
     <div class="side_container">
         <p>Popular Blogs</p>
-        <ol>
+        <ul>
             {% for blog in blogs_list_top5 %}
             <li>
                 <a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a>
             </li>
             {% endfor %}
-        </ol>
+        </ul>
         <hr>
         <p>Top Bloggers</p>
         <ol>
