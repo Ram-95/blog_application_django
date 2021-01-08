@@ -6,6 +6,12 @@
     margin: 0;
 }
 
+body {
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 80px
+}
+
 .navbar {
     background-color: black;
     height: 70px;
@@ -377,6 +383,14 @@ pre {
 
 .side_container a:hover {
     text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    text-align: center;
+    height: 80px;
+    width: 100%;
+    bottom: 0;
 }
 
 @media only screen and (max-width: 600px) {
