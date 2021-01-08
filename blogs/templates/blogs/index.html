@@ -3,7 +3,7 @@
 {% block content %}
 <div class="flex_container">
     <div class="blog_container">
-        {% for blog in blogs_list %}
+        {% for blog in posts %}
         <article id="{{ blog.id }}">
             <div style="display: flex; flex-direction: row;">
                 <div class="votes_container">
@@ -48,6 +48,27 @@
         </article>
 
         {% endfor %}
+        
+        <!--Pagination Code-->
+        <div class="pagination row">
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-outline-info mb-4">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-success mb-4">Previous</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-outline-success mb-4 active" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-success mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success mb-4">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">Last</a>
+            {% endif %}
+        {% endif %}
+    </div>
     </div>
     <!--Side container-->
     <div class="side_container list-group">
@@ -70,8 +91,6 @@
             </ol>
         
     </div>
+    
 </div>
-</body>
-
-</html>
 {% endblock content %}
