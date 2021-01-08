@@ -40,31 +40,35 @@
             <hr>
             <!-- Comments part -->
             {% if blog.number_of_comments %}
-                <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">{{ blog.number_of_comments }} Comment{{ blog.number_of_comments|pluralize }}</small>
+            <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">{{ blog.number_of_comments }}
+                Comment{{ blog.number_of_comments|pluralize }}</small>
             {% else %}
             <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">No comments yet</small>
             {% endif %}
         </article>
-    
+
         {% endfor %}
     </div>
+    <!--Side container-->
     <div class="side_container list-group">
-        <p>Popular Blogs</p>
-        <ul>
-            {% for blog in blogs_list_top5 %}
-            <li>
-                <a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+        
+            <p>Popular Blogs</p>
+            <ul>
+                {% for blog in blogs_list_top5 %}
+                <li>
+                    <a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         <hr>
-        <p>Top Bloggers</p>
-        <ol>
-            {% for item in top_authors %}
-            <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
-            {% endfor %}
-        </ol>
-
+        
+            <p>Top Bloggers</p>
+            <ol>
+                {% for item in top_authors %}
+                <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
+                {% endfor %}
+            </ol>
+        
     </div>
 </div>
 </body>
