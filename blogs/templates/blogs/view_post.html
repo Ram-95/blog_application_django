@@ -67,7 +67,7 @@
         {% if user.is_authenticated %}
         <form method="POST">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group comment_form">
                 {{ comment_form|crispy }}
                 <button class="btn btn-info">Comment <i class="fas fa-comments"></i></button>
             </div>
@@ -82,7 +82,7 @@
                 <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
                     <div class="media-body">
                         <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
-                        <small class="text-muted">| {{ comment.date_posted|date:"d F Y" }}</small>
+                        <small class="text-muted">| {{ comment.date_posted|date:"d F, Y" }}</small>
                         {% if comment.author == user %}
                         <span class="edit_delete" style="float: right;">
                             <small><a class="mr-2 edit_comment" href="#">Edit</a>

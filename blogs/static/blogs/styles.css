@@ -336,7 +336,7 @@ pre {
 }
 
 .save_edit_btn {
-    background-color: blueviolet;
+    background-color: #17a2b8;
     color: white;
     padding: 5px;
     border-radius: 5px;
@@ -356,13 +356,15 @@ pre {
 }
 
 .save_edit_btn:hover {
+    background-color: #0c899c;
     text-decoration: none;
-    color: yellow;
+    color: white;
 }
 
 .cancel_edit_btn:hover {
+    background-color: rgb(167, 4, 4);
     text-decoration: none;
-    color: yellow;
+    color: white;
 }
 
 .comment_edit_text {
@@ -371,6 +373,10 @@ pre {
 
 .comment_text {
     font-size: 14px;
+}
+
+.side_container a:hover {
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 600px) {

@@ -45,9 +45,10 @@
             <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">No comments yet</small>
             {% endif %}
         </article>
+    
         {% endfor %}
     </div>
-    <div class="side_container">
+    <div class="side_container list-group">
         <p>Popular Blogs</p>
         <ul>
             {% for blog in blogs_list_top5 %}
