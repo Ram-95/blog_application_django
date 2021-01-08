@@ -207,8 +207,16 @@ body {
     padding: 8px;
 }
 
+.update_btn {
+    background-color: rgb(32, 151, 167);
+}
+
 .update_btn:hover {
     background-color: rgb(3, 119, 134);
+}
+
+.delete_btn {
+    background-color: rgb(214, 28, 28);
 }
 
 .delete_btn:hover {
@@ -391,6 +399,15 @@ footer {
     height: 80px;
     width: 100%;
     bottom: 0;
+}
+
+.pagination {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.pagination a {
+    margin-left: 4px;
 }
 
 @media only screen and (max-width: 600px) {
