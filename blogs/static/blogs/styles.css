@@ -430,6 +430,10 @@ footer {
     margin-left: 4px;
 }
 
+hr {
+    margin-bottom: 5px;
+}
+
 @media only screen and (max-width: 600px) {
     .profile_pane h2 {
         font-size: 24px;
