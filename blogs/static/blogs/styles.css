@@ -54,7 +54,9 @@ body {
     background-color: #edf2f8;
 }
 
-*/ .side_container {
+*/
+
+.side_container {
     float: right;
     max-width: 400px;
     border-radius: 5px;
