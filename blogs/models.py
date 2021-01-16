@@ -10,6 +10,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)
     image = models.ImageField(upload_to='posts_images', blank=True, null=True)
+    views = models.BigIntegerField(default=0)
     
 
     def __str__(self):

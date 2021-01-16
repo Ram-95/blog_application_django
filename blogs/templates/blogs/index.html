@@ -23,7 +23,7 @@
                 </div>
                 <div class="post_header" style="flex: 2;">
                     <a class="blog_title_index" href="{% url 'view_post' blog.id %}">
-                        <h2 style="font-size: 22px;">{{ blog.title }}</h2>
+                        <h2 style="font-size: 22px;" title="View Post">{{ blog.title }}</h2>
                     </a>
                     <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                             style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
@@ -39,6 +39,13 @@
                 </p>
             </div>
             <hr>
+            <!-- Views part -->
+            {% if blog.views %}
+            <i class="fas fa-eye ml-1 mr-1" aria-hidden="true"></i>
+            <small class="text-secondary mr-3 comments">{{ blog.views }} view{{ blog.views|pluralize }}</small>
+            {% else %}
+            <i class="fas fa-eye ml-1 mr-1"></i><small class="mr-3 text-secondary comments">No Views</small>
+            {% endif %}
             <!-- Comments part -->
             {% if blog.number_of_comments %}
             <i class="fas fa-comment"></i><small class="ml-1 text-secondary comments">{{ blog.number_of_comments }}

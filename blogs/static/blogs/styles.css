@@ -69,6 +69,7 @@ body {
     padding-left: 0.5em;
     /*background-color: #edf2f8;*/
     padding: 10px;
+    box-shadow: 3px 3px rgb(214, 214, 214);
 }
 
 .side_container li {
@@ -192,7 +193,7 @@ body {
     flex: 1;
     max-width: 50px;
     max-height: 30px;
-    margin: -5px 2px;
+    margin: -8px 2px;
 }
 
 #votes_count {
@@ -362,8 +363,8 @@ pre {
 }
 
 .comments {
-    font-style: italic;
-    font-weight: 700;
+    font-style: normal;
+    font-weight: 600;
 }
 
 .save_edit_btn {

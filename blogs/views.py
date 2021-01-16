@@ -82,6 +82,11 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         blog = self.get_object()
         pk = blog.pk
+        # Logic to increment views
+        view_upd = Blog.objects.filter(pk=pk).first()
+        view_upd.views += 1
+        view_upd.save()
+        
         posts_liked = {}
         title = blog.title
         comments = Blog_comments.objects.filter(
