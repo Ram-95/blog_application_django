@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="flex_container">
+    <!--Blog Container-->
     <div class="blog_container">
         {% for blog in posts %}
         <article id="{{ blog.id }}">
@@ -72,9 +73,9 @@
     </div>
     <!--Side container-->
     <div class="side_container list-group">
-        
+        <ul>
             <p>Popular Blogs</p>
-            <ul>
+            
                 {% for blog in blogs_list_top5 %}
                 <li>
                     <a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a>
@@ -82,14 +83,21 @@
                 {% endfor %}
             </ul>
         <hr>
-        
+        <ul>
             <p>Top Bloggers</p>
-            <ol>
+            
                 {% for item in top_authors %}
                 <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
                 {% endfor %}
-            </ol>
-        
+            </ul>
+            <hr>
+            <ul>
+                <p>New Posts</p>
+                
+                    {% for item in top_authors %}
+                    <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
+                    {% endfor %}
+                </ul>
     </div>
     
 </div>
