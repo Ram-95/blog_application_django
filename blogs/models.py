@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Blog(models.Model):
-    title = models.CharField(max_length=30)
-    description = models.TextField(max_length=5000)
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=10000)
     publish_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)
