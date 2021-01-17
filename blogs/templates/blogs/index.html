@@ -21,15 +21,17 @@
                         data-toggle="modal" data-target="#exampleModalCenter"></i>
                     {% endif %}
                 </div>
+                <!-- Post Header -->
                 <div class="post_header" style="flex: 2;">
                     <a class="blog_title_index" href="{% url 'view_post' blog.id %}">
-                        <h2 style="font-size: 22px;" title="View Post">{{ blog.title }}</h2>
+                        <h2 class="post_header_h2" title="View Post">{{ blog.title }}</h2>
                     </a>
                     <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
-                            style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
-                    <br>
+                            style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
+                    
                     <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
                 </div>
+                <!-- End of Post Header -->
             </div>
 
             <hr>

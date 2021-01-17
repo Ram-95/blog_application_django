@@ -172,11 +172,11 @@ body {
 
 .post_up_down {
     cursor: pointer;
-    font-size: 36px;
+    font-size: 26px;
 }
 
 .post_header {
-    margin-top: 8px;
+    margin-top: 7px;
     margin-left: 2px;
 }
 
@@ -200,7 +200,7 @@ body {
 
 #votes_count {
     text-align: center;
-    font-size: 1.61538462rem;
+    font-size: 1.45rem;
 }
 
 .blog_title_index {
@@ -416,7 +416,6 @@ pre {
 footer {
     position: absolute;
     text-align: center;
-    height: 80px;
     width: 100%;
     bottom: 0;
 }
@@ -432,6 +431,10 @@ footer {
 
 hr {
     margin-bottom: 5px;
+}
+
+.post_header_h2 {
+    font-size: 20px;
 }
 
 @media only screen and (max-width: 600px) {

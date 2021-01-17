@@ -41,10 +41,9 @@
                 {% endif %}
             </div>
             <div class="post_header" style="flex: 2;">
-                <h2 style="font-size: 24px;">{{ blog.title }}</h2>
+                <h2 class="post_header_h2">{{ blog.title }}</h2>
                 <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
-                        style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>
-                <br>
+                        style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
                 <small style="font-size: 12px; margin-right: 10px;">{{ blog.publish_date|date:"F d, Y" }}</small>
             </div>
             {% if blog.author == user %}
@@ -81,7 +80,7 @@
         <div class="comment_container border p-2">
         <ul class="media-list" style="list-style-type: none;">
             {% for comment in comments %}
-            <li class="media" id="{{ comment.pk }}">
+            <li class="media mb-2" id="{{ comment.pk }}">
                 <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
                     <div class="media-body">
                         <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
@@ -99,7 +98,7 @@
                     </p>        
                 </div>
             </li>
-            <hr>
+            
         
             {% endfor %}
         </ul>
