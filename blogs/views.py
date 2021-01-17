@@ -22,7 +22,7 @@ class PostListView(ListView):
     model = Blog
     template_name = 'blogs/index.html'
     #context_object_name = 'blogs_list'
-    paginate_by = 3
+    paginate_by = 4
     ordering = ['-publish_date']
 
 
