@@ -9,8 +9,8 @@
         Launch demo modal
     </button>
     -->
-    <article id="{{ blog.id }}" class="border border-info mb-2" style="background-color: cornsilk; padding: 12px;">
-        <div style="display: flex; flex-direction: row;">
+    <article id="{{ blog.id }}" class="border mb-2">
+        <div class="post_div">
             <div class="votes_container">
                 {% if user.is_authenticated %}
                 {% if blog.id in posts_liked %}
@@ -53,14 +53,15 @@
             </div>
             {% endif %}
         </div>
-        <hr>
+        
         {% if blog.image.url is not null %}
-        <img class=" rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
+            <img class="mt-2 rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
         {% endif %}
+        <div class="index_blog_description">
         <pre>
-        <p style="margin: 0; padding: 0;">{{ blog.description }}</p>
-    </pre>
-    
+            <p style="margin: 0; padding: 0;">{{ blog.description }}</p>
+        </pre>
+        </div>
     <i class="fas fa-eye ml-1 mr-1" aria-hidden="true"></i>
     <small class="text-secondary mr-3 comments">{{ blog.views }} view{{ blog.views|pluralize }}</small>
 </article>

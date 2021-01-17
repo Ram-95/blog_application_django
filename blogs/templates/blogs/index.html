@@ -6,7 +6,7 @@
     <div class="blog_container">
         {% for blog in posts %}
         <article id="{{ blog.id }}">
-            <div style="display: flex; flex-direction: row;">
+            <div class="post_div">
                 <div class="votes_container">
                     {% if user.is_authenticated %}
                     <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"></i>
@@ -33,8 +33,6 @@
                 </div>
                 <!-- End of Post Header -->
             </div>
-
-            <hr>
             <div class="index_blog_description">
                 <p>
                 <pre>{{ blog.description }}</pre>
@@ -91,7 +89,7 @@
                 </li>
                 {% endfor %}
             </ul>
-        <hr>
+        
         <ul>
             <p>Top Bloggers</p>
             
@@ -99,7 +97,7 @@
                 <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
                 {% endfor %}
             </ul>
-            <hr>
+            
             <ul>
                 <p>New Posts</p>
                 
