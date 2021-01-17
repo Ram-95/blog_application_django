@@ -178,11 +178,11 @@ body {
 }
 
 .fa-caret-up:hover {
-    color: green;
+    color: #8bf178;
 }
 
 .fa-caret-down:hover {
-    color: red;
+    color: rgb(235, 31, 31);
 }
 
 .votes_container {
@@ -358,7 +358,7 @@ pre {
 .index_blog_description {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 100px;
+    max-height: 180px;
     padding: 2px 5px;
 }
 
@@ -450,6 +450,10 @@ hr {
 
 .post_header a {
     color: yellow;
+}
+
+.index_blog_full_description {
+    padding: 2px 5px;
 }
 
 @media only screen and (max-width: 600px) {
