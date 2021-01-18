@@ -29,7 +29,7 @@
                     <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                             style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
                     
-                    <small style="font-size: 12px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+                    <small class="date">{{ blog.publish_date|date:"F d, Y" }}</small>
                 </div>
                 <!-- End of Post Header -->
             </div>

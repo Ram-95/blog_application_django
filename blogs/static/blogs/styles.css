@@ -170,6 +170,7 @@ body {
     cursor: pointer;
     font-size: 26px;
     color: white;
+    line-height: 0.8;
 }
 
 .post_header {
@@ -192,7 +193,7 @@ body {
     flex: 1;
     max-width: 50px;
     max-height: fit-content;
-    margin: -8px 2px;
+    margin: -4px;
 }
 
 #votes_count {
@@ -226,6 +227,7 @@ body {
 
 .update_btn {
     background-color: rgb(32, 151, 167);
+    margin-left: 10px;
 }
 
 .update_btn:hover {
@@ -456,6 +458,10 @@ hr {
     padding: 2px 5px;
 }
 
+.date {
+    font-size: 11px;
+}
+
 @media only screen and (max-width: 600px) {
     .profile_pane h2 {
         font-size: 24px;
@@ -463,5 +469,24 @@ hr {
     .profile_pane img {
         height: 110px;
         width: 110px;
+    }
+    .side_container {
+        visibility: hidden;
+        display: none;
+    }
+    .blog_container {
+        max-width: 100%;
+        padding: 0;
+    }
+    .main_container {
+        padding: 0;
+    }
+    .col {
+        padding: 0 10px;
+    }
+    .my_btn {
+        padding: 5px;
+        font-weight: 500;
+        font-size: 11px;
     }
 }

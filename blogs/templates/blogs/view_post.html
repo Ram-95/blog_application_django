@@ -44,7 +44,7 @@
                 <h2 class="post_header_h2">{{ blog.title }}</h2>
                 <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
                         style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
-                <small style="font-size: 12px; margin-right: 10px;">{{ blog.publish_date|date:"F d, Y" }}</small>
+                <small class="date">{{ blog.publish_date|date:"F d, Y" }}</small>
             </div>
             {% if blog.author == user %}
             <div class="update_delete_section mt-2">
@@ -85,7 +85,7 @@
                 <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
                     <div class="media-body">
                         <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
-                        <small class="text-muted">| {{ comment.date_posted|date:"d F, Y" }}</small>
+                        <small class="text-muted date">| {{ comment.date_posted|date:"d F, Y" }}</small>
                         {% if comment.author == user %}
                         <span class="edit_delete" style="float: right;">
                             <small><a class="mr-2 edit_comment" href="#">Edit</a>
