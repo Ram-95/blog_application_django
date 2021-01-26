@@ -38,86 +38,43 @@
 
 <body>
     <!-- Navigation bar -->
-
-    <div class="navbar">
-        <div class="flex container">
+        <nav class="navbar navbar-expand-md">
             <a class="logo" href="{% url 'index' %}">
                 <h1>Blog App</h1>
             </a>
-            <nav>
-                <ul>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+                <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                    <li>
+                    <li class="nav-item">
 
-                        <a href="{% url 'profile' %}" style="font-weight: 600;"><img class="rounded-circle mr-2" width="28" height="28"
-                                src="{{ user.profile.profile_pic.url }}"
-                                alt="profile_img">{{ user.username }}</a>
+                        <a href="{% url 'profile' %}" style="font-weight: 600;"><img class="rounded-circle mr-2"
+                                width="28" height="28" src="{{ user.profile.profile_pic.url }}" alt="profile_img">{{ user.username }}</a>
 
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'create_post' %}">New Post</a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'logout' %}">Logout</a>
                     </li>
                     {% else %}
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'login' %}">Login</a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'register' %}">Register</a>
                     </li>
                     {% endif %}
                 </ul>
-        </div>
-        </nav>
-    </div>
+            </div>
+</nav>
+<!--End of Navigation bar -->
 
-
-    <!--New Navbar-->
-    <!--
-<header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-indigo fixed-top">
-        <a class="navbar-brand font-weight-bold" href="{% url 'index' %}" style="font-size: 38px;">Blog App</a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav ml-auto">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' %}" style="color: rgb(240, 229, 85);"
-                        title="View Profile">
-                        <img class="rounded-circle" width="28" height="28" src="#">
-                        <strong>{{ user.username }}</strong>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'create_post' %}" style="color: white;"><strong>New Post</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}" style="color: white;"><strong>Logout</strong></a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}" style="color: white;">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}" style="color: white;">Register</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-
-    </nav>
-</header>
--->
-    <!--End-->
-
-
+<!-- Main Container -->
     <main role="main" class="main_container">
         <!-- Notification section -->
         <div class="col">
@@ -169,7 +126,7 @@
     <footer>
         <hr>
         <p>Powered by <span style="color: darkgreen; font-weight: 600;">Django</span></p>
-     </footer>
+    </footer>
 </body>
 
 </html>
