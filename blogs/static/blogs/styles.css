@@ -14,7 +14,7 @@ body {
 
 .navbar {
     background-color: black;
-    height: 70px;
+    height: 4.2rem;
 }
 
 .nav_container {
@@ -114,15 +114,15 @@ body {
 }
 
 .navbar h1 {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     font-weight: 800;
 }
 
 .main_container {
     display: flex;
     justify-content: center;
-    margin: 10px auto;
-    padding: 20px;
+    margin: 5px auto;
+    /*padding: 20px;*/
     max-width: 100%;
 }
 
@@ -219,7 +219,7 @@ body {
     margin: 5px;
 }
 
-.my_btn:hover {
+navbar-expand-md .my_btn:hover {
     text-decoration: none;
     color: white;
     padding: 8px;
@@ -462,6 +462,15 @@ hr {
     font-size: 11px;
 }
 
+#hint_id_password1 {
+    padding-left: 18px;
+}
+
+.my_btn:hover {
+    text-decoration: none;
+    color: white;
+}
+
 @media only screen and (max-width: 600px) {
     .profile_pane h2 {
         font-size: 24px;
@@ -480,13 +489,25 @@ hr {
     }
     .main_container {
         padding: 0;
+        margin: 0;
     }
     .col {
-        padding: 0 10px;
+        padding: 10px;
     }
     .my_btn {
         padding: 5px;
         font-weight: 500;
         font-size: 11px;
+    }
+    .navbar {
+        height: auto;
+        padding: .2rem;
+    }
+    .navbar li>a {
+        padding: 0;
+    }
+    .navbar h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
     }
 }
