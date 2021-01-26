@@ -25,6 +25,8 @@ SECRET_KEY = 'nb#)47941bw)%y4ru@di1ux8+=ah9p3v%m5b)&av+ew^c$-uh)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# To check the site on Mobile and localhost
+#ALLOWED_HOSTS = ['192.168.1.3', 'localhost']
 ALLOWED_HOSTS = []
 
 
