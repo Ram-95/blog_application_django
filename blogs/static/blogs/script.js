@@ -78,20 +78,23 @@ $(document).ready(function () {
 
     /* Script to delete a comment  */
     $(document).on("click", ".delete_comment", function () {
-        comment_id = $(this).closest("li").attr("id");
-        //alert('Comment: '+ comment_id);
-        $.ajax({
-            type: 'POST',
-            url: '/delete_comment/',
-            cache: false,
-            data: {
-                comment_id: comment_id,
-            },
-            success: function () {
-                //alert('Success');
-                $("#" + comment_id).hide();
-            }
-        });
+        var result = confirm("Are you sure you want to delete your comment?");
+        if (result) {
+            comment_id = $(this).closest("li").attr("id");
+            //alert('Comment: '+ comment_id);
+            $.ajax({
+                type: 'POST',
+                url: '/delete_comment/',
+                cache: false,
+                data: {
+                    comment_id: comment_id,
+                },
+                success: function () {
+                    //alert('Success');
+                    $("#" + comment_id).hide();
+                }
+            });
+        }
     });
 
     $(function () {
