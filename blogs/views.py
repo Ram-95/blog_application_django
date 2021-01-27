@@ -40,6 +40,7 @@ class PostListView(ListView):
         # blogs_list_top5 = blogs_list['object_list'].order_by('-likes')[:5] will also work provided paginate_by
         # is NOT set
         blogs_list_top5 = Blog.objects.order_by('-likes')[:5]
+        blogs_list_top_viewed = Blog.objects.order_by('-views')[:5]
         
 
         # Gets the top 5 authors/contributors
@@ -64,6 +65,7 @@ class PostListView(ListView):
             'title': title,
             'blogs_list_top5': blogs_list_top5,
             'top_authors': authors_list,
+            'blogs_list_top_viewed': blogs_list_top_viewed,
         }
 
         # Merging the 'context' dictionary and 'blogs_list' dictionary and sending the context as response
@@ -234,19 +236,19 @@ def vote_up(request):
             print(f'Vote UP: {posts_liked}')
 
             if posts_liked.get(post.pk, None) is False:
-                # If post is already downvoted, then increment the counter and delete the record
+                # If post is already downvoted, then increment the counter and mark like_status as True
+                lt_post = Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).first()
+                lt_post.like_status_id = True
+                lt_post.save()
                 post.likes += 1
                 post.save()
-                Likes_Table.objects.filter(
-                    user_id=request.user, post_id=post.pk).delete()
-                print('Already Downvoted. Removing record.')
                 return JsonResponse({'status': 'success'})
             elif posts_liked.get(post.pk, None) is True:
                 # if the post is already upvoted by the user, No Action
-                print('Already Upvoted')
+                print('User has Already Upvoted the post')
                 return JsonResponse({'status': 'Already Upvoted.'})
             else:
-                # If the post is not present in the table, increment the counter and insert as True
+                # If the post is not present in the table, increment the counter and insert record as True
                 lt_post = Likes_Table(
                     user_id=request.user, post_id=post, like_status_id=True)
                 lt_post.save()
@@ -270,26 +272,26 @@ def vote_down(request):
 
         if request.user != post.author:
             # Dictionary to store the posts liked by the current logged in user. Stores {<post_id>: <like_status>}
-            posts_liked = {}
+            posts_unliked = {}
             u = request.user.likes_table_set.all()
             for i in u:
-                posts_liked[i.post_id.pk] = i.like_status_id
-            print(f'Vote Down: {posts_liked}')
+                posts_unliked[i.post_id.pk] = i.like_status_id
+            print(f'Vote Down: {posts_unliked}')
 
-            if posts_liked.get(post.pk, None) is True:
-                # If post is already upvoted, then decrement the counter and delete the record
+            if posts_unliked.get(post.pk, None) is True:
+                # If post is already upvoted, then decrement the counter and mark like_status as False
+                lt_post = Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).first()
+                lt_post.like_status_id = False
+                lt_post.save()
                 post.likes -= 1
                 post.save()
-                Likes_Table.objects.filter(
-                    user_id=request.user, post_id=post.pk).delete()
-                print('Already Upvoted. Removing record.')
                 return JsonResponse({'status': 'success'})
-            elif posts_liked.get(post.pk, None) is False:
+            elif posts_unliked.get(post.pk, None) is False:
                 # If post is already downvoted, then No Action
                 print('Already Downvoted')
                 return JsonResponse({'status': 'Already Downvoted'})
             else:
-                # If post is not present in table, then decrement counter and inserted record as False
+                # If post is not present in table, then decrement counter and insert record as False
                 post.likes -= 1
                 post.save()
                 dlt_post = Likes_Table(
