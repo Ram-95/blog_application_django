@@ -101,10 +101,10 @@
             </ul>
             
             <ul>
-                <p>New Posts</p>
+                <p>Most Viewed Posts</p>
                 
-                    {% for item in top_authors %}
-                    <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
+                    {% for item in blogs_list_top_viewed %}
+                    <li><a href="{% url 'view_post' item.pk %}">{{ item }}</a></li>
                     {% endfor %}
                 </ul>
     </div>
