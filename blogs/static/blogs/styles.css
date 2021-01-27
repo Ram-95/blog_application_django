@@ -14,7 +14,7 @@ body {
 
 .navbar {
     background-color: black;
-    height: 4.2rem;
+    height: 4.5rem;
 }
 
 .nav_container {
@@ -471,7 +471,7 @@ hr {
     color: white;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;
     }
@@ -509,5 +509,8 @@ hr {
     .navbar h1 {
         font-size: 1.8rem;
         font-weight: 800;
+    }
+    .pagination a {
+        padding: 0.4rem;
     }
 }
