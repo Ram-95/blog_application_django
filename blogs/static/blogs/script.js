@@ -22,14 +22,8 @@ $(document).ready(function () {
                 if (data.status == 'success') {
                     likes++;
                     $("#" + post_id).find("#votes_count").text(likes);
-                    if (likes > 0) {
-                        $('#upvote_' + post_id).css('color', '#8bf178');
-                        $('#downvote_' + post_id).css('color', 'red');
-                    }
-                    if (likes == 0) {
-                        $("#upvote_" + post_id).css('color', '');
-                        $("#downvote_" + post_id).css('color', '');
-                    }
+                    $('#upvote_' + post_id).css('color', '#8bf178');
+                    $('#downvote_' + post_id).css('color', '');
                 }
                 else {
                     if (data.status == 'Invalid') {
@@ -58,15 +52,8 @@ $(document).ready(function () {
                 if (data.status == 'success') {
                     likes--;
                     $("#" + post_id).find("#votes_count").text(likes);
-                    if (likes < 0) {
-                        $('#downvote_' + post_id).css('color', 'red');
-                        $('#upvote_' + post_id).css('color', '');
-                    }
-                    if (likes == 0) {
-                        $("#upvote_" + post_id).css('color', '');
-                        $("#downvote_" + post_id).css('color', '');
-                    }
-                    //console.log('Downvote Success ' + likes);
+                    $('#downvote_' + post_id).css('color', 'red');
+                    $('#upvote_' + post_id).css('color', '');
                 }
                 else {
                     if (data.status == 'Invalid') {
