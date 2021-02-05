@@ -9,7 +9,7 @@
                 {% if user.is_authenticated %}
                 {% if blog.id in posts_liked %}
                 {% if posts_liked|dict_key:blog.id is True %}
-                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" style="color: green;"
+                <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" style="color: #8bf178;"
                     title="Upvote"></i>
                 <span id="votes_count">{{ blog.likes }}</span>
                 <i class="fas fa-caret-down post_up_down vote_down" id="downvote_{{ blog.id }}" title="Downvote"></i>
