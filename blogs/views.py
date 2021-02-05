@@ -24,8 +24,7 @@ class PostListView(ListView):
     #context_object_name = 'blogs_list'
     paginate_by = 4
     ordering = ['-publish_date']
-
-
+    
     def get_context_data(self, **kwargs):
         # This function is used to add extra details to context.
         # Fetching the context details of the PostListView class
@@ -34,7 +33,6 @@ class PostListView(ListView):
         #print(blogs_list)
         # Adding the extra data that we'd like to store in context
         # context['now'] = timezone.now()
-        
         # Gets the top 5 visited/Liked posts
         # NOTE: 
         # blogs_list_top5 = blogs_list['object_list'].order_by('-likes')[:5] will also work provided paginate_by
@@ -67,12 +65,26 @@ class PostListView(ListView):
             'top_authors': authors_list,
             'blogs_list_top_viewed': blogs_list_top_viewed,
         }
-
+        # If some user is logged in, then get the posts that are upvoted/downvoted by the logged in user
+        # and show the colors appropriately.
+        if self.request.user.is_authenticated:
+            user = self.request.user
+            vote_qs = Likes_Table.objects.filter(user_id=user.id)
+            votes = {}
+            # Add the {post_id: like_status_id} of every vote by the current logged in user.
+            for i in vote_qs:
+                votes[i.post_id.id] = i.like_status_id
+            # Adding the votes dictionary to the context
+            context['votes'] = votes
+            #print(f'\n\nUser: {user}\n\nVotes: {votes}\n\n')
+        
         # Merging the 'context' dictionary and 'blogs_list' dictionary and sending the context as response
         # to be used in the template
         context = {**context, **blogs_list}
         # print(f'\n\n{context}')
         return context
+    
+    
 
 
 class PostDetailView(DetailView):
