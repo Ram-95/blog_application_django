@@ -23,7 +23,8 @@ $(document).ready(function () {
                     likes++;
                     $("#" + post_id).find("#votes_count").text(likes);
                     if (likes > 0) {
-                        $('#upvote_' + post_id).css('color', 'green');
+                        $('#upvote_' + post_id).css('color', '#8bf178');
+                        $('#downvote_' + post_id).css('color', 'red');
                     }
                     if (likes == 0) {
                         $("#upvote_" + post_id).css('color', '');
@@ -59,6 +60,7 @@ $(document).ready(function () {
                     $("#" + post_id).find("#votes_count").text(likes);
                     if (likes < 0) {
                         $('#downvote_' + post_id).css('color', 'red');
+                        $('#upvote_' + post_id).css('color', '');
                     }
                     if (likes == 0) {
                         $("#upvote_" + post_id).css('color', '');
