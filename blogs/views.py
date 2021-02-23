@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 class PostListView(ListView):
     model = Blog
     template_name = 'blogs/index.html'
-    #context_object_name = 'blogs_list'
+    # Will display 4 posts on a page.
     paginate_by = 4
     ordering = ['-publish_date']
     

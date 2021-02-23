@@ -71,33 +71,31 @@
         </form>
         {% endif %}
         {% if comments %}
-        <!--<p class="comments">{{ no_of_comments }} Comment{{ no_of_comments|pluralize }}</p>-->
-        <div class="comment_container border p-2">
-        <ul class="media-list" style="list-style-type: none;">
-            {% for comment in comments %}
-            <li class="media mb-2" id="{{ comment.pk }}">
-                <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
-                    <div class="media-body">
-                        <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
-                        <small class="text-muted date">| {{ comment.date_posted|date:"d F, Y" }}</small>
-                        {% if comment.author == user %}
-                        <span class="edit_delete" style="float: right;">
-                            <small><a class="mr-2 edit_comment" href="#">Edit</a>
-                                <a class="mr-2 delete_comment" href="#">Delete</a></small>
-                    </span>
-                    {% endif %}
-                    <div class="mt-1 comment_p">
-                        <p class="comment_text">
-                        {{ comment.content|safe }}
+        <p class="comments">{{ no_of_comments }} Comment{{ no_of_comments|pluralize }}</p>
+        <div class="comment_container p-2">
+            <ul class="media-list" style="list-style-type: none;">
+                {% for comment in comments %}
+                <li class="media mb-2" id="{{ comment.pk }}" style="border-bottom: 1px solid gainsboro;">
+                    <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                        <div class="media-body">
+                            <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
+                            <small class="text-muted date">| {{ comment.date_posted|date:"d F, Y" }}</small>
+                            {% if comment.author == user %}
+                            <span class="edit_delete" style="float: right;">
+                                <small><a class="mr-2 edit_comment" href="#">Edit</a>
+                                    <a class="mr-2 delete_comment" href="#">Delete</a></small>
+                        </span>
+                        {% endif %}
+                        <div class="mt-1 comment_p">
+                            <p class="comment_text">
+                            {{ comment.content|safe }}
+                        </div>
+                        </p>        
                     </div>
-                    </p>        
-                </div>
-            </li>
-            
-        
-            {% endfor %}
-        </ul>
-    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% else %}
         <p class="text-secondary">No comments yet...</p>
         {% endif %}

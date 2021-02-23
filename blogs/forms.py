@@ -9,7 +9,7 @@ class CommentForm(forms.ModelForm):
     
     class Meta:
         model = Blog_comments
-        # To override the textarea of crispy-forms to user 3 rows in the textarea
+        # To override the textarea of crispy-forms to use 3 rows in the textarea
         widgets = {'content': forms.Textarea(attrs={'rows': 3})}
         fields = ['content']
         
