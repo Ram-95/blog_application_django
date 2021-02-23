@@ -471,6 +471,29 @@ hr {
     color: white;
 }
 
+.follow {
+    padding: 8px;
+    border-radius: 20px;
+    color: white;
+    font-size: small;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all .3s ease-in;
+}
+
+.follow-btn {
+    background-color: rgba(4, 90, 139, 0.74);
+}
+
+.following-btn {
+    background-color: rgb(19, 214, 101);
+}
+
+.follow:hover {
+    text-decoration: none;
+    color: white;
+}
+
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;

@@ -24,11 +24,12 @@
         }
 
         .follow {
-            padding: 10px;
+            padding: 8px;
             border-radius: 20px;
-            margin-top: 10px;
             color: white;
             font-size: small;
+            font-weight: 600;
+            transition: all .3s ease-in;
         }
 
         .follow-btn {
@@ -40,15 +41,35 @@
         }
 
         .follow:hover {
-            color: yellow;
-            text-decoration: none
+            text-decoration: none;
+            color: white;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('.follow').on('click', function () {
+                if ($(this).hasClass('follow-btn')) {
+                    $(this).removeClass('follow-btn');
+                    var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
+                    $(this).addClass('following-btn');
+                    $(this).html(following_code);
+                }
+                else if($(this).hasClass('following-btn')) {
+                    $(this).removeClass('following-btn');
+                    var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
+                    $(this).addClass('follow-btn');
+                    $(this).html(follow_code);
+                }
+            });
+
+        });
+    </script>
 </head>
 
 <body>
-    <a href="#" class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</a>
-    <a href="#" class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</a>
+    <span>
+        <a href="#" class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</a>
+    </span>
 </body>
 
 </html>

@@ -5,6 +5,24 @@ $(document).ready(function () {
         });
     }, 5000);
 
+
+    /* Function to change DOM for Follow/Unfollow */
+    $('.follow').on('click', function () {
+        if ($(this).hasClass('follow-btn')) {
+            $(this).removeClass('follow-btn');
+            var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
+            $(this).addClass('following-btn');
+            $(this).html(following_code);
+        }
+        else if ($(this).hasClass('following-btn')) {
+            $(this).removeClass('following-btn');
+            var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
+            $(this).addClass('follow-btn');
+            $(this).html(follow_code);
+        }
+    });
+
+
     /* Function to send upvote data to server */
     $(document).on("click", ".vote_up", function () {
         post_id = $(this).closest('article').attr('id');
