@@ -83,12 +83,36 @@ $(document).ready(function () {
     });
 
 
+    function refresh_comments(post_id) {
+        $.ajax({
+            type: 'GET',
+            url: '/refresh_comments/',
+            data: {
+                post_id: post_id,
+            },
+            success: function (data) {
+                no_of_comments = data.no_of_comments;
+                if (no_of_comments == 0) {
+                    $('.comments').text('No comments yet.');
+                }
+                else if (no_of_comments == 1) {
+                    $('.comments').text(no_of_comments + ' Comment');
+                }
+                else {
+                    $('.comments').text(no_of_comments + ' Comments');
+                }
+                //alert('Comments Updated.');
+            }
+        });
+    }
+
     /* Script to delete a comment  */
     $(document).on("click", ".delete_comment", function () {
         var result = confirm("Are you sure you want to delete your comment?");
         if (result) {
             comment_id = $(this).closest("li").attr("id");
-            //alert('Comment: '+ comment_id);
+            post_id = $("article").attr("id");
+            //alert('Post: '+ post_id);
             $.ajax({
                 type: 'POST',
                 url: '/delete_comment/',
@@ -99,6 +123,7 @@ $(document).ready(function () {
                 success: function () {
                     //alert('Success');
                     $("#" + comment_id).hide();
+                    refresh_comments(post_id);
                 }
             });
         }

@@ -11,6 +11,7 @@ urlpatterns = [
     path('post/<int:pk>/', PostDetailView.as_view(), name="view_post"),
     path('delete_comment/', views.delete_comment, name="delete_comment"),
     path('edit_comment/', views.edit_comment, name="edit_comment"),
+    path('refresh_comments/', views.refresh_comments, name="refresh_comments"),
     path('vote_up/', views.vote_up, name="vote_up"),
     path('vote_down/', views.vote_down, name="vote_down"),
 ]

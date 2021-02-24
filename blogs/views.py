@@ -328,6 +328,16 @@ def delete_comment(request):
     else:
         return HttpResponse('Request method is not POST')
 
+@csrf_exempt
+def refresh_comments(request):
+    if request.user.is_authenticated and request.method == 'GET':
+        blog_id = request.GET.get('post_id')
+        no_of_comments = Blog_comments.objects.filter(blogpost=blog_id).count()
+        return JsonResponse({'no_of_comments': no_of_comments})
+    else:
+        return HttpResponse('Request method is not GET')
+
+
 
 @csrf_exempt
 def edit_comment(request):
