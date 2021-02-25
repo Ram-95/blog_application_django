@@ -19,4 +19,12 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.profile_pic.path)
 
-    
+
+class Followers(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow_user')
+    followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.user.username}\'s Followers'
+
+

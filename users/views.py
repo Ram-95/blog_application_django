@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import UpdateView
-from .models import Profile
+from .models import Profile, Followers
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from blogs.models import Blog
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.models import User
 
@@ -70,12 +72,34 @@ def view_profile(request, username):
     '''Allows users to view other users profile'''
     user = get_object_or_404(User, username=username)
     #user = User.objects.filter(username=username).first()
+    f = Followers.objects.filter(user=request.user)
+    followers = set()
+    for i in f:
+        followers.add(i.followers.username)
+    print(f'\nFollowers: {followers}\n')
     user_blogs = user.blog_set.all()
     title = username
     context = {
         'curr_user': user,
         'user_blogs': user_blogs,
         'title': title,
+        'followers': followers,
     }
     # print(user.blog_set.all())
     return render(request, 'users/view_profile.html', context)
+
+
+@csrf_exempt
+@login_required
+def follow(request):
+    '''Code to follow a User. Creates a record in Followers table.'''
+    if request.method == 'POST':
+        req_user = request.user
+        follower = User.objects.filter(username=request.POST['username']).first()
+        f = Followers(user=req_user, followers=follower)
+        f.save()
+        print(f'\nUser: {req_user.username}\nFollower: {follower}\n')
+        return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('Request method is not POST.')
+
