@@ -328,6 +328,7 @@ def delete_comment(request):
     else:
         return HttpResponse('Request method is not POST')
 
+
 @csrf_exempt
 def refresh_comments(request):
     if request.user.is_authenticated and request.method == 'GET':

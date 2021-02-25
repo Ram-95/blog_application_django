@@ -8,6 +8,26 @@ $(document).ready(function () {
 
     /* Function to change DOM for Follow/Unfollow */
     $('.follow').on('click', function () {
+        username = $('.username_field').text();
+        var current_obj = $(this)
+        //alert(current_obj);
+        $.ajax({
+            type: 'POST',
+            url: '/follow/',
+            data: {
+                username: username,
+            },
+            success: function (data) {
+                if (data.status == 'success') {
+                    alert('Success');
+                    current_obj.removeClass('follow-btn');
+                    var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
+                    current_obj.addClass('following-btn');
+                    current_obj.html(following_code);
+                }
+            }
+        });
+        /*
         if ($(this).hasClass('follow-btn')) {
             $(this).removeClass('follow-btn');
             var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
@@ -19,7 +39,7 @@ $(document).ready(function () {
             var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
             $(this).addClass('follow-btn');
             $(this).html(follow_code);
-        }
+        }*/
     });
 
 
