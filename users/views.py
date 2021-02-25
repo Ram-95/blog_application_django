@@ -98,8 +98,21 @@ def follow(request):
         follower = User.objects.filter(username=request.POST['username']).first()
         f = Followers(user=req_user, followers=follower)
         f.save()
-        print(f'\nUser: {req_user.username}\nFollower: {follower}\n')
+        print(f'\nCreated:\nUser: {req_user.username}\nFollower: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')
 
+
+@csrf_exempt
+@login_required
+def unfollow(request):
+    '''Code to unfollow a User. Deletes a record in Followers table.'''
+    if request.method == 'POST':
+        req_user = request.user
+        follower = User.objects.filter(username=request.POST['username']).first()
+        f = Followers.objects.filter(user=req_user, followers=follower).delete()
+        print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
+        return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('Request method is not POST.')

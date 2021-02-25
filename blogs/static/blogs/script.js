@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 
     /* Function to change DOM for Follow/Unfollow */
-    $('.follow').on('click', function () {
+    $('.follow-btn').on('click', function () {
         username = $('.username_field').text();
         var current_obj = $(this)
         //alert(current_obj);
@@ -19,7 +19,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.status == 'success') {
-                    alert('Success');
+                    alert('Follow Success');
                     current_obj.removeClass('follow-btn');
                     var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
                     current_obj.addClass('following-btn');
@@ -27,19 +27,29 @@ $(document).ready(function () {
                 }
             }
         });
-        /*
-        if ($(this).hasClass('follow-btn')) {
-            $(this).removeClass('follow-btn');
-            var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
-            $(this).addClass('following-btn');
-            $(this).html(following_code);
-        }
-        else if ($(this).hasClass('following-btn')) {
-            $(this).removeClass('following-btn');
-            var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
-            $(this).addClass('follow-btn');
-            $(this).html(follow_code);
-        }*/
+    });
+
+
+    $('.following-btn').on('click', function () {
+        username = $('.username_field').text();
+        var current_obj = $(this)
+        //alert(current_obj);
+        $.ajax({
+            type: 'POST',
+            url: '/unfollow/',
+            data: {
+                username: username,
+            },
+            success: function (data) {
+                if (data.status == 'success') {
+                    alert('Unfollow Success');
+                    current_obj.removeClass('following-btn');
+                    var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
+                    current_obj.addClass('follow-btn');
+                    current_obj.html(follow_code);
+                }
+            }
+        });
     });
 
 
