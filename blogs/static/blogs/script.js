@@ -6,7 +6,7 @@ $(document).ready(function () {
     }, 5000);
 
 
-    /* Function to change DOM for Follow/Unfollow */
+    /* Function to 'Follow' a User. */
     $('.follow-btn').on('click', function () {
         username = $('.username_field').text();
         var current_obj = $(this)
@@ -19,17 +19,18 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.status == 'success') {
-                    alert('Follow Success');
-                    current_obj.removeClass('follow-btn');
+                    //alert('Follow Success');
+                    /*current_obj.removeClass('follow-btn');
                     var following_code = '<i class="fas fa-check-circle"></i>&nbsp;Following';
                     current_obj.addClass('following-btn');
-                    current_obj.html(following_code);
+                    current_obj.html(following_code);*/
+                    location.reload();
                 }
             }
         });
     });
 
-
+    /* Function to 'Unfollow' a user. */
     $('.following-btn').on('click', function () {
         username = $('.username_field').text();
         var current_obj = $(this)
@@ -42,11 +43,12 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.status == 'success') {
-                    alert('Unfollow Success');
-                    current_obj.removeClass('following-btn');
-                    var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
+                    //alert('Unfollow Success');
+                    /*current_obj.removeClass('following-btn');
                     current_obj.addClass('follow-btn');
-                    current_obj.html(follow_code);
+                    var follow_code = '<i class="fas fa-plus"></i>&nbsp;Follow';
+                    current_obj.html(follow_code);*/
+                    location.reload();
                 }
             }
         });
