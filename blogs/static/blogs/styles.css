@@ -477,8 +477,10 @@ hr {
     color: white;
     font-size: small;
     font-weight: 600;
-    margin-top: 10px;
-    transition: all .3s ease-in;
+    transition: all .2s ease-in;
+    border: none;
+    cursor: pointer;
+    outline: 0 !important;
 }
 
 .follow-btn {
@@ -492,6 +494,11 @@ hr {
 .follow:hover {
     text-decoration: none;
     color: white;
+}
+
+.profile_container {
+    margin: 12px;
+    width: 75%;
 }
 
 @media only screen and (max-width: 820px) {
