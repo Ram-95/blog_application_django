@@ -5,16 +5,20 @@
     <div class="profile_pane flex border">
         <img class="media rounded-circle" src="{{ curr_user.profile.profile_pic.url }}" alt="profile_image"
             height="150px" width="150px">
-        <div style="margin: 12px;">
+        <div class="profile_container">
             <h2 class="username_field">{{ curr_user.username }}</h2>
-            <p style="font-size: 0.8rem;">{{ curr_user.email }}</p>
+            <!--<p style="font-size: 0.8rem;">{{ curr_user.email }}</p>-->
             {% if user != curr_user %}
-                {% if not followers|set_key:curr_user.username %}
-                    <a href="#" class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</a>
-                {% else %}
-                    <a href="#" class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</a>
-                {% endif %}
+            {% if not followers|set_key:curr_user.username %}
+            <button class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</button>
+            {% else %}
+            <button class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</button>
             {% endif %}
+            {% endif %}
+            <div class="followers_section mt-2">
+                <small><i class="fas fa-users"></i>&nbsp;<b>{{ no_of_followers }}</b> follower{{ no_of_followers|pluralize }}</small>&nbsp;<small>| <b>{{ no_of_following }}</b>
+                    following</small>
+                </div>
         </div>
     </div>
     <div class="posts_container border">

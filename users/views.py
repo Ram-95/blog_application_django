@@ -76,14 +76,18 @@ def view_profile(request, username):
     followers = set()
     for i in f:
         followers.add(i.followers.username)
-    print(f'\nFollowers: {followers}\n')
+    print(f'\nFollowers of {request.user.username}: {followers}\n')
     user_blogs = user.blog_set.all()
     title = username
+    no_of_following = Followers.objects.filter(user=user).count()
+    no_of_followers = Followers.objects.filter(followers=user).count()
     context = {
         'curr_user': user,
         'user_blogs': user_blogs,
         'title': title,
         'followers': followers,
+        'no_of_followers': no_of_followers,
+        'no_of_following': no_of_following,
     }
     # print(user.blog_set.all())
     return render(request, 'users/view_profile.html', context)
