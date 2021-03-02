@@ -76,7 +76,7 @@ def view_profile(request, username):
     followers = set()
     for i in f:
         followers.add(i.followers.username)
-    print(f'\nFollowers of {request.user.username}: {followers}\n')
+    print(f'\nUsers Followed by {request.user.username}: {followers}\n')
     user_blogs = user.blog_set.all()
     title = username
     no_of_following = Followers.objects.filter(user=user).count()
