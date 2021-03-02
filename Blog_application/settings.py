@@ -26,8 +26,8 @@ SECRET_KEY = 'nb#)47941bw)%y4ru@di1ux8+=ah9p3v%m5b)&av+ew^c$-uh)'
 DEBUG = True
 
 # To check the site on Mobile and localhost
-#ALLOWED_HOSTS = ['192.168.1.7', 'localhost']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.150', 'localhost']
+#ALLOWED_HOSTS = []
 
 
 # Application definition

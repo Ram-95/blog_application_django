@@ -102,7 +102,7 @@ def follow(request):
         follower = User.objects.filter(username=request.POST['username']).first()
         f = Followers(user=req_user, followers=follower)
         f.save()
-        print(f'\nCreated:\nUser: {req_user.username}\nFollower: {follower}\n')
+        print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')
