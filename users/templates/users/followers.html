@@ -1,0 +1,21 @@
+{% extends "blogs/base.html" %}
+{% load set_key %}
+{% block content %}
+<div class="content-section">
+    <div class="container">
+        <h2 style="text-align: center;">Followers</h2>
+        <ul class="followers_list">
+            {% for i in followers %}
+            <li>
+                <div class="border p-2 mt-2">
+                    <a href="{% url 'view_profile' i.followers.username %}">
+                        <p class="mb-1">{{ i.followers.username }}</p>
+                    </a>
+                    <small>{{ i.followers.email }}</small>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}
