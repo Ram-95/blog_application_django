@@ -25,6 +25,6 @@ class Followers(models.Model):
     followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
 
     def __str__(self):
-        return f'{self.user.username} - {self.followers.username}'
+        return f'{self.user.username} followed by {self.followers.username}'
 
 
