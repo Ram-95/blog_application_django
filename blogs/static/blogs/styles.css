@@ -501,6 +501,11 @@ hr {
     width: 75%;
 }
 
+.followers_list {
+    list-style-type: none;
+    padding-left: 1rem;
+}
+
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;
