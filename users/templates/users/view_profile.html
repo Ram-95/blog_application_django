@@ -16,7 +16,7 @@
             {% endif %}
             {% endif %}
             <div class="followers_section mt-2">
-                <small><i class="fas fa-users"></i>&nbsp;<b>{{ no_of_followers }}</b> follower{{ no_of_followers|pluralize }}</small>&nbsp;<small>| <b>{{ no_of_following }}</b>
+                <a class="view_followers" href="{% url 'view_followers' curr_user %}"><small><i class="fas fa-users"></i>&nbsp;<b>{{ no_of_followers }}</b> follower{{ no_of_followers|pluralize }}</small></a>&nbsp;<small>| <b>{{ no_of_following }}</b>
                     following</small>
                 </div>
         </div>

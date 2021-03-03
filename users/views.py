@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 def register(request):
     form = UserRegisterForm()
     title = 'Register'
-    
+
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -42,15 +42,17 @@ def profile(request):
     # print(user.blog_set.all())
     return render(request, 'users/profile.html', context)
 
+
 @login_required
 def update_profile(request):
     if request.method == 'POST':
         # The instance argument will fill the form with existing user data
         u_form = UserUpdateForm(request.POST, instance=request.user)
         # request.FILES since we are expecting an Image update
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
 
-        #Checking and saving if the forms are valid
+        # Checking and saving if the forms are valid
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -79,8 +81,8 @@ def view_profile(request, username):
     print(f'\nUsers Followed by {request.user.username}: {followers}\n')
     user_blogs = user.blog_set.all()
     title = username
-    no_of_following = Followers.objects.filter(user=user).count()
-    no_of_followers = Followers.objects.filter(followers=user).count()
+    no_of_followers = Followers.objects.filter(user=user).count()
+    no_of_following = Followers.objects.filter(followers=user).count()
     context = {
         'curr_user': user,
         'user_blogs': user_blogs,
@@ -95,14 +97,30 @@ def view_profile(request, username):
 
 @csrf_exempt
 @login_required
+def view_followers(request, username):
+    user = User.objects.filter(
+        username=username).first()
+    #print(f'\nUsername in view_profile: {user} {user.id}\n')
+    followers = Followers.objects.filter(user=user)
+    print(f'followers in view_profile: {followers}\n')
+    context = {
+        'followers': followers,
+    }
+    return render(request, 'users/followers.html', context)
+
+
+@csrf_exempt
+@login_required
 def follow(request):
     '''Code to follow a User. Creates a record in Followers table.'''
     if request.method == 'POST':
         req_user = request.user
-        follower = User.objects.filter(username=request.POST['username']).first()
+        follower = User.objects.filter(
+            username=request.POST['username']).first()
         f = Followers(user=req_user, followers=follower)
         f.save()
-        print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
+        print(
+            f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')
@@ -114,8 +132,10 @@ def unfollow(request):
     '''Code to unfollow a User. Deletes a record in Followers table.'''
     if request.method == 'POST':
         req_user = request.user
-        follower = User.objects.filter(username=request.POST['username']).first()
-        f = Followers.objects.filter(user=req_user, followers=follower).delete()
+        follower = User.objects.filter(
+            username=request.POST['username']).first()
+        f = Followers.objects.filter(
+            user=req_user, followers=follower).delete()
         print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
