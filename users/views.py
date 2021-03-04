@@ -74,15 +74,18 @@ def view_profile(request, username):
     '''Allows users to view other users profile'''
     user = get_object_or_404(User, username=username)
     #user = User.objects.filter(username=username).first()
-    f = Followers.objects.filter(user=request.user)
+    curr_profile = Profile.objects.filter(user=user).first()
+    #profile = Profile.objects.filter(user=request.user).first()
+    f = Followers.objects.filter(followers=curr_profile)
     followers = set()
+    print(f'\n{f}\n')
     for i in f:
-        followers.add(i.followers.username)
-    print(f'\nUsers Followed by {request.user.username}: {followers}\n')
+        followers.add(i.user.user.username)
+    print(f'\nUsers Following {user}: {followers}\n')
     user_blogs = user.blog_set.all()
     title = username
-    no_of_followers = Followers.objects.filter(user=user).count()
-    no_of_following = Followers.objects.filter(followers=user).count()
+    no_of_following = Followers.objects.filter(user=curr_profile).count()
+    no_of_followers = Followers.objects.filter(followers=curr_profile).count()
     context = {
         'curr_user': user,
         'user_blogs': user_blogs,
@@ -98,13 +101,14 @@ def view_profile(request, username):
 @csrf_exempt
 @login_required
 def view_followers(request, username):
-    user = User.objects.filter(
-        username=username).first()
+    temp = User.objects.filter(username=username).first()
+    user = Profile.objects.filter(user=temp).first()
     #print(f'\nUsername in view_profile: {user} {user.id}\n')
-    followers = Followers.objects.filter(user=user)
-    print(f'followers in view_profile: {followers}\n')
+    f = Followers.objects.filter(followers=user)
+    print(f'\nfollowers in view_followers: {user} -> {f}\n')
+
     context = {
-        'followers': followers,
+        'followers': f,
     }
     return render(request, 'users/followers.html', context)
 
@@ -114,13 +118,11 @@ def view_followers(request, username):
 def follow(request):
     '''Code to follow a User. Creates a record in Followers table.'''
     if request.method == 'POST':
-        req_user = request.user
-        follower = User.objects.filter(
-            username=request.POST['username']).first()
-        f = Followers(user=req_user, followers=follower)
+        profile = Profile.objects.filter(user=User.objects.filter(username=request.user).first()).first()
+        follower = Profile.objects.filter(user=User.objects.filter(username=request.POST['username']).first()).first()
+        f = Followers(user=profile, followers=follower)
         f.save()
-        print(
-            f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
+        #print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')
@@ -131,12 +133,11 @@ def follow(request):
 def unfollow(request):
     '''Code to unfollow a User. Deletes a record in Followers table.'''
     if request.method == 'POST':
-        req_user = request.user
-        follower = User.objects.filter(
-            username=request.POST['username']).first()
+        profile = Profile.objects.filter(user=User.objects.filter(username=request.user).first()).first()
+        follower = Profile.objects.filter(user=User.objects.filter(username=request.POST['username']).first()).first()
         f = Followers.objects.filter(
-            user=req_user, followers=follower).delete()
-        print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
+            user=profile, followers=follower).delete()
+        #print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')

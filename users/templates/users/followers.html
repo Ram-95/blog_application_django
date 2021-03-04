@@ -4,15 +4,15 @@
 <div class="content-section">
     <div class="container">
         <h2 style="text-align: center;">Followers</h2>
-        <ul class="followers_list">
+        <ul class="followers_list media-list">
             {% for i in followers %}
-            <li>
-                <div class="border p-2 mt-2">
-                    <a href="{% url 'view_profile' i.followers.username %}">
-                        <p class="mb-1">{{ i.followers.username }}</p>
-                    </a>
-                    <small>{{ i.followers.email }}</small>
-                </div>
+            <li class="media border p-2 mt-2">
+
+                <img src="{{ i.user.user.profile.profile_pic.url }}"
+                    alt="profile_pic" class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                <a href="{% url 'view_profile' i.user.user %}" class="media-body m-auto">
+                    <p class="mb-1">{{ i.user.user }}</p>
+                </a>
             </li>
             {% endfor %}
         </ul>

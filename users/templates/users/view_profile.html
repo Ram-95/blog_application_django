@@ -9,16 +9,23 @@
             <h2 class="username_field">{{ curr_user.username }}</h2>
             <!--<p style="font-size: 0.8rem;">{{ curr_user.email }}</p>-->
             {% if user != curr_user %}
-            {% if not followers|set_key:curr_user.username %}
-            <button class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</button>
-            {% else %}
-            <button class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</button>
-            {% endif %}
+            <!--
+                <p>Current User: {{ curr_user.username }}</p>
+                <p>Logged User: {{ user.username }}</p>
+                <small>{{ followers }}</small> 
+            -->
+                {% if not followers|set_key:user.username %}
+                    <button class="follow-btn follow"><i class="fas fa-plus"></i>&nbsp;Follow</button>
+                {% else %}
+                    <button class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</button>
+                {% endif %}
             {% endif %}
             <div class="followers_section mt-2">
                 <a class="view_followers" href="{% url 'view_followers' curr_user %}"><small><i class="fas fa-users"></i>&nbsp;<b>{{ no_of_followers }}</b> follower{{ no_of_followers|pluralize }}</small></a>&nbsp;<small>| <b>{{ no_of_following }}</b>
                     following</small>
+                
                 </div>
+
         </div>
     </div>
     <div class="posts_container border">
