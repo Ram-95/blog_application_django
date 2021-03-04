@@ -1,0 +1,47 @@
+{% extends "blogs/base.html" %}
+{% load set_key %}
+{% block content %}
+<div class="content-section">
+    <div class="container connections">
+        <h3 style="text-align: center; margin-bottom: 1.5rem;">{{ curr_user }}'s Connections</h3>
+        <ul class="nav nav-tabs nav-justified connections_header" role="tablist" id="myTab">
+            <li class="nav-item">
+                <a class="nav-link active" id="followers-tab" data-toggle="tab" href="#followers" role="tab"
+                    aria-controls="followers" aria-selected="true">Followers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="following-tab" data-toggle="tab" href="#following" role="tab"
+                    aria-controls="following" aria-selected="true">Following</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div id="followers" class="tab-pane fade show active" role="tabpanel" aria-labelledby="followers-tab">
+                <ul class="followers_list media-list">
+                    {% for i in followers %}
+                    <li class="media p-2 mt-2">
+                        <img src="{{ i.user.user.profile.profile_pic.url }}" alt="profile_pic"
+                            class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                        <a href="{% url 'view_profile' i.user.user %}" class="media-body m-auto">
+                            <p class="mb-1">{{ i.user.user }}</p>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="following" class="tab-pane fade" role="tabpanel" aria-labelledby="following-tab">
+                <ul class="followers_list media-list">
+                    {% for i in following %}
+                    <li class="media p-2 mt-2" style="border-bottom: 1px solid gainsboro;">
+                        <img src="{{ i.followers.user.profile.profile_pic.url }}" alt="profile_pic"
+                            class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                        <a href="{% url 'view_profile' i.followers.user %}" class="media-body m-auto">
+                            <p class="mb-1">{{ i.followers.user }}</p>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
