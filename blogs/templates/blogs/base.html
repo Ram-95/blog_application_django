@@ -43,6 +43,7 @@
         <i class="fas fa-plus" aria-hidden="true"></i>
      </div>
     </a>
+    {% endif %}
     <!-- Navigation bar -->
         <nav class="navbar navbar-expand-md">
             <a class="logo" href="{% url 'index' %}">
@@ -54,6 +55,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
                 <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                     <li class="nav-link">
                         <a href="#"><i class="fas fa-bell"></i></a>
                     </li>
