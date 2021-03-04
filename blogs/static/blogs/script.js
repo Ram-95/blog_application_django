@@ -33,8 +33,7 @@ $(document).ready(function () {
     /* Function to 'Unfollow' a user. */
     $('.following-btn').on('click', function () {
         username = $('.username_field').text();
-        var current_obj = $(this)
-        //alert(current_obj);
+        //alert(username);
         $.ajax({
             type: 'POST',
             url: '/unfollow/',
