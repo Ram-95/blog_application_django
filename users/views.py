@@ -78,7 +78,7 @@ def view_profile(request, username):
     #profile = Profile.objects.filter(user=request.user).first()
     f = Followers.objects.filter(followers=curr_profile)
     followers = set()
-    print(f'\n{f}\n')
+    #print(f'\n{f}\n')
     for i in f:
         followers.add(i.user.user.username)
     print(f'\nUsers Following {user}: {followers}\n')
@@ -105,10 +105,13 @@ def view_followers(request, username):
     user = Profile.objects.filter(user=temp).first()
     #print(f'\nUsername in view_profile: {user} {user.id}\n')
     f = Followers.objects.filter(followers=user)
-    print(f'\nfollowers in view_followers: {user} -> {f}\n')
-
+    g = Followers.objects.filter(user=user)
+    #print(f'\nfollowers in view_followers: {user} -> {f}\n')
+    #print(f'\nFollowing: {g}\n')
     context = {
         'followers': f,
+        'following': g,
+        'curr_user': username,
     }
     return render(request, 'users/followers.html', context)
 
