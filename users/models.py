@@ -21,10 +21,11 @@ class Profile(models.Model):
 
 
 class Followers(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow_user')
-    followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
-
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follow_user')
+    followers = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+    
+    
     def __str__(self):
-        return f'{self.user.username} followed by {self.followers.username}'
-
+        return f'{self.user} following {self.followers}'
+    
 
