@@ -108,10 +108,15 @@ def view_followers(request, username):
     g = Followers.objects.filter(user=user)
     #print(f'\nfollowers in view_followers: {user} -> {f}\n')
     #print(f'\nFollowing: {g}\n')
+    curr_profile = Profile.objects.filter(user=get_object_or_404(User, username=username)).first()
+    no_of_following = Followers.objects.filter(user=curr_profile).count()
+    no_of_followers = Followers.objects.filter(followers=curr_profile).count()
     context = {
         'followers': f,
         'following': g,
         'curr_user': username,
+        'no_of_followers': no_of_followers,
+        'no_of_following': no_of_following,
     }
     return render(request, 'users/followers.html', context)
 
