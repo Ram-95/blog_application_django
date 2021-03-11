@@ -57,11 +57,12 @@
                 <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-link">
-                        <a href="#"><i class="fas fa-bell"></i></a>
+                        <a href="#">
+                            <i style="font-size: 1.5rem; padding: 3px;" class="fas fa-globe-asia"></i></a>
                     </li>
                     <li class="nav-link">
-                        <a href="{% url 'profile' %}" style="font-weight: 600;"><img class="rounded-circle mr-2"
-                                width="28" height="28" src="{{ user.profile.profile_pic.url }}" alt="profile_img">{{ user.username }}</a>
+                        <a href="{% url 'profile' %}" style="font-weight: 600;" title="{{ user.username }}"><img class="rounded-circle mr-2"
+                                width="28" height="28" src="{{ user.profile.profile_pic.url }}" alt="profile_img"></a>
                     </li>
                     <!--
                     <li class="nav-link">
