@@ -565,6 +565,30 @@ hr {
     border-radius: 2em;
 }
 
+.notification-icon {
+    font-size: 1.5rem;
+    padding: 3px;
+    color: white;
+}
+
+.notification {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: red;
+}
+
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;
