@@ -575,15 +575,15 @@ hr {
     color: white;
     text-decoration: none;
     position: relative;
-    display: inline-block;
+    /*display: inline-block;*/
     cursor: pointer;
   }
   
 
 .badge {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 6px;
+    right: 10px;
     padding: 5px;
     border-radius: 50%;
     background-color: red;

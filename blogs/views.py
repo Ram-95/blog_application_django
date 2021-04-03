@@ -362,6 +362,19 @@ def edit_comment(request):
         return HttpResponse('Request method is not POST')
 
 
+@login_required
+def notifications(request):
+    if request.user.is_authenticated:
+        notifs = Notification.objects.filter(receiver=request.user, is_read=False)
+        context = {
+            'notifications': notifs,
+        }
+        print(f'\n{notifs}\n')
+    return render(request, 'blogs/notifications.html', context)
+
+
+
+
 ''' Function Based View - Index'''
 '''
 def index(request):

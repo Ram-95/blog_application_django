@@ -57,10 +57,10 @@
                 <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-link">
-                        <span class="notification">
+                        <a class="notification"  href="{% url 'notifications' %}">
                             <span><i class="fas fa-globe-asia notification-icon"></i></span>
                             <span class="badge"> </span>
-                        </span>
+                        </a>
                     </li>
                     <li class="nav-link">
                         <a href="{% url 'profile' %}" style="font-weight: 600;" title="{{ user.username }}"><img class="rounded-circle mr-2"

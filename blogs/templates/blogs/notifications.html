@@ -1,0 +1,15 @@
+{% extends "blogs/base.html" %}
+{% block content %}
+<div class="content-section">
+    <div class="list-group">
+        <p class="list-group-item" style="text-align: center; font-size: 1.5rem; font-weight: 700; background-color: yellowgreen ;">Notifications</p>
+        {% for notif in notifications %}
+            {% if notif.category == 'follow' %}
+            <a id="{{ notif.id }}" href="{% url 'view_profile' notif.sender %}" class="list-group-item list-group-item-action">{{ notif.sender }} started following you</a>
+            {% elif notif.category == 'comment' %}
+            <a id="{{ notif.id }}"  href="{% url 'view_post' notif.post_id %}" class="list-group-item list-group-item-action">{{ notif.sender }} commented on your post_id ({{ notif.post_id }})</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
