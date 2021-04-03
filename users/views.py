@@ -4,7 +4,7 @@ from django.views.generic import UpdateView
 from .models import Profile, Followers
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from blogs.models import Blog
+from blogs.models import Blog, Notification
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -130,6 +130,9 @@ def follow(request):
         follower = Profile.objects.filter(user=User.objects.filter(username=request.POST['username']).first()).first()
         f = Followers(user=profile, followers=follower)
         f.save()
+        # Inserting the record into the Notification table
+        n = Notification(sender=request.user, receiver=User.objects.filter(username=request.POST['username']).first(), is_read=False, category='follow')
+        n.save()
         #print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:

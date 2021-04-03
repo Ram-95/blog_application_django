@@ -44,3 +44,16 @@ class Blog_comments(models.Model):
     def __str__(self):
         return f'{str(self.author)}, {self.blogpost.title[:30]}'
 
+
+class Notification(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_receiver')
+    is_read = models.BooleanField()
+    category = models.CharField(max_length=10)
+    notification_date = models.DateTimeField(default=timezone.now)
+    post_id = models.IntegerField(default=-1)
+
+    def __str__(self):
+        return f'From:{str(self.sender)} | To: {str(self.receiver)} | Category: {str(self.category)}'
+
+
