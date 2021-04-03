@@ -54,6 +54,6 @@ class Notification(models.Model):
     post_id = models.IntegerField(default=-1)
 
     def __str__(self):
-        return f'From:{str(self.sender)} | To: {str(self.receiver)} | Category: {str(self.category)}'
+        return f'From: {str(self.sender)} | To: {str(self.receiver)} | Category: {str(self.category)}'
 
 
