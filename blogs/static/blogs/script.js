@@ -203,4 +203,20 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on("click", ".notification-list", function () {
+        n_id = $(this).attr('id');
+        alert(n_id);
+        $.ajax({
+            type: 'POST',
+            url: '/mark_notification_as_read/',
+            cache: false,
+            data: {
+                notif_id: n_id,
+            },
+            success: function () {
+                //alert('Marked as Read.');
+            }
+        });
+    });
 });

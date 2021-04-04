@@ -375,6 +375,16 @@ def notifications(request):
     return render(request, 'blogs/notifications.html', context)
 
 
+@csrf_exempt
+def mark_notification_as_read(request):
+    if request.user.is_authenticated:
+        notif_id = request.POST['notif_id']
+        print(f'\n{notif_id}\n')
+        n = Notification.objects.filter(id=notif_id).first()
+        n.is_read = True
+        n.save()
+        return JsonResponse({'status': 'success'})
+
 
 
 ''' Function Based View - Index'''
