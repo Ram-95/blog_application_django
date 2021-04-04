@@ -70,6 +70,7 @@ class PostListView(ListView):
         # and show the colors appropriately.
         if self.request.user.is_authenticated:
             user = self.request.user
+            notification_exists = Notification.objects.filter(receiver=user).count()
             vote_qs = Likes_Table.objects.filter(user_id=user.id)
             votes = {}
             # Add the {post_id: like_status_id} of every vote by the current logged in user.
@@ -77,6 +78,7 @@ class PostListView(ListView):
                 votes[i.post_id.id] = i.like_status_id
             # Adding the votes dictionary to the context
             context['votes'] = votes
+            context['notification_exists'] = notification_exists
             #print(f'\n\nUser: {user}\n\nVotes: {votes}\n\n')
 
         # Merging the 'context' dictionary and 'blogs_list' dictionary and sending the context as response
@@ -365,7 +367,7 @@ def edit_comment(request):
 @login_required
 def notifications(request):
     if request.user.is_authenticated:
-        notifs = Notification.objects.filter(receiver=request.user, is_read=False)
+        notifs = Notification.objects.filter(receiver=request.user, is_read=False).order_by('-notification_date')
         context = {
             'notifications': notifs,
         }
