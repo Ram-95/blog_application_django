@@ -575,7 +575,7 @@ hr {
     color: white;
     text-decoration: none;
     position: relative;
-    /*display: inline-block;*/
+    display: inline;
     cursor: pointer;
   }
   
