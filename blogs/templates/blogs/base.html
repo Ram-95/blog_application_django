@@ -59,7 +59,10 @@
                     <li class="nav-link">
                         <a class="notification"  href="{% url 'notifications' %}">
                             <span><i class="fas fa-globe-asia notification-icon"></i></span>
-                            <span class="badge"> </span>
+                        
+                            {% if status %}
+                                <span class="badge"> </span>
+                            {% endif %}
                         </a>
                     </li>
                     <li class="nav-link">
