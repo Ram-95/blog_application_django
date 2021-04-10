@@ -577,16 +577,16 @@ hr {
     position: relative;
     display: inline;
     cursor: pointer;
-  }
-  
+}
 
 .badge {
     position: absolute;
-    top: 6px;
-    right: 10px;
-    padding: 5px;
+    top: 3px;
+    right: 8px;
+    padding: 3px;
     border-radius: 50%;
     background-color: red;
+    font-size: 0.68rem;
 }
 
 @media only screen and (max-width: 820px) {
@@ -634,5 +634,9 @@ hr {
     .new_post {
         right: 2rem;
         bottom: 2rem;
+    }
+    .badge {
+        top: auto;
+        right: -2px;
     }
 }
