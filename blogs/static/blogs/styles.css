@@ -589,6 +589,31 @@ hr {
     font-size: 0.68rem;
 }
 
+.notification-list {
+    color: black;
+}
+
+.notification-list:hover {
+    color: black;
+}
+
+.notif_timestamp {
+    float: right;
+    color: #757575;
+    font-size: 0.75rem;
+}
+
+.unread {
+    background-color: #215dbf;
+    position: inherit;
+    top: initial;
+    padding: 4px;
+}
+
+.notification_read {
+    background-color: #dfdee482;
+}
+
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;
