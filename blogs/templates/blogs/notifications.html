@@ -2,13 +2,28 @@
 {% block content %}
 <div class="content-section">
     <div class="list-group">
-        <p class="list-group-item" style="text-align: center; font-size: 1.5rem; font-weight: 700; background-color: yellowgreen ;">Notifications</p>
-        {% for notif in notifications %}
-            {% if notif.category == 'follow' %}
-            <a id="{{ notif.id }}" href="{% url 'view_profile' notif.sender %}" class="list-group-item list-group-item-action notification-list">{{ notif.sender }} started following you</a>
-            {% elif notif.category == 'comment' %}
-            <a id="{{ notif.id }}"  href="{% url 'view_post' notif.post_id %}" class="list-group-item list-group-item-action notification-list">{{ notif.sender }} commented on your post</a>
-            {% endif %}
+        <p class="list-group-item"
+            style="text-align: center; font-size: 1.5rem; font-weight: 700; background-color: yellowgreen ;">
+            Notifications</p>
+        {% if notifications_count == 0 %}
+        <p class="list-group-item center" style="text-align: center; color: #a7a7a7;">All caught up! No New Notifications.</p>
+        {% endif %}
+        {% for notif in notifications %}    
+        {% if notif.category == 'follow' %}
+            <a id="{{ notif.id }}" href="{% url 'view_profile' notif.sender %}" class="list-group-item list-group-item-action notification-list">
+                {% if not notif.is_read %}
+                <span class="unread badge" title="Unread"> </span>
+                {% endif %}
+                {{ notif.sender }} started following you
+            <small class="notif_timestamp">{{ notif.notification_date|date:"F d, Y" }}</small></a>
+        {% elif notif.category == 'comment' %}
+            <a id="{{ notif.id }}" href="{% url 'view_post' notif.post_id %}" class="list-group-item list-group-item-action notification-list">
+                {% if not notif.is_read %}
+                <span class="unread badge" title="Unread"> </span>
+                {% endif %}
+                {{ notif.sender }} commented on your post
+            <small class="notif_timestamp">{{ notif.notification_date|date:"F d, Y" }}</small></a>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
