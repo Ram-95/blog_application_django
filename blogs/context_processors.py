@@ -8,4 +8,5 @@ def notifications_exist(request):
         status = False
     return {
         'status': status,
+        'notif_count': f,
     }
