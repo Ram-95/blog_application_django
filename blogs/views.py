@@ -70,7 +70,8 @@ class PostListView(ListView):
         # and show the colors appropriately.
         if self.request.user.is_authenticated:
             user = self.request.user
-            notification_exists = Notification.objects.filter(receiver=user).count()
+            notification_exists = Notification.objects.filter(
+                receiver=user, is_read=False).count()
             vote_qs = Likes_Table.objects.filter(user_id=user.id)
             votes = {}
             # Add the {post_id: like_status_id} of every vote by the current logged in user.
@@ -79,12 +80,10 @@ class PostListView(ListView):
             # Adding the votes dictionary to the context
             context['votes'] = votes
             context['notification_exists'] = notification_exists
-            #print(f'\n\nUser: {user}\n\nVotes: {votes}\n\n')
 
         # Merging the 'context' dictionary and 'blogs_list' dictionary and sending the context as response
         # to be used in the template
         context = {**context, **blogs_list}
-        # print(f'\n\n{context}')
         return context
 
 
@@ -140,7 +139,7 @@ class PostDetailView(DetailView):
         # Do NOT send any notification if a user has commented on his own post
         if post_author != self.request.user:
             n = Notification(sender=self.request.user, receiver=post_author,
-                            is_read=False, category='comment', post_id=post.pk)
+                             is_read=False, category='comment', post_id=post.pk)
             n.save()
         return self.get(self, request, *args, **kwargs)
 
@@ -364,27 +363,28 @@ def edit_comment(request):
         return HttpResponse('Request method is not POST')
 
 
+@csrf_exempt
 @login_required
 def notifications(request):
     if request.user.is_authenticated:
-        notifs = Notification.objects.filter(receiver=request.user, is_read=False).order_by('-notification_date')
+        notifs = Notification.objects.filter(
+            receiver=request.user, is_read=False).order_by('-notification_date')
         context = {
             'notifications': notifs,
         }
-        print(f'\n{notifs}\n')
+        # print(f'\n{notifs}\n')
     return render(request, 'blogs/notifications.html', context)
 
 
 @csrf_exempt
+@login_required
 def mark_notification_as_read(request):
     if request.user.is_authenticated:
         notif_id = request.POST['notif_id']
-        print(f'\n{notif_id}\n')
         n = Notification.objects.filter(id=notif_id).first()
         n.is_read = True
         n.save()
         return JsonResponse({'status': 'success'})
-
 
 
 ''' Function Based View - Index'''
