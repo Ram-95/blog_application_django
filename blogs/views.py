@@ -368,9 +368,10 @@ def edit_comment(request):
 def notifications(request):
     if request.user.is_authenticated:
         notifs = Notification.objects.filter(
-            receiver=request.user, is_read=False).order_by('-notification_date')
+            receiver=request.user).order_by('-notification_date')
         context = {
             'notifications': notifs,
+            'notifications_count': notifs.count(),
         }
         # print(f'\n{notifs}\n')
     return render(request, 'blogs/notifications.html', context)
