@@ -97,11 +97,13 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         blog = self.get_object()
         pk = blog.pk
-        # Logic to increment views
-        view_upd = Blog.objects.filter(pk=pk).first()
-        view_upd.views += 1
-        view_upd.save()
-
+        # Logic to increment views - If the author of post, views the post then the views are not incremented.
+        if self.request.user.is_authenticated:
+            if blog.author != self.request.user:
+                view_upd = Blog.objects.filter(pk=pk).first()
+                view_upd.views += 1
+                view_upd.save()
+        
         posts_liked = {}
         title = blog.title
         comments = Blog_comments.objects.filter(
@@ -134,7 +136,7 @@ class PostDetailView(DetailView):
                                     blogpost=self.get_object())
         new_comment.save()
         print('Comment Inserted.')
-        # Inserting the Notification into the Table
+        # Inserting the Notification details into the Table
         post = self.get_object()
         post_author = post.author
         # Do NOT send any notification if a user has commented on his own post
