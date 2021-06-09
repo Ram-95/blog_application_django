@@ -76,7 +76,7 @@
             <ul class="media-list" style="list-style-type: none;">
                 {% for comment in comments %}
                 <li class="media mb-2" id="{{ comment.pk }}" style="border-bottom: 1px solid gainsboro;">
-                    <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2" style="height: 50px; width: 50px">
+                    <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2 round_profile_pics">
                         <div class="media-body">
                             <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
                             <small class="text-muted date">| {{ comment.date_posted|date:"d F, Y" }}</small>
