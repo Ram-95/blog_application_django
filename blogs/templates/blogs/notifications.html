@@ -1,4 +1,5 @@
 {% extends "blogs/base.html" %}
+{% load dict_key %}
 {% block content %}
 <div class="content-section">
     <div class="list-group">
@@ -14,14 +15,14 @@
                 {% if not notif.is_read %}
                 <span class="unread badge" title="Unread"> </span>
                 {% endif %}
-                {{ notif.sender }} started following you
+                <img class="rounded-circle round_profile_pics" src="{{ profile_img_urls|dict_key:notif.sender }}"> {{ notif.sender }} started following you
             <small class="notif_timestamp">{{ notif.notification_date|date:"F d, Y" }}</small></a>
         {% elif notif.category == 'comment' %}
             <a id="{{ notif.id }}" href="{% url 'view_post' notif.post_id %}" class="list-group-item list-group-item-action notification-list">
                 {% if not notif.is_read %}
                 <span class="unread badge" title="Unread"> </span>
                 {% endif %}
-                {{ notif.sender }} commented on your post
+                <img class="rounded-circle round_profile_pics" src="{{ profile_img_urls|dict_key:notif.sender }}"> {{ notif.sender }} commented on your post
             <small class="notif_timestamp">{{ notif.notification_date|date:"F d, Y" }}</small></a>
         {% endif %}
         {% endfor %}

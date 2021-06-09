@@ -8,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, JsonResponse
 from .models import Blog, Likes_Table, Blog_comments, Notification
 from django.contrib.auth.models import User
+from users.models import Profile
 from django.db.models import Count
 from django.contrib import messages
 # Class based View - List, Detail, Create,Update, Delete
@@ -369,11 +370,17 @@ def notifications(request):
     if request.user.is_authenticated:
         notifs = Notification.objects.filter(
             receiver=request.user).order_by('-notification_date')
+        # Dictionary to store {sender: sender_profile_pic}. Used to show the profile pic of sender in notifications
+        profile_pics = {}
+        for n in notifs:
+            if n.sender not in profile_pics:
+                profile_pics[n.sender] = Profile.objects.filter(user=n.sender).first().profile_pic.url
         context = {
             'notifications': notifs,
             'notifications_count': notifs.count(),
+            'profile_img_urls': profile_pics,
         }
-        # print(f'\n{notifs}\n')
+        #print(f'\n{profile_pics}\n')
     return render(request, 'blogs/notifications.html', context)
 
 

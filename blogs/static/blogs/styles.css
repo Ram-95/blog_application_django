@@ -614,6 +614,11 @@ hr {
     background-color: #dfdee482;
 }
 
+.round_profile_pics {
+    height: 50px;
+    width: 50px;
+}
+
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
         font-size: 24px;
