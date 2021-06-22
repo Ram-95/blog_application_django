@@ -604,10 +604,7 @@ hr {
 }
 
 .unread {
-    background-color: #215dbf;
-    position: inherit;
-    top: initial;
-    padding: 4px;
+    border-left: 5px solid #215dbf;
 }
 
 .notification_read {
