@@ -370,19 +370,12 @@ def edit_comment(request):
 @login_required
 def notifications(request):
     if request.user.is_authenticated:
-        notifs = Notification.objects.filter(
-            receiver=request.user).order_by('-notification_date')
-        # Dictionary to store {sender: sender_profile_pic}. Used to show the profile pic of sender in notifications
-        profile_pics = {}
-        for n in notifs:
-            if n.sender not in profile_pics:
-                profile_pics[n.sender] = Profile.objects.filter(user=n.sender).first().profile_pic.url
-        context = {
-            'notifications': notifs,
-            'notifications_count': notifs.count(),
-            'profile_img_urls': profile_pics,
+        notifs = Notification.objects.get_notification_count(request.user)
+        context = {            
+            'notifications': notifs, 
+            'notifications_count': len(notifs),
         }
-        #print(f'\n{profile_pics}\n')
+        
     return render(request, 'blogs/notifications.html', context)
 
 
@@ -390,10 +383,12 @@ def notifications(request):
 @login_required
 def mark_notification_as_read(request):
     if request.user.is_authenticated:
-        notif_id = request.POST['notif_id']
-        n = Notification.objects.filter(id=notif_id).first()
-        n.is_read = True
-        n.save()
+        notif_id = request.POST['n_post_id']
+        if notif_id == -1:
+            n = Notification.objects.filter(receiver=request.user, is_read=False).update(is_read=True)
+        else:
+            n = Notification.objects.filter(post_id=notif_id, is_read=False).update(is_read=True)
+        
         return JsonResponse({'status': 'success'})
 
 
