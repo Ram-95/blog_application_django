@@ -3,8 +3,7 @@ from .models import Notification
 
 def notifications_exist(request):
     if request.user.is_authenticated:
-        f = Notification.objects.filter(
-            receiver=request.user, is_read=False).count()
+        f = len(Notification.objects.get_notification_count(request.user))
         status = True if f > 0 else False
         return {
             'status': status,
