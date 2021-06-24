@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models import Count
+from users.models import Profile
 
 
 class Blog(models.Model):
@@ -54,38 +55,38 @@ class Blog_comments(models.Model):
 class NotificationManager(models.Manager):
     def get_notification_count(self, user):
         # Gets the comments data grouped by (post_id, receiver, category) which are not read
-        comments_count = (Notification.objects.filter(is_read=False, category='comment', receiver=user).values(
+        notifs_count = (Notification.objects.filter(is_read=False, receiver=user).values(
             'receiver', 'category', 'post_id').annotate(dcount=Count('id')))
         
-        # Gets the follow data grouped by (receiver, category) which are not read
-        follow_count = (Notification.objects.filter(is_read=False, category='follow', receiver=user).values(
-            'receiver', 'category').annotate(dcount=Count('id')))
+        # List to store the required data as dictionary.
+        notif_data = list()
 
-        # List that stores the comments data - 'c_post_id', 'sender', 'count' as dictionary
-        comment_data = []
-        # List that stores the follow data - 'f_sender', 'f_count' as dictionary
-        follow_data = []
-        # Iterating over each comment item and getting a random sender who made that comment
-        if comments_count:
-            for item in comments_count:
-                c_post_id = item['post_id']
-                # Selecting the first sender who made this comment
-                c_sender = Notification.objects.filter(
-                    post_id=c_post_id, receiver=user).first().sender.username
-                c_count = item['dcount'] - 1
-                comment_data.append(
-                    {'c_post_id': c_post_id, 'sender': c_sender, 'count': c_count})
+        for item in notifs_count:
+            n_post_id = item['post_id']
+            n_count = item['dcount'] - 1
+            
+            # If Notification is of type 'follow'
+            if n_post_id == -1:
+                n_sender = Notification.objects.filter(
+                    receiver=user, category='follow', is_read=False).first().sender
+                n_timestamp = Notification.objects.filter(
+                    receiver=user, category='follow', is_read=False).first().notification_date
+            else:
+                n_sender = Notification.objects.filter(
+                    post_id=n_post_id, receiver=user, is_read=False).first().sender
+                n_timestamp = Notification.objects.filter(
+                    post_id=n_post_id, is_read=False).first().notification_date
+            n_profile_pic = Profile.objects.filter(user=n_sender).first().profile_pic.url
 
-        # Iterating over each follow item and getting a random sender follows the user
-        if follow_count:
-            for item in follow_count:
-                # Selecting the first sender who follows this user
-                f_sender = Notification.objects.filter(
-                    receiver=user, category='follow', is_read=False).first().sender.username
-                f_count = item['dcount'] - 1
-                follow_data.append({'f_sender': f_sender, 'f_count': f_count})
-
-        return (comment_data, follow_data)
+            # Appending the above data as dictionary to notif_data list
+            notif_data.append({'n_post_id': n_post_id, 'n_count': n_count, 'n_sender': n_sender.username,
+                               'n_timestamp': n_timestamp, 'n_profile_pic': n_profile_pic})
+        
+        # Sorting the list of dictionaries based on the timestamp in ascending order
+        notif_data.sort(key=lambda x: x['n_timestamp'], reverse=True)
+        
+        return notif_data
+        
 
 
 class Notification(models.Model):
