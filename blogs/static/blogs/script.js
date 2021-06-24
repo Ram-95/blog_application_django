@@ -204,6 +204,7 @@ $(document).ready(function () {
         });
     });
 
+
     $(document).on("click", ".notification-list", function () {
         n_id = $(this).attr('id');
         //alert(n_id);
@@ -212,7 +213,7 @@ $(document).ready(function () {
             url: '/mark_notification_as_read/',
             cache: false,
             data: {
-                notif_id: n_id,
+                n_post_id: n_id,
             },
             success: function () {
                 //alert('Marked as Read.');
