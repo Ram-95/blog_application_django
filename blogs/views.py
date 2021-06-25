@@ -1,3 +1,4 @@
+from users.views import profile
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import json
@@ -103,7 +104,7 @@ class PostDetailView(DetailView):
                 view_upd = Blog.objects.filter(pk=pk).first()
                 view_upd.views += 1
                 view_upd.save()
-        
+
         posts_liked = {}
         title = blog.title
         comments = Blog_comments.objects.filter(
@@ -370,12 +371,22 @@ def edit_comment(request):
 @login_required
 def notifications(request):
     if request.user.is_authenticated:
-        notifs = Notification.objects.get_notification_count(request.user)
-        context = {            
-            'notifications': notifs, 
-            'notifications_count': len(notifs),
+        unread_notifs = Notification.objects.get_notification_count(request.user)
+        read_notifs = Notification.objects.filter(
+            receiver=request.user, is_read=True).order_by('-notification_date')
+        profile_pics = {}
+        for i in read_notifs:
+            temp = Profile.objects.filter(user=i.sender).first().profile_pic.url
+            if i.sender not in profile_pics:
+                profile_pics[i.sender] = temp
+    
+        context = {
+            'unread_notifications': unread_notifs,
+            'notifications_count': len(unread_notifs),
+            'read_notifications': read_notifs,
+            'profile_imgs': profile_pics,
         }
-        
+
     return render(request, 'blogs/notifications.html', context)
 
 
@@ -385,10 +396,12 @@ def mark_notification_as_read(request):
     if request.user.is_authenticated:
         notif_id = request.POST['n_post_id']
         if notif_id == -1:
-            n = Notification.objects.filter(receiver=request.user, is_read=False).update(is_read=True)
+            n = Notification.objects.filter(
+                receiver=request.user, is_read=False).update(is_read=True)
         else:
-            n = Notification.objects.filter(post_id=notif_id, is_read=False).update(is_read=True)
-        
+            n = Notification.objects.filter(
+                post_id=notif_id, is_read=False).update(is_read=True)
+
         return JsonResponse({'status': 'success'})
 
 
