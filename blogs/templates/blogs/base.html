@@ -1,6 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
-
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,14 +56,45 @@
             <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                    <li class="nav-link">
-                        <a class="notification"  href="{% url 'notifications' %}">
-                            <span><i class="fas fa-globe-asia notification-icon"></i></span>
-                        
+                    <li class="nav-link" id="noti_container">
+                        <a class="notification_anchor" id="noti_Button" href="#">
+                            <i class="fas fa-globe-asia notification-icon"></i>
                             {% if status %}
-                                <span class="badge">{{ notif_count }}</span>
-                            {% endif %}
+                                    <span class="badge" id="noti_counter">{{ notif_count }}</span>
+                            {% endif %}  
                         </a>
+                        <!--THE NOTIFICATIONS DROPDOWN BOX.-->
+                        <div id="notifications">
+                            <h3>Notifications</h3>
+                            <div style="max-height:300px;" class="notification_icon_text">
+                                {% for notif in unread_notifs %}
+                                    {% if notif.n_post_id == -1 %}
+                                        <a href="{% url 'view_profile' notif.n_sender %}"
+                                            class="list-group-item unread list-group-item-action notification-list">
+                                        <!--<img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
+                                        {% if notif.n_count > 0 %}
+                                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> started following you</span>
+                                        {% else %}
+                                            <span><strong>{{ notif.n_sender }}</strong> started following you</span>
+                                        {% endif %}
+                                        <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+                                        </a>
+                                    {% else %}
+                                        <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
+                                            class="list-group-item unread list-group-item-action notification-list">
+                                        <!--img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
+                                        {% if notif.n_count > 0 %}
+                                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> commented on your post</span>
+                                        {% else %}
+                                            <span><strong>{{ notif.n_sender }}</strong> commented on your post</span>
+                                        {% endif %}
+                                        <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="seeAll"><a class="seeAll"  href="{% url 'notifications' %}">View All</a></div>
+                        </div>
                     </li>
                     <li class="nav-link">
                         <a href="{% url 'profile' %}" style="font-weight: 600;" title="{{ user.username }}"><img class="rounded-circle mr-2"
