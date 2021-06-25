@@ -608,13 +608,17 @@ hr {
     border-left: 5px solid #215dbf;
 }
 
-.notification_read {
+.read {
     background-color: #dfdee482;
 }
 
 .round_profile_pics {
     height: 50px;
     width: 50px;
+}
+
+.notifications_section {
+    font-size: 0.9rem;
 }
 
 @media only screen and (max-width: 820px) {
