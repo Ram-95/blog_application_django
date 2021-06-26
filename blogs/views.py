@@ -99,11 +99,11 @@ class PostDetailView(DetailView):
         blog = self.get_object()
         pk = blog.pk
         # Logic to increment views - If the author of post, views the post then the views are not incremented.
-        if self.request.user.is_authenticated:
-            if blog.author != self.request.user:
-                view_upd = Blog.objects.filter(pk=pk).first()
-                view_upd.views += 1
-                view_upd.save()
+        #if self.request.user.is_authenticated:
+        if blog.author != self.request.user:
+            view_upd = Blog.objects.filter(pk=pk).first()
+            view_upd.views += 1
+            view_upd.save()
 
         posts_liked = {}
         title = blog.title
