@@ -587,7 +587,7 @@ hr {
     font-size: 12px;
     font-weight: normal;
     padding: 1px 3px;
-    margin: -32px 0 0 38px;
+    margin: -45px 0 0 42px;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -626,20 +626,18 @@ hr {
     font-size: 0.9rem;
 }
 
-/***/
+/** Notifications pop up CSS **/
 
-/* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
-
-#noti_Container {
+#noti_container {
     position: relative;
 }
 
 #notifications {
     display: none;
-    width: 430px;
+    width: 420px;
     position: absolute;
-    top: 3.6rem;
-    left: 66.6%;
+    top: 2.8rem;
+    right: -11rem;
     background: #FFF;
     border: solid 1px rgba(100, 100, 100, .20);
     padding: 0 3px;
@@ -657,8 +655,9 @@ hr {
     color: transparent;
     border: 10px solid #CCC;
     border-color: transparent transparent #FFF;
-    margin-top: -20px;
-    margin-left: 13rem;
+    margin-top: -17px;
+    margin-left: 12.25rem;
+    z-index: 0;
 }
 
 .seeAll {
@@ -701,6 +700,20 @@ hr {
     color: black;
 }
 
+.form-inline>div:not(:last-child) {
+    margin-right: 2.5rem;
+}
+
+.nav_icons {
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.nav_icons:hover {
+    color: rgb(18, 155, 155);
+    background-color: whitesmoke;
+    border-radius: 50%;
+}
 
 /*****/
 
@@ -753,5 +766,28 @@ hr {
     .badge {
         top: auto;
         right: -2px;
+    }
+    .form-inline>div:not(:last-child) {
+        margin-right: 0.1rem;
+    }
+    
+    #notifications {
+        width: 320px;
+        right: -8rem;
+        font-size: 13px;
+    }
+
+    #notifications::before {
+        margin-left: 9.25rem;
+    }
+    .nav_icons {
+        font-size: 1.5rem;
+    }
+    .badge {
+        margin: -40px 6px 0 0;
+    }
+    .notif_timestamp {
+        margin-top: 0;
+        font-size: 10px;
     }
 }
