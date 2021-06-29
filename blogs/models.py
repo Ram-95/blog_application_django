@@ -55,38 +55,50 @@ class Blog_comments(models.Model):
 class NotificationManager(models.Manager):
     def get_notification_count(self, user):
         # Gets the comments data grouped by (post_id, receiver, category) which are not read
-        notifs_count = (Notification.objects.filter(is_read=False, receiver=user).values(
-            'receiver', 'category', 'post_id').annotate(dcount=Count('id')))
-        
+        #notifs_count = (Notification.objects.filter(is_read=False, receiver=user).values('receiver', 'category', 'post_id').annotate(dcount=Count('id')))
+        notifs_count = Notification.objects.filter(
+            is_read=False, receiver=user).order_by('-notification_date')
+
         # List to store the required data as dictionary.
         notif_data = list()
 
         for item in notifs_count:
-            n_post_id = item['post_id']
-            n_count = item['dcount'] - 1
-            
-            # If Notification is of type 'follow'
-            if n_post_id == -1:
-                n_sender = Notification.objects.filter(
-                    receiver=user, category='follow', is_read=False).first().sender
-                n_timestamp = Notification.objects.filter(
-                    receiver=user, category='follow', is_read=False).first().notification_date
-            else:
-                n_sender = Notification.objects.filter(
-                    post_id=n_post_id, receiver=user, is_read=False).first().sender
-                n_timestamp = Notification.objects.filter(
-                    post_id=n_post_id, is_read=False).first().notification_date
-            n_profile_pic = Profile.objects.filter(user=n_sender).first().profile_pic.url
+            n_post_id = item.post_id
+            n_count = item.n_count
+            n_sender = item.sender
+            n_timestamp = item.notification_date
+            n_profile_pic = Profile.objects.filter(
+                user=n_sender).first().profile_pic.url
 
             # Appending the above data as dictionary to notif_data list
             notif_data.append({'n_post_id': n_post_id, 'n_count': n_count, 'n_sender': n_sender.username,
                                'n_timestamp': n_timestamp, 'n_profile_pic': n_profile_pic})
-        
-        # Sorting the list of dictionaries based on the timestamp in ascending order
-        notif_data.sort(key=lambda x: x['n_timestamp'], reverse=True)
-        
+
         return notif_data
-        
+
+    def add_notification(self, sender, receiver, category, post_id):
+        existing = Notification.objects.filter(
+            receiver=receiver, category=category, is_read=False, post_id=post_id)
+        if existing.exists():
+            upd_existing = existing.first()
+            upd_existing.sender = sender
+            upd_existing.notification_date = timezone.now()
+            upd_existing.n_count += 1
+            upd_existing.save()
+        else:
+            new_notif = Notification(
+                sender=sender, receiver=receiver, is_read=False, category=category, post_id=post_id)
+            new_notif.save()
+
+    def remove_notification(self, sender, receiver, category, post_id):
+        notif = Notification.objects.filter(
+            receiver=receiver, category=category, post_id=post_id, is_read=False).first()
+        if notif:
+            if notif.n_count == 0:
+                notif.delete()
+            else:
+                notif.n_count -= 1
+                notif.save()
 
 
 class Notification(models.Model):
@@ -98,7 +110,8 @@ class Notification(models.Model):
     category = models.CharField(max_length=10)
     notification_date = models.DateTimeField(default=timezone.now)
     post_id = models.IntegerField(default=-1)
+    n_count = models.PositiveIntegerField(default=0)
     objects = NotificationManager()
 
     def __str__(self):
-        return f'From: {str(self.sender)} | To: {str(self.receiver)} | Category: {str(self.category)}'
+        return f'From: {str(self.sender)} | To: {str(self.receiver)} | Category: {str(self.category)} | Count: {str(self.n_count)}'
