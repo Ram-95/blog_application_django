@@ -641,7 +641,6 @@ hr {
     background: #FFF;
     border: solid 1px rgba(100, 100, 100, .20);
     padding: 0 3px;
-    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .20);
     z-index: 1;
 }
 
