@@ -142,9 +142,8 @@ class PostDetailView(DetailView):
         post_author = post.author
         # Do NOT send any notification if a user has commented on his own post
         if post_author != self.request.user:
-            n = Notification(sender=self.request.user, receiver=post_author,
-                             is_read=False, category='comment', post_id=post.pk)
-            n.save()
+            Notification.objects.add_notification(self.request.user, post_author, 'comment', post.pk)
+    
         return self.get(self, request, *args, **kwargs)
 
 
@@ -395,12 +394,7 @@ def notifications(request):
 def mark_notification_as_read(request):
     if request.user.is_authenticated:
         notif_id = request.POST['n_post_id']
-        if notif_id == -1:
-            n = Notification.objects.filter(
-                receiver=request.user, is_read=False).update(is_read=True)
-        else:
-            n = Notification.objects.filter(
-                post_id=notif_id, is_read=False).update(is_read=True)
+        Notification.objects.filter(receiver= request.user, post_id=notif_id, is_read=False).update(is_read=True)
 
         return JsonResponse({'status': 'success'})
 

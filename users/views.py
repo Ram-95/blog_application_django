@@ -134,9 +134,10 @@ def follow(request):
         f = Followers(user=profile, followers=follower)
         f.save()
         # Inserting the record into the Notification table
-        n = Notification(sender=request.user, receiver=User.objects.filter(
-            username=request.POST['username']).first(), is_read=False, category='follow')
-        n.save()
+        receiver = User.objects.filter(username=request.POST['username']).first()
+        Notification.objects.add_notification(request.user, receiver, 'follow', -1)
+        #n = Notification(sender=request.user, receiver=User.objects.filter(username=request.POST['username']).first(), is_read=False, category='follow')
+        #n.save()
         #print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
@@ -155,8 +156,12 @@ def unfollow(request):
         Followers.objects.filter(user=profile, followers=follower).delete()
         #print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
         # Deleting the record from Notification table when a exising follower unfollows
+        receiver=User.objects.filter(username=request.POST['username']).first()
+        Notification.objects.remove_notification(request.user, receiver, 'follow', -1)
+        '''
         Notification.objects.filter(sender=request.user, receiver=User.objects.filter(
             username=request.POST['username']).first(), category='follow').delete()
+        '''
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')
