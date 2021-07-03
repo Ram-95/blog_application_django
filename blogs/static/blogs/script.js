@@ -203,4 +203,43 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    $(document).on("click", ".notification-list", function () {
+        n_id = $(this).attr('id');
+        //alert(n_id);
+        $.ajax({
+            type: 'POST',
+            url: '/mark_notification_as_read/',
+            cache: false,
+            data: {
+                n_post_id: n_id,
+            },
+            success: function () {
+                //alert('Marked as Read.');
+            }
+        });
+    });
+
+    $('#noti_Button').click(function () {
+        // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+        $('#notifications').fadeToggle('fast', 'linear', function () {
+            if ($('#notifications').is(':hidden')) {
+            }
+        });
+
+        $('#noti_counter').fadeOut('slow');     // HIDE THE COUNTER.
+
+        return false;
+    });
+
+    // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+    $(document).click(function () {
+        $('#notifications').hide();
+    });
+
+    /*
+    $('#notifications').click(function () {
+        return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+    });*/
 });

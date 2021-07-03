@@ -1,0 +1,60 @@
+{% extends "blogs/base.html" %}
+{% load dict_key %}
+{% load humanize %}
+{% block content %}
+<div class="content-section">
+    <div class="list-group notifications_section">
+        <p class="list-group-item"
+            style="text-align: center; font-size: 1.5rem; font-weight: 700; background-color: yellowgreen ;">
+            Notifications</p>
+        {% for notif in unread_notifications %}
+            {% if notif.n_post_id == -1 %}
+                <a id="{{ notif.n_post_id }}" href="{% url 'view_profile' notif.n_sender %}"
+                    class="list-group-item unread list-group-item-action notification-list">
+                <img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">
+                {% if notif.n_count > 0 %}
+                    <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> started following you</span>
+                {% else %}
+                    <span><strong>{{ notif.n_sender }}</strong> started following you</span>
+                {% endif %}
+                <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+            {% else %}
+                <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
+                    class="list-group-item unread list-group-item-action notification-list">
+                <img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">
+                {% if notif.n_count > 0 %}
+                    <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> commented on your post</span>
+                {% else %}
+                    <span><strong>{{ notif.n_sender }}</strong> commented on your post</span>
+                {% endif %}
+                <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+            </a>
+            {% endif %}
+            
+        {% endfor %}
+        {% for notif in read_notifications %}
+                {% if notif.category == 'follow' %}
+                    <a id="{{ notif.post_id }}" href="{% url 'view_profile' notif.sender %}"
+                        class="list-group-item read list-group-item-action notification-list">
+                    <img class="rounded-circle round_profile_pics mr-2" src="{{ profile_imgs|dict_key:notif.sender }}">
+                    {% if notif.n_count > 0 %}
+                        <span><strong>{{ notif.sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> started following you</span>
+                    {% else %}
+                        <span><strong>{{ notif.sender }}</strong> started following you</span>
+                    {% endif %}
+                {% else %}
+                <a id="{{ notif.post_id }}" href="{% url 'view_post' notif.post_id %}"
+                    class="list-group-item read list-group-item-action notification-list">
+                <img class="rounded-circle round_profile_pics mr-2" src="{{ profile_imgs|dict_key:notif.sender }}">
+                    {% if notif.n_count > 0 %}
+                        <span><strong>{{ notif.sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> commented on your post</span>
+                    {% else %}
+                        <span><strong>{{ notif.sender }}</strong> commented on your post</span>
+                    {% endif %}
+                {% endif %}
+                <small class="notif_timestamp">{{ notif.notification_date|naturaltime }}</small>
+                </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

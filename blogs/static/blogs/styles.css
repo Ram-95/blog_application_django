@@ -571,23 +571,150 @@ hr {
     color: white;
 }
 
-.notification {
+.notification_anchor {
     color: white;
     text-decoration: none;
     position: relative;
-    display: inline-block;
+    display: inline;
     cursor: pointer;
-  }
-  
+}
 
 .badge {
+    display: block;
     position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    border-radius: 50%;
-    background-color: red;
+    background: #E1141E;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 1px 3px;
+    margin: -45px 0 0 42px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    z-index: 1;
 }
+
+.notification-list {
+    color: black;
+}
+
+.notification-list:hover {
+    color: black;
+}
+
+.notif_timestamp {
+    float: right;
+    color: #757575;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+}
+
+.unread {
+    border-left: 5px solid #215dbf;
+}
+
+.read {
+    background-color: #dfdee482;
+}
+
+.round_profile_pics {
+    height: 50px;
+    width: 50px;
+}
+
+.notifications_section {
+    font-size: 0.9rem;
+}
+
+/** Notifications pop up CSS **/
+
+#noti_container {
+    position: relative;
+}
+
+#notifications {
+    display: none;
+    width: 420px;
+    position: absolute;
+    top: 2.8rem;
+    right: -11rem;
+    background: #FFF;
+    border: solid 1px rgba(100, 100, 100, .20);
+    padding: 0 3px;
+    z-index: 1;
+}
+
+/* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+
+#notifications:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    color: transparent;
+    border: 10px solid #CCC;
+    border-color: transparent transparent #FFF;
+    margin-top: -17px;
+    margin-left: 12.25rem;
+    z-index: 0;
+}
+
+.seeAll {
+    background: #F6F7F8;
+    padding: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-top: solid 1px rgba(100, 100, 100, .30);
+    text-align: center;
+}
+
+.seeAll a {
+    color: #3b5998;
+}
+
+.seeAll a:hover {
+    background: #F6F7F8;
+    color: #3b5998;
+    text-decoration: underline;
+}
+
+#notifications>h3 {
+    display: block;
+    color: #333;
+    background: #FFF;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px;
+    margin: 0;
+    border-bottom: solid 1px rgba(100, 100, 100, .30);
+}
+
+.notification_icon_text {
+    font-size: 14px;
+}
+
+.notification_icon_text>a {
+    margin-left: 0;
+    color: black;
+}
+
+.form-inline>div:not(:last-child) {
+    margin-right: 2.5rem;
+}
+
+.nav_icons {
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.nav_icons:hover {
+    color: rgb(18, 155, 155);
+    background-color: whitesmoke;
+    border-radius: 50%;
+}
+
+/*****/
 
 @media only screen and (max-width: 820px) {
     .profile_pane h2 {
@@ -634,5 +761,32 @@ hr {
     .new_post {
         right: 2rem;
         bottom: 2rem;
+    }
+    .badge {
+        top: auto;
+        right: -2px;
+    }
+    .form-inline>div:not(:last-child) {
+        margin-right: 0.1rem;
+    }
+    
+    #notifications {
+        width: 320px;
+        right: -8rem;
+        font-size: 13px;
+    }
+
+    #notifications::before {
+        margin-left: 9.25rem;
+    }
+    .nav_icons {
+        font-size: 1.5rem;
+    }
+    .badge {
+        margin: -40px 6px 0 0;
+    }
+    .notif_timestamp {
+        margin-top: 0;
+        font-size: 10px;
     }
 }

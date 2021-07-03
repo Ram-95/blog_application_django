@@ -4,7 +4,7 @@ from django.views.generic import UpdateView
 from .models import Profile, Followers
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from blogs.models import Blog
+from blogs.models import Blog, Notification
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -78,7 +78,7 @@ def view_profile(request, username):
     #profile = Profile.objects.filter(user=request.user).first()
     f = Followers.objects.filter(followers=curr_profile)
     followers = set()
-    #print(f'\n{f}\n')
+    # print(f'\n{f}\n')
     for i in f:
         followers.add(i.user.user.username)
     print(f'\nUsers Following {user}: {followers}\n')
@@ -108,7 +108,8 @@ def view_followers(request, username):
     g = Followers.objects.filter(user=user)
     #print(f'\nfollowers in view_followers: {user} -> {f}\n')
     #print(f'\nFollowing: {g}\n')
-    curr_profile = Profile.objects.filter(user=get_object_or_404(User, username=username)).first()
+    curr_profile = Profile.objects.filter(
+        user=get_object_or_404(User, username=username)).first()
     no_of_following = Followers.objects.filter(user=curr_profile).count()
     no_of_followers = Followers.objects.filter(followers=curr_profile).count()
     context = {
@@ -126,10 +127,17 @@ def view_followers(request, username):
 def follow(request):
     '''Code to follow a User. Creates a record in Followers table.'''
     if request.method == 'POST':
-        profile = Profile.objects.filter(user=User.objects.filter(username=request.user).first()).first()
-        follower = Profile.objects.filter(user=User.objects.filter(username=request.POST['username']).first()).first()
+        profile = Profile.objects.filter(
+            user=User.objects.filter(username=request.user).first()).first()
+        follower = Profile.objects.filter(user=User.objects.filter(
+            username=request.POST['username']).first()).first()
         f = Followers(user=profile, followers=follower)
         f.save()
+        # Inserting the record into the Notification table
+        receiver = User.objects.filter(username=request.POST['username']).first()
+        Notification.objects.add_notification(request.user, receiver, 'follow', -1)
+        #n = Notification(sender=request.user, receiver=User.objects.filter(username=request.POST['username']).first(), is_read=False, category='follow')
+        #n.save()
         #print(f'\nCreated:\nUser: {req_user.username}\nFollowing: {follower}\n')
         return JsonResponse({'status': 'success'})
     else:
@@ -141,11 +149,19 @@ def follow(request):
 def unfollow(request):
     '''Code to unfollow a User. Deletes a record in Followers table.'''
     if request.method == 'POST':
-        profile = Profile.objects.filter(user=User.objects.filter(username=request.user).first()).first()
-        follower = Profile.objects.filter(user=User.objects.filter(username=request.POST['username']).first()).first()
-        f = Followers.objects.filter(
-            user=profile, followers=follower).delete()
+        profile = Profile.objects.filter(
+            user=User.objects.filter(username=request.user).first()).first()
+        follower = Profile.objects.filter(user=User.objects.filter(
+            username=request.POST['username']).first()).first()
+        Followers.objects.filter(user=profile, followers=follower).delete()
         #print(f'\nDeleted:\nUser: {req_user.username}\nFollower: {follower}\n')
+        # Deleting the record from Notification table when a exising follower unfollows
+        receiver=User.objects.filter(username=request.POST['username']).first()
+        Notification.objects.remove_notification(request.user, receiver, 'follow', -1)
+        '''
+        Notification.objects.filter(sender=request.user, receiver=User.objects.filter(
+            username=request.POST['username']).first(), category='follow').delete()
+        '''
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('Request method is not POST.')

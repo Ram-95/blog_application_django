@@ -1,3 +1,4 @@
+from users.views import profile
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import json
@@ -6,8 +7,9 @@ from .forms import CommentForm
 # To use messages in Class based views - Use SuccessMessageMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, JsonResponse
-from .models import Blog, Likes_Table, Blog_comments
+from .models import Blog, Likes_Table, Blog_comments, Notification
 from django.contrib.auth.models import User
+from users.models import Profile
 from django.db.models import Count
 from django.contrib import messages
 # Class based View - List, Detail, Create,Update, Delete
@@ -18,36 +20,37 @@ from django.contrib.auth.decorators import login_required
 
 
 ''' Class Based View - ListView'''
+
+
 class PostListView(ListView):
     model = Blog
     template_name = 'blogs/index.html'
     # Will display 4 posts on a page.
     paginate_by = 4
     ordering = ['-publish_date']
-    
+
     def get_context_data(self, **kwargs):
         # This function is used to add extra details to context.
         # Fetching the context details of the PostListView class
         # will have the queryset - object_list and pagination details like - paginator, page_obj, is_paginated
         blogs_list = super().get_context_data(**kwargs)
-        #print(blogs_list)
+        # print(blogs_list)
         # Adding the extra data that we'd like to store in context
         # context['now'] = timezone.now()
         # Gets the top 5 visited/Liked posts
-        # NOTE: 
+        # NOTE:
         # blogs_list_top5 = blogs_list['object_list'].order_by('-likes')[:5] will also work provided paginate_by
         # is NOT set
         blogs_list_top5 = Blog.objects.order_by('-likes')[:5]
         blogs_list_top_viewed = Blog.objects.order_by('-views')[:5]
-        
 
         # Gets the top 5 authors/contributors
-        # NOTE: 
+        # NOTE:
         # top_authors = Blog.objects.all().values('author').annotate(
         #    total=Count('author')).order_by('-total')[:5] will also work provided paginate_by is NOT set
         top_authors = Blog.objects.all().values('author').annotate(
             total=Count('author')).order_by('-total')[:5]
-        
+
         # List to store the top 5 authors usernames
         authors_list = []
 
@@ -69,6 +72,8 @@ class PostListView(ListView):
         # and show the colors appropriately.
         if self.request.user.is_authenticated:
             user = self.request.user
+            notification_exists = Notification.objects.filter(
+                receiver=user, is_read=False).count()
             vote_qs = Likes_Table.objects.filter(user_id=user.id)
             votes = {}
             # Add the {post_id: like_status_id} of every vote by the current logged in user.
@@ -76,15 +81,12 @@ class PostListView(ListView):
                 votes[i.post_id.id] = i.like_status_id
             # Adding the votes dictionary to the context
             context['votes'] = votes
-            #print(f'\n\nUser: {user}\n\nVotes: {votes}\n\n')
-        
+            context['notification_exists'] = notification_exists
+
         # Merging the 'context' dictionary and 'blogs_list' dictionary and sending the context as response
         # to be used in the template
         context = {**context, **blogs_list}
-        # print(f'\n\n{context}')
         return context
-    
-    
 
 
 class PostDetailView(DetailView):
@@ -96,11 +98,13 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         blog = self.get_object()
         pk = blog.pk
-        # Logic to increment views
-        view_upd = Blog.objects.filter(pk=pk).first()
-        view_upd.views += 1
-        view_upd.save()
-        
+        # Logic to increment views - If the author of post, views the post then the views are not incremented.
+        #if self.request.user.is_authenticated:
+        if blog.author != self.request.user:
+            view_upd = Blog.objects.filter(pk=pk).first()
+            view_upd.views += 1
+            view_upd.save()
+
         posts_liked = {}
         title = blog.title
         comments = Blog_comments.objects.filter(
@@ -133,12 +137,18 @@ class PostDetailView(DetailView):
                                     blogpost=self.get_object())
         new_comment.save()
         print('Comment Inserted.')
+        # Inserting the Notification details into the Table
+        post = self.get_object()
+        post_author = post.author
+        # Do NOT send any notification if a user has commented on his own post
+        if post_author != self.request.user:
+            Notification.objects.add_notification(self.request.user, post_author, 'comment', post.pk)
+    
         return self.get(self, request, *args, **kwargs)
 
 
-
-# Class Based View to create a post - The HTML file it takes is <app>/<model>_form.html. 
-# Can be overriden by "template_name" variable. Eg. template_name = 'file.html' 
+# Class Based View to create a post - The HTML file it takes is <app>/<model>_form.html.
+# Can be overriden by "template_name" variable. Eg. template_name = 'file.html'
 class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Blog
     fields = ['title', 'description', 'image']
@@ -249,7 +259,8 @@ def vote_up(request):
 
             if posts_liked.get(post.pk, None) is False:
                 # If post is already downvoted, then increment the counter and mark like_status as True
-                lt_post = Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).first()
+                lt_post = Likes_Table.objects.filter(
+                    user_id=request.user, post_id=post.pk).first()
                 lt_post.like_status_id = True
                 lt_post.save()
                 post.likes += 1
@@ -292,7 +303,8 @@ def vote_down(request):
 
             if posts_unliked.get(post.pk, None) is True:
                 # If post is already upvoted, then decrement the counter and mark like_status as False
-                lt_post = Likes_Table.objects.filter(user_id=request.user, post_id=post.pk).first()
+                lt_post = Likes_Table.objects.filter(
+                    user_id=request.user, post_id=post.pk).first()
                 lt_post.like_status_id = False
                 lt_post.save()
                 post.likes -= 1
@@ -339,7 +351,6 @@ def refresh_comments(request):
         return HttpResponse('Request method is not GET')
 
 
-
 @csrf_exempt
 def edit_comment(request):
     if request.user.is_authenticated and request.method == 'POST':
@@ -353,6 +364,39 @@ def edit_comment(request):
         return HttpResponse('success')
     else:
         return HttpResponse('Request method is not POST')
+
+
+@csrf_exempt
+@login_required
+def notifications(request):
+    if request.user.is_authenticated:
+        unread_notifs = Notification.objects.get_notification_count(request.user)
+        read_notifs = Notification.objects.filter(
+            receiver=request.user, is_read=True).order_by('-notification_date')
+        profile_pics = {}
+        for i in read_notifs:
+            temp = Profile.objects.filter(user=i.sender).first().profile_pic.url
+            if i.sender not in profile_pics:
+                profile_pics[i.sender] = temp
+    
+        context = {
+            'unread_notifications': unread_notifs,
+            'notifications_count': len(unread_notifs),
+            'read_notifications': read_notifs,
+            'profile_imgs': profile_pics,
+        }
+
+    return render(request, 'blogs/notifications.html', context)
+
+
+@csrf_exempt
+@login_required
+def mark_notification_as_read(request):
+    if request.user.is_authenticated:
+        notif_id = request.POST['n_post_id']
+        Notification.objects.filter(receiver= request.user, post_id=notif_id, is_read=False).update(is_read=True)
+
+        return JsonResponse({'status': 'success'})
 
 
 ''' Function Based View - Index'''

@@ -26,7 +26,7 @@ SECRET_KEY = 'nb#)47941bw)%y4ru@di1ux8+=ah9p3v%m5b)&av+ew^c$-uh)'
 DEBUG = True
 
 # To check the site on Mobile and localhost
-ALLOWED_HOSTS = ['192.168.0.150', 'localhost']
+ALLOWED_HOSTS = ['192.168.29.48', 'localhost']
 #ALLOWED_HOSTS = []
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blogs.context_processors.notifications_exist',
             ],
             'libraries':  {
                 'dict_key': 'blogs.templatetags.dict_key',

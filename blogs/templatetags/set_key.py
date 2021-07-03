@@ -7,7 +7,7 @@ So writing our own template function to achieve this.
 - This file should reside in a directory called 'templatetags' along with '__init__.py'
 Reference: https://docs.djangoproject.com/en/dev/howto/custom-template-tags/
 
-To Use this filter: {{ <dictionary_name|dict_key:<key to search> }}
+To Use this filter: {{ <set_name|set_key:<key to search> }}
 """
 
 @register.filter(name='set_key')

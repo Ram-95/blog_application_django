@@ -14,4 +14,6 @@ urlpatterns = [
     path('refresh_comments/', views.refresh_comments, name="refresh_comments"),
     path('vote_up/', views.vote_up, name="vote_up"),
     path('vote_down/', views.vote_down, name="vote_down"),
+    path('notifications/', views.notifications, name="notifications"),
+    path('mark_notification_as_read/', views.mark_notification_as_read, name="mark_notification_as_read"),
 ]
