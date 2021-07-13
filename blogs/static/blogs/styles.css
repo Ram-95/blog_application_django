@@ -741,9 +741,12 @@ hr {
 
 .modal-content {
     margin: auto;
+    object-fit: contain;
     display: block;
     width: auto;
     max-width: 700px;
+    height: auto;
+    max-height: 800px;
 }
 
 .modal-content {
@@ -778,7 +781,8 @@ hr {
 
 @media only screen and (max-width: 700px) {
     .modal-content {
-        width: 100%;
+        width: 90%;
+        height: auto;
     }
 }
 
