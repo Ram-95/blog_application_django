@@ -78,8 +78,8 @@
         <div class="pagination row">
         {% if is_paginated %}
             {% if page_obj.has_previous %}
-                <a href="?page=1" class="btn btn-outline-info mb-4">First</a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-success mb-4">Previous</a>
+                <a href="?page=1" class="btn btn-outline-info mb-4" title="First"><i class="fas fa-fast-backward"></i></a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-success mb-4" title="Previous"><i class="fas fa-chevron-left"></i></a>
             {% endif %}
             {% for num in page_obj.paginator.page_range %}
                 {% if page_obj.number == num %}
@@ -89,8 +89,8 @@
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success mb-4">Next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">Last</a>
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success mb-4" title="Next"><i class="fas fa-chevron-right"></i></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4" title="Last"><i class="fas fa-fast-forward"></i></a>
             {% endif %}
         {% endif %}
         </div>
