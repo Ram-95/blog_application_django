@@ -21,7 +21,7 @@
                     <li class="media p-2 mt-2">
                         <img src="{{ i.user.user.profile.profile_pic.url }}" alt="profile_pic"
                             class="rounded-circle mr-2" style="height: 50px; width: 50px">
-                        <a href="{% url 'view_profile' i.user.user %}" class="media-body m-auto">
+                        <a href="{% url 'profile' i.user.user %}" class="media-body m-auto">
                             <p class="mb-1">{{ i.user.user }}</p>
                         </a>
                     </li>
@@ -34,7 +34,7 @@
                     <li class="media p-2 mt-2" style="border-bottom: 1px solid gainsboro;">
                         <img src="{{ i.followers.user.profile.profile_pic.url }}" alt="profile_pic"
                             class="rounded-circle mr-2" style="height: 50px; width: 50px">
-                        <a href="{% url 'view_profile' i.followers.user %}" class="media-body m-auto">
+                        <a href="{% url 'profile' i.followers.user %}" class="media-body m-auto">
                             <p class="mb-1">{{ i.followers.user }}</p>
                         </a>
                     </li>

@@ -13,6 +13,10 @@
                 {% else %}
                     <button class="following-btn follow"><i class="fas fa-check-circle"></i>&nbsp;Following</button>
                 {% endif %}
+            {% else %}
+            <small>{{ user.email }}</small>
+            <br>
+            <a href="{% url 'update_profile' %}"><small>Edit Profile</small></a>
             {% endif %}
             <div class="followers_section mt-2" title="View connections">
                 <a class="view_followers" href="{% url 'view_followers' curr_user %}"><small><i class="fas fa-users"></i>&nbsp;<b>{{ no_of_followers }}</b> follower{{ no_of_followers|pluralize }}</small>&nbsp;<small>| <b>{{ no_of_following }}</b>
