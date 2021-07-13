@@ -36,7 +36,7 @@
             </div>
             <div class="post_header" style="flex: 2;">
                 <h2 class="post_header_h2">{{ blog.title }}</h2>
-                <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
+                <a href="{% url 'profile' blog.author %}" style="text-decoration: none;"><small
                         style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
                 <small class="date">{{ blog.publish_date|date:"F d, Y" }}</small>
             </div>
@@ -78,7 +78,7 @@
                 <li class="media mb-2" id="{{ comment.pk }}" style="border-bottom: 1px solid gainsboro;">
                     <img src="{{ comment.author.profile.profile_pic.url }}" alt="" class="rounded-circle mr-2 round_profile_pics">
                         <div class="media-body">
-                            <a href="{% url 'view_profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
+                            <a href="{% url 'profile' comment.author %}"><strong class="text-info">{{ comment.author }} </strong></a>
                             <small class="text-muted date">| {{ comment.date_posted|date:"d F, Y" }}</small>
                             {% if comment.author == user %}
                             <span class="edit_delete" style="float: right;">

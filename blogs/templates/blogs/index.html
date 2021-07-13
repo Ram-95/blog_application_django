@@ -41,7 +41,7 @@
                     <a class="blog_title_index" href="{% url 'view_post' blog.id %}">
                         <h2 class="post_header_h2" title="View Post">{{ blog.title }}</h2>
                     </a>
-                    <a href="{% url 'view_profile' blog.author %}" style="text-decoration: none;"><small
+                    <a href="{% url 'profile' blog.author %}" style="text-decoration: none;"><small
                             style="margin-right: 5px; font-size: 12px; font-weight: bold;">{{ blog.author }}</small></a>| 
                     
                     <small class="date">{{ blog.publish_date|date:"F d, Y" }}</small>
@@ -111,7 +111,7 @@
             <p>Top Bloggers</p>
             
                 {% for item in top_authors %}
-                <li><a href="{% url 'view_profile' item %}">{{ item }}</a></li>
+                <li><a href="{% url 'profile' item %}">{{ item }}</a></li>
                 {% endfor %}
             </ul>
             

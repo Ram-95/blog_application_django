@@ -61,7 +61,7 @@
                         <div style="max-height:300px;" class="notification_icon_text">
                             {% for notif in unread_notifs %}
                                 {% if notif.n_post_id == -1 %}
-                                    <a id="{{ notif.n_post_id }}" href="{% url 'view_profile' notif.n_sender %}"
+                                    <a id="{{ notif.n_post_id }}" href="{% url 'profile' notif.n_sender %}"
                                         class="list-group-item unread list-group-item-action notification-list">
                                     <!--<img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
                                     {% if notif.n_count > 0 %}
@@ -88,7 +88,7 @@
                         <div class="seeAll"><a class="seeAll"  href="{% url 'notifications' %}">View All</a></div>
                     </div>
                 </div>
-                <div><a href="{% url 'profile' %}" title="Profile"><i class="fas fa-user nav_icons"></i></a></div>
+                <div><a href="{% url 'profile' user.username %}" title="Profile"><i class="fas fa-user nav_icons"></i></a></div>
                 <div><a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt nav_icons"></i></a></div>
             {% else %}
             <div><a href="{% url 'login' %}">Login</a></div>
@@ -96,79 +96,6 @@
             {% endif %}
         </div>
     </nav>
-    
-    <!--
-        <nav class="navbar navbar-expand-md">
-            <a class="logo" href="{% url 'index' %}">
-                <h1>Blog App</h1>
-            </a>
-            
-            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <li class="nav-link" id="noti_container">
-                        <a class="notification_anchor" id="noti_Button" href="#">
-                            <i class="fas fa-globe-asia notification-icon"></i>
-                            {% if status %}
-                                    <span class="badge" id="noti_counter">{{ notif_count }}</span>
-                            {% endif %}  
-                        </a>
-                        
-                        <div id="notifications">
-                            <h3>Notifications</h3>
-                            <div style="max-height:300px;" class="notification_icon_text">
-                                {% for notif in unread_notifs %}
-                                    {% if notif.n_post_id == -1 %}
-                                        <a href="{% url 'view_profile' notif.n_sender %}"
-                                            class="list-group-item unread list-group-item-action notification-list">
-                                        <img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">
-                                        {% if notif.n_count > 0 %}
-                                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> started following you</span>
-                                        {% else %}
-                                            <span><strong>{{ notif.n_sender }}</strong> started following you</span>
-                                        {% endif %}
-                                        <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
-                                        </a>
-                                    {% else %}
-                                        <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
-                                            class="list-group-item unread list-group-item-action notification-list">
-                                        
-                                        {% if notif.n_count > 0 %}
-                                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> commented on your post</span>
-                                        {% else %}
-                                            <span><strong>{{ notif.n_sender }}</strong> commented on your post</span>
-                                        {% endif %}
-                                        <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="seeAll"><a class="seeAll"  href="{% url 'notifications' %}">View All</a></div>
-                        </div>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'profile' %}" style="font-weight: 600;" title="{{ user.username }}"><img class="rounded-circle mr-2"
-                                width="28" height="28" src="{{ user.profile.profile_pic.url }}" alt="profile_img"></a>
-                    </li>
-                    
-                    <li class="nav-link">
-                        <a href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-link">
-                        <a href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'register' %}">Register</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-</nav>
--->
 <!--End of Navigation bar -->
 
 <!-- Main Container -->

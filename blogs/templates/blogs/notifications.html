@@ -9,7 +9,7 @@
             Notifications</p>
         {% for notif in unread_notifications %}
             {% if notif.n_post_id == -1 %}
-                <a id="{{ notif.n_post_id }}" href="{% url 'view_profile' notif.n_sender %}"
+                <a id="{{ notif.n_post_id }}" href="{% url 'profile' notif.n_sender %}"
                     class="list-group-item unread list-group-item-action notification-list">
                 <img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">
                 {% if notif.n_count > 0 %}
@@ -34,7 +34,7 @@
         {% endfor %}
         {% for notif in read_notifications %}
                 {% if notif.category == 'follow' %}
-                    <a id="{{ notif.post_id }}" href="{% url 'view_profile' notif.sender %}"
+                    <a id="{{ notif.post_id }}" href="{% url 'profile' notif.sender %}"
                         class="list-group-item read list-group-item-action notification-list">
                     <img class="rounded-circle round_profile_pics mr-2" src="{{ profile_imgs|dict_key:notif.sender }}">
                     {% if notif.n_count > 0 %}
