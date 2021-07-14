@@ -26,7 +26,7 @@ SECRET_KEY = 'nb#)47941bw)%y4ru@di1ux8+=ah9p3v%m5b)&av+ew^c$-uh)'
 DEBUG = True
 
 # To check the site on Mobile and localhost
-ALLOWED_HOSTS = ['192.168.29.49', 'localhost']
+ALLOWED_HOSTS = ['192.168.29.49', 'localhost', 'blog-app-pydj.herokuapp.com']
 #ALLOWED_HOSTS = []
 
 
