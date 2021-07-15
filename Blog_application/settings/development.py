@@ -26,6 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_BLOG')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
 
+
 # To check the site on Mobile and localhost
 ALLOWED_HOSTS = ['192.168.29.49', 'localhost']
 #ALLOWED_HOSTS = []
