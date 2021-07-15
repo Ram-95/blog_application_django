@@ -136,6 +136,10 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+print('-'*50)
+print(STATIC_ROOT)
+print('-'*50)
+
 # Extra places for collectstatic to find static files.
 '''
 STATICFILES_DIRS = (
@@ -153,6 +157,11 @@ LOGIN_URL = 'login'
 # This is the Directory where the Uploaded images are kept on the File System
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+print('-'*50)
+print(MEDIA_ROOT)
+print('-'*50)
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
