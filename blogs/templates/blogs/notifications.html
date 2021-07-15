@@ -17,7 +17,7 @@
                 {% else %}
                     <span><strong>{{ notif.n_sender }}</strong> started following you</span>
                 {% endif %}
-                <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+                <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small></a>
             {% else %}
                 <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
                     class="list-group-item unread list-group-item-action notification-list">
