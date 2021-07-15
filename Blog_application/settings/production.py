@@ -17,6 +17,10 @@ import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+print('-'*50)
+print(BASE_DIR)
+print('-'*50)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
