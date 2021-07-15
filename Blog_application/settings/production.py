@@ -17,10 +17,6 @@ import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-print('-'*50)
-print(BASE_DIR)
-print('-'*50)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -136,9 +132,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-print('-'*50)
-print(STATIC_ROOT)
-print('-'*50)
 
 # Extra places for collectstatic to find static files.
 '''
@@ -157,10 +150,6 @@ LOGIN_URL = 'login'
 # This is the Directory where the Uploaded images are kept on the File System
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-print('-'*50)
-print(MEDIA_ROOT)
-print('-'*50)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
