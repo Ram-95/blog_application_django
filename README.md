@@ -14,3 +14,5 @@ python manage.py migrate
 ```
 $ python manage.py createsuperuser
 ```
+
+#### See Live at: https://blog-app-pydj.herokuapp.com/
