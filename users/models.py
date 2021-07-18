@@ -10,6 +10,7 @@ class Profile(models.Model):
         return f'{self.user.username}\'s Profile'
 
     # Overriding the default save() method. To decrease the resolution of Profile Images
+    '''
     def save(self, *args, **kwargs):
         # saves the data of Profile class
         super(Profile, self).save(*args, **kwargs)
@@ -18,7 +19,7 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.profile_pic.path)
-
+    '''
 
 class Followers(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follow_user')
