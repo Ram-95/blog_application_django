@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blog',
             name='slug',
-            field=models.SlugField(default='djangodbmodelsfieldscharfield', max_length=255, unique=True),
+            field=models.SlugField(default='djangodbmodelsfieldscharfield', max_length=255, unique=False),
         ),
     ]
