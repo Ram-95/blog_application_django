@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['blog-app-pydj.herokuapp.com']
 INSTALLED_APPS = [
     'blogs.apps.BlogsConfig',
     'users.apps.UsersConfig',
+    'blogs_api.apps.BlogsApiConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'storages',
 ]
+
+
+# Makes the API to show only JSON Data
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    )
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
