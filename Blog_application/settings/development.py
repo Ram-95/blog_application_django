@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['192.168.29.49', 'localhost']
 INSTALLED_APPS = [
     'blogs.apps.BlogsConfig',
     'users.apps.UsersConfig',
+    'blogs_api.apps.BlogsApiConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,7 +48,19 @@ INSTALLED_APPS = [
     'django_cleanup',
     'django.contrib.humanize',
     'storages',
+    'rest_framework',
 ]
+
+# Makes the API to show only JSON Data
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    )
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

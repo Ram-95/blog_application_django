@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogs.urls')),
     path('', include('users.urls')),
+    path('', include('blogs_api.urls')),
 ]
 
 curr_env = os.environ.get('DJANGO_ENV')
