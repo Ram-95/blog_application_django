@@ -1,7 +1,7 @@
 from django.db.models import query
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from blogs.models import Blog
+from blogs.models import Blog, Blog_comments
 from .serializers import UserSerializer, BlogSerializer, ViewPostSerializer
 from rest_framework import viewsets, generics
 from rest_framework.exceptions import NotFound
@@ -9,7 +9,7 @@ from rest_framework.exceptions import NotFound
 
 class UserViewSet(viewsets.ModelViewSet):
     '''
-    API endpoint to view the users
+    API endpoint to view the users data by username
     '''
     serializer_class = UserSerializer
 
@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class BlogViewSet(generics.ListAPIView):
     '''
-    API endpoint to view the posts of a user.
+    API endpoint to view the posts data by username.
     '''
     serializer_class = BlogSerializer
 
@@ -38,14 +38,14 @@ class BlogViewSet(generics.ListAPIView):
                 return queryset
         raise NotFound()
         
-
+    
 
 class ViewPostViewSet(generics.ListAPIView):
     '''
     API endpoint to view a specific post by it's id
     '''
     serializer_class = ViewPostSerializer
-
+    
     def get_queryset(self):
         queryset = Blog.objects.all()
         post_id = self.request.query_params.get('post_id')
@@ -54,3 +54,4 @@ class ViewPostViewSet(generics.ListAPIView):
             if queryset.exists():
                 return queryset
         raise NotFound()
+    
