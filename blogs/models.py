@@ -1,9 +1,12 @@
+import random
+import string
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models import Count
 from users.models import Profile
+from django.utils.text import slugify
 
 
 class Blog(models.Model):
@@ -14,16 +17,28 @@ class Blog(models.Model):
     likes = models.BigIntegerField(default=0)
     image = models.ImageField(upload_to='posts_images', blank=True, null=True)
     views = models.BigIntegerField(default=0)
+    slug = models.SlugField(max_length=255, unique=True)
+        
+    # Generates a slug and saves to the model
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug_sample = slugify(self.title)
+            while Blog.objects.filter(slug=slug_sample).exists():
+                # Generate a random alphanumeric string of length 6
+                random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+                slug_sample = slugify(self.title + ' ' + random_string)
+            self.slug = slug_sample
+        super(Blog, self).save(*args, **kwargs)
+    
 
     def __str__(self):
         return self.title
 
     # This code redirects to 'post/<post_id>/' after successful creation of a Post
     def get_absolute_url(self):
-        return reverse('view_post', kwargs={'pk': self.pk})
+        return reverse('view_post', kwargs={'pk': self.pk, 'slug': self.slug})
 
     # Function to return the Number of comments for this post
-
     def number_of_comments(self):
         return Blog_comments.objects.filter(blogpost=self).count()
 
@@ -64,6 +79,10 @@ class NotificationManager(models.Manager):
 
         for item in notifs_count:
             n_post_id = item.post_id
+            if n_post_id != -1:
+                n_slug = Blog.objects.values('slug').filter(id=n_post_id).first()['slug']
+            else:
+                n_slug = None
             n_count = item.n_count
             n_sender = item.sender
             n_timestamp = item.notification_date
@@ -72,7 +91,7 @@ class NotificationManager(models.Manager):
 
             # Appending the above data as dictionary to notif_data list
             notif_data.append({'n_post_id': n_post_id, 'n_count': n_count, 'n_sender': n_sender.username,
-                               'n_timestamp': n_timestamp, 'n_profile_pic': n_profile_pic})
+                               'n_timestamp': n_timestamp, 'n_profile_pic': n_profile_pic, 'n_slug': n_slug})
 
         return notif_data
 

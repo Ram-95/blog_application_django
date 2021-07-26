@@ -14,7 +14,7 @@
             <button class="btn btn-outline-info" type="submit">Submit</button>
             {% if object %}
             <!--Used for Update Post. Navigate to Post when user cancels updation.-->
-            <a class="btn btn-outline-danger ml-4" href="{% url 'view_post' object.id %}">Cancel</a>
+            <a class="btn btn-outline-danger ml-4" href="{% url 'view_post' object.id object.slug %}">Cancel</a>
             {% else %}
             <!--Used for Create Post. Navigate to Index when user cancels creation.-->
             <a class="btn btn-outline-danger ml-4" href="{% url 'index' %}">Cancel</a>

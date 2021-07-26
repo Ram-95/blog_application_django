@@ -38,7 +38,7 @@
                 </div>
                 <!-- Post Header -->
                 <div class="post_header" style="flex: 2;">
-                    <a class="blog_title_index" href="{% url 'view_post' blog.id %}">
+                    <a class="blog_title_index" href="{% url 'view_post' blog.id blog.slug %}">
                         <h2 class="post_header_h2" title="View Post">{{ blog.title }}</h2>
                     </a>
                     <a href="{% url 'profile' blog.author %}" style="text-decoration: none;"><small
@@ -48,7 +48,7 @@
                 </div>
                 <!-- End of Post Header -->
             </div>
-            <a href="{% url 'view_post' blog.id %}" style="text-decoration: none;" title="View Post">
+            <a href="{% url 'view_post' blog.id blog.slug %}" style="text-decoration: none;" title="View Post">
             <div class="index_blog_description">
                 <p>
                     <pre>{{ blog.description }}</pre>
@@ -102,7 +102,7 @@
             
                 {% for blog in blogs_list_top5 %}
                 <li>
-                    <a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a>
+                    <a href="{% url 'view_post' blog.pk blog.slug %}">{{ blog.title }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -119,7 +119,7 @@
                 <p>Most Viewed Posts</p>
                 
                     {% for item in blogs_list_top_viewed %}
-                    <li><a href="{% url 'view_post' item.pk %}">{{ item }}</a></li>
+                    <li><a href="{% url 'view_post' item.pk item.slug%}">{{ item }}</a></li>
                     {% endfor %}
                 </ul>
     </div>

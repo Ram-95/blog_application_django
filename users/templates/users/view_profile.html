@@ -30,7 +30,7 @@
         <h5>Posts</h5>
         <ul class="list-group list-group-flush">
             {% for blog in user_blogs %}
-            <li><a href="{% url 'view_post' blog.pk %}">{{ blog.title }}</a></li>
+            <li><a href="{% url 'view_post' blog.pk blog.slug %}">{{ blog.title }}</a></li>
             {% endfor %}
         </ul>
     </div>

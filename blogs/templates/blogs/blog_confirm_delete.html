@@ -11,7 +11,7 @@
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-danger mr-3" type="submit">Yes, Delete</button>
-            <a href="{% url 'view_post' object.id %}" class="btn btn-outline-info">Cancel</a>
+            <a href="{% url 'view_post' object.id object.slug %}" class="btn btn-outline-info">Cancel</a>
         </div>
     </form>
 </div>
