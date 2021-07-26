@@ -19,17 +19,15 @@ class Blog(models.Model):
     views = models.BigIntegerField(default=0)
     slug = models.SlugField(max_length=255, unique=True)
         
-
+    # Generates a slug and saves to the model
     def save(self, *args, **kwargs):
         if not self.slug:
             slug_sample = slugify(self.title)
-            exists = Blog.objects.filter(slug=slug_sample).first()
-            if not exists:
-                self.slug = slug_sample
-            else:
+            while Blog.objects.filter(slug=slug_sample).exists():
                 # Generate a random alphanumeric string of length 6
                 random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-                self.slug = slugify(self.title + ' ' + random_string)
+                slug_sample = slugify(self.title + ' ' + random_string)
+            self.slug = slug_sample
         super(Blog, self).save(*args, **kwargs)
     
 
