@@ -14,6 +14,9 @@ $ python manage.py createsuperuser
 ```
 
 ### API Endpoints
-- To get a users data - ```/api/users/?username=<username>```
-- To get all posts of a user - ```/api/posts/?username=<username>```
-- To get a post by it's **id** = ```/api/view_post/?post_id=<id>```
+- To get a users data:
+  > ```/api/users/?username=<username>```
+- To get all posts of a user:
+  > ```/api/posts/?username=<username>```
+- To get a post by it's **id**:
+  >```/api/view_post/?post_id=<id>```
