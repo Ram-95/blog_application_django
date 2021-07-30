@@ -21,6 +21,12 @@ $ python manage.py createsuperuser
 - To get a post by it's **id**:
   >```/api/view_post/?post_id=<id>```
 
+### Screenshots
+
+###### Homepage
+
+![View Post](https://raw.githubusercontent.com/Ram-95/blog_application_django/DRF_slug_branch/screenshots/Screenshot_2021-07-30-22-09-44-19.jpg)
+
 ##### See live at: https://blog-app-pydj.herokuapp.com/
 
 
