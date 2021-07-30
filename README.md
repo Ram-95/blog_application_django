@@ -20,3 +20,6 @@ $ python manage.py createsuperuser
   > ```/api/posts/?username=<username>```
 - To get a post by it's **id**:
   >```/api/view_post/?post_id=<id>```
+
+
+#### This will be updated regularly....
