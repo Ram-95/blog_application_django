@@ -29,6 +29,7 @@
                                         title="Downvote"></i>
                         {% endif %}
                     {% else %}
+                            <!-- Shows Login Required Modal -->
                             <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"
                                 data-toggle="modal" data-target="#exampleModalCenter"></i>
                             <span id="votes_count">{{ blog.likes }}</span>
