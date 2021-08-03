@@ -16,9 +16,9 @@ view_post = 'api/view_post/?post_id=5'
 
 def test(url):
     resp = requests.get(url)
-    print(f"\n{'*'*55}")
+    print(f"\n{'*'*65}")
     print(f'Test URL: {url}')
-    print(f"{'*'*55}")
+    print(f"{'*'*65}")
     if resp.status_code == 404:
         return 'No URL path defined'
     elif resp.status_code == 200:
