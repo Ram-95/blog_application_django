@@ -11,7 +11,7 @@ router = routers.DefaultRouter()
 3. To view a post = /api/view_post/?post_id=<id>
 '''
 urlpatterns = [
-    path('api/users/', UserViewSet.as_view({'get': 'list'})),
-    path('api/posts/', BlogViewSet.as_view()),
-    path('api/view_post/', ViewPostViewSet.as_view()),
+    path('users/', UserViewSet.as_view({'get': 'list'})),
+    path('posts/', BlogViewSet.as_view()),
+    path('view_post/', ViewPostViewSet.as_view()),
 ]
