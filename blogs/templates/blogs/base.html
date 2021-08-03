@@ -47,6 +47,11 @@
     <!-- Navigation bar -->
     <nav class="navbar navbar-dark justify-content-between">
         <h1><a class="navbar-brand" style="font-size: 1.8rem;" href="{% url 'index' %}" title="Home">Blog</a></h1>
+        <!-- Search Bar
+        <form id="search" method="GET">    
+            <input type="text" class="form-control" id="txtSearch">
+            <button type="submit" class="btn btn-default btn-submit ml-4"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form> -->
         <div class="form-inline">
             {% if user.is_authenticated %}
                 <div id="noti_container"><a class="notification_anchor" id="noti_Button" href="#" title="Notifications">
