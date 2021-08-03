@@ -715,6 +715,7 @@ hr {
 }
 
 /* Image Viewer - CSS */
+
 .blog_image {
     border-radius: 5px;
     cursor: pointer;
@@ -777,6 +778,13 @@ hr {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+#search {
+    width: 60%;
+    display: inline-flex;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media only screen and (max-width: 700px) {

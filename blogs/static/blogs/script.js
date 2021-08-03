@@ -243,16 +243,39 @@ $(document).ready(function () {
         return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
     });*/
 
-    $(".blog_image").click(function(){
+    $(".blog_image").click(function () {
         $("#full-image").attr("src", $(this).attr("src"));
         $('#image-viewer').show();
-      });
-      
-      $("#image-viewer").on('click', function () {
+    });
+
+    $("#image-viewer").on('click', function () {
         $('#image-viewer').hide();
-      });
-      
-      $("#image-viewer .close").click(function(){
+    });
+
+    $("#image-viewer .close").click(function () {
         $('#image-viewer').hide();
-      });
+    });
+
+    /* Search function */
+    $("#txtSearch").keyup(function () {
+        var val = $(this).val();
+        //console.log(val);
+        $.ajax({
+            type: "GET",
+            data: { 'uname': val },
+            url: '/searchUser/',
+            success: function (data) {
+                //console.log(data);
+                $('#searchResults').empty();
+                for (var key in data) {
+                    for (var val in data[key]) {
+                        //console.log(val);
+                        $('#searchResults').append("<li><a href='/profile/" + data[key][val] + "'><h6>" + data[key][val] + "</h6></a></li>");
+                    }
+                }
+            },
+
+        });
+    });
+
 });
