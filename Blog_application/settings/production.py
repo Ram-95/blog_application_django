@@ -14,7 +14,8 @@ import os
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +29,6 @@ DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
 
 # To check the site on Mobile and localhost
 ALLOWED_HOSTS = ['blog-app-pydj.herokuapp.com']
-
 
 
 # Application definition
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django_cleanup',
     'django.contrib.humanize',
     'storages',
+    'ckeditor',
+    'rest_framework'
 ]
 
 
@@ -60,6 +62,20 @@ REST_FRAMEWORK = {
     )
 }
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+            ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ["Image", "Table", "Link", "Unlink", "Anchor",
+                "SectionLink"], ['Undo', 'Redo'], ["Source"],
+            ["Maximize"]
+        ]
+    }
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

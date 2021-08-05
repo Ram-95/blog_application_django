@@ -14,7 +14,8 @@ import os
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'storages',
     'rest_framework',
+    'ckeditor',
 ]
 
 # Makes the API to show only JSON Data
@@ -61,6 +63,22 @@ REST_FRAMEWORK = {
     )
 }
 
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': 'auto',
+        'toolbar_Custom': [
+            ["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+            ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ["Image", "Table", "Link", "Unlink", "Anchor",
+                "SectionLink"], ['Undo', 'Redo'], ["Source"],
+            ["Maximize"]
+        ]
+    }
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
