@@ -361,7 +361,17 @@ pre {
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 180px;
-    padding: 2px 5px;
+    padding: 12px;
+    color: black !important;
+    font-size: 14px;
+}
+
+.index_blog_description img {
+    display: flex;
+    max-width: -webkit-fill-available;
+    /*max-width: 400px;*/
+    max-height: 400px;
+    margin: auto;
 }
 
 .comments {
@@ -452,10 +462,6 @@ hr {
 
 .post_header a {
     color: yellow;
-}
-
-.index_blog_full_description {
-    padding: 2px 5px;
 }
 
 .date {
@@ -785,6 +791,18 @@ hr {
     display: inline-flex;
     margin-right: auto;
     margin-left: auto;
+}
+
+.index_blog_full_description {
+    padding: 1rem 2rem;
+    font-size: 15px;
+}
+
+.index_blog_full_description img {
+    display: flex;
+    margin: auto;
+    max-width: -webkit-fill-available;
+    max-height: 400px;
 }
 
 @media only screen and (max-width: 700px) {
