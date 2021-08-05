@@ -7,11 +7,13 @@ from django.urls import reverse
 from django.db.models import Count
 from users.models import Profile
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=10000)
+    description = RichTextField(blank=True, null=True)
+    #description = models.TextField(max_length=10000)
     publish_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)
@@ -45,7 +47,7 @@ class Blog(models.Model):
 
 class Likes_Table(models.Model):
     '''Table to store which User has Liked/Disliked which Post. Used to highlight Up/Down carets when a particular user is logged in'''
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_likes")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     post_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
     # Denotes the Like status -> 1: User has Liked Post  0: User has Disliked Post
     like_status_id = models.BooleanField()
