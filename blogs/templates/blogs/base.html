@@ -109,7 +109,7 @@
         <div class="col">
             {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-dismissible alert-info fade show">
+            <div class="alert general_alerts alert-dismissible alert-info fade show">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -117,6 +117,11 @@
             </div>
             {% endfor %}
             {% endif %}
+            <!--
+            <div id="self_vote" class="alert alert-danger collapse" role="alert">
+                You cannot vote on your own post.
+            </div>
+            -->
             <!-- Content goes here -->
             {% block content %}{% endblock %}
         </div>
@@ -152,6 +157,7 @@
             </div>
         </div>
         <!--End of Modal-->
+        
     </main>
     <footer>
         <hr>

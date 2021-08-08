@@ -1,8 +1,8 @@
 $(document).ready(function () {
     window.setTimeout(function () {
         $(".alert").fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-        });
+            $(this).hide();
+        });  
     }, 5000);
 
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
                 }
                 else {
                     if (data.status == 'Invalid') {
-                        alert('You cannot vote on your own post!');
+                        alert('You cannot vote on your own post.');
                     }
                 }
             }
@@ -243,10 +243,17 @@ $(document).ready(function () {
         return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
     });*/
 
+    $('.index_blog_full_description img').click(function () {
+        $("#full-image").attr("src", $(this).attr("src"));
+        $('#image-viewer').show();
+    });
+
+    
     $(".blog_image").click(function () {
         $("#full-image").attr("src", $(this).attr("src"));
         $('#image-viewer').show();
     });
+    
 
     $("#image-viewer").on('click', function () {
         $('#image-viewer').hide();

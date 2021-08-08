@@ -372,6 +372,7 @@ pre {
     /*max-width: 400px;*/
     max-height: 400px;
     margin: auto;
+    object-fit: contain;
 }
 
 .comments {
@@ -803,6 +804,9 @@ hr {
     margin: auto;
     max-width: -webkit-fill-available;
     max-height: 400px;
+    /* To maintain the aspect ration of images */
+    object-fit: contain;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 700px) {
