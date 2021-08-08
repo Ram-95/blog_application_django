@@ -57,3 +57,4 @@ zope.interface==5.1.0
 boto3==1.18.1
 django-storages==1.11.1
 botocore==1.21.1
+django-ckeditor==6.1.0
