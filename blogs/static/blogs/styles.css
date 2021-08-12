@@ -809,6 +809,10 @@ hr {
     cursor: pointer;
 }
 
+.index_blog_full_description a {
+    word-break: break-all;
+}
+
 @media only screen and (max-width: 700px) {
     .modal-content {
         width: 90%;

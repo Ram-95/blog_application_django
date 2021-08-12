@@ -48,10 +48,11 @@
             {% endif %}
         </div>
         
-        {% if blog.image.url is not null %}
-            <img class="mt-2 rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
-        {% endif %}
+        
         <div class="index_blog_full_description">
+            {% if blog.image.url is not null %}
+                <img class="mt-2 rounded mx-auto d-block blog_image" src="{{ blog.image.url }}">
+            {% endif %}
             {{ blog.description|safe }}
         </div>
     <i class="fas fa-eye ml-1 mr-1" aria-hidden="true"></i>
