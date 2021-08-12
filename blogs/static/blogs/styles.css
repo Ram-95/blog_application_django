@@ -361,7 +361,18 @@ pre {
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 180px;
-    padding: 2px 5px;
+    padding: 12px;
+    color: black !important;
+    font-size: 14px;
+}
+
+.index_blog_description img {
+    display: flex;
+    max-width: -webkit-fill-available;
+    /*max-width: 400px;*/
+    max-height: 400px;
+    margin: auto;
+    object-fit: contain;
 }
 
 .comments {
@@ -452,10 +463,6 @@ hr {
 
 .post_header a {
     color: yellow;
-}
-
-.index_blog_full_description {
-    padding: 2px 5px;
 }
 
 .date {
@@ -715,6 +722,7 @@ hr {
 }
 
 /* Image Viewer - CSS */
+
 .blog_image {
     border-radius: 5px;
     cursor: pointer;
@@ -776,6 +784,28 @@ hr {
 #image-viewer .close:hover, #image-viewer .close:focus {
     color: #bbb;
     text-decoration: none;
+    cursor: pointer;
+}
+
+#search {
+    width: 60%;
+    display: inline-flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.index_blog_full_description {
+    padding: 1rem 2rem;
+    font-size: 15px;
+}
+
+.index_blog_full_description img {
+    display: flex;
+    margin: auto;
+    max-width: -webkit-fill-available;
+    max-height: 400px;
+    /* To maintain the aspect ration of images */
+    object-fit: contain;
     cursor: pointer;
 }
 

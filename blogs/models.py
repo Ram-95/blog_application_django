@@ -7,11 +7,15 @@ from django.urls import reverse
 from django.db.models import Count
 from users.models import Profile
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=10000)
+    #description = RichTextUploadingField(blank=True,null=True)
+    description = RichTextField(blank=True, null=True)
+    #description = models.TextField(max_length=10000)
     publish_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.BigIntegerField(default=0)

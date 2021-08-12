@@ -29,6 +29,7 @@
                                         title="Downvote"></i>
                         {% endif %}
                     {% else %}
+                            <!-- Shows Login Required Modal -->
                             <i class="fas fa-caret-up post_up_down vote_up" id="upvote_{{ blog.id }}" title="Upvote"
                                 data-toggle="modal" data-target="#exampleModalCenter"></i>
                             <span id="votes_count">{{ blog.likes }}</span>
@@ -48,13 +49,11 @@
                 </div>
                 <!-- End of Post Header -->
             </div>
-            <a href="{% url 'view_post' blog.id blog.slug %}" style="text-decoration: none;" title="View Post">
-            <div class="index_blog_description">
-                <p>
-                    <pre>{{ blog.description }}</pre>
-                </p>
-            </div>
-        </a>
+            <a href="{% url 'view_post' blog.id blog.slug %}" style="text-decoration: none; color:black;" title="View Post">
+                <div class="index_blog_description">
+                        {{ blog.description|safe }}
+                </div>
+            </a>
             <hr>
             <!-- Views part -->
             {% if blog.views %}

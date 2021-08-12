@@ -17,4 +17,6 @@ urlpatterns = [
     path('vote_down/', views.vote_down, name="vote_down"),
     path('notifications/', views.notifications, name="notifications"),
     path('mark_notification_as_read/', views.mark_notification_as_read, name="mark_notification_as_read"),
+    path('search/', views.search, name="search"),
+    path('searchUser/', views.searchModel, name="searchUser"),
 ]

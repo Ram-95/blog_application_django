@@ -99,7 +99,7 @@ class PostDetailView(DetailView):
         blog = self.get_object()
         pk = blog.pk
         # Logic to increment views - If the author of post, views the post then the views are not incremented.
-        #if self.request.user.is_authenticated:
+        # if self.request.user.is_authenticated:
         if blog.author != self.request.user:
             view_upd = Blog.objects.filter(pk=pk).first()
             view_upd.views += 1
@@ -142,8 +142,9 @@ class PostDetailView(DetailView):
         post_author = post.author
         # Do NOT send any notification if a user has commented on his own post
         if post_author != self.request.user:
-            Notification.objects.add_notification(self.request.user, post_author, 'comment', post.pk)
-    
+            Notification.objects.add_notification(
+                self.request.user, post_author, 'comment', post.pk)
+
         return self.get(self, request, *args, **kwargs)
 
 
@@ -370,15 +371,17 @@ def edit_comment(request):
 @login_required
 def notifications(request):
     if request.user.is_authenticated:
-        unread_notifs = Notification.objects.get_notification_count(request.user)
+        unread_notifs = Notification.objects.get_notification_count(
+            request.user)
         read_notifs = Notification.objects.filter(
             receiver=request.user, is_read=True).order_by('-notification_date')
         profile_pics = {}
         for i in read_notifs:
-            temp = Profile.objects.filter(user=i.sender).first().profile_pic.url
+            temp = Profile.objects.filter(
+                user=i.sender).first().profile_pic.url
             if i.sender not in profile_pics:
                 profile_pics[i.sender] = temp
-    
+
         context = {
             'unread_notifications': unread_notifs,
             'notifications_count': len(unread_notifs),
@@ -394,9 +397,29 @@ def notifications(request):
 def mark_notification_as_read(request):
     if request.user.is_authenticated:
         notif_id = request.POST['n_post_id']
-        Notification.objects.filter(receiver= request.user, post_id=notif_id, is_read=False).update(is_read=True)
+        Notification.objects.filter(
+            receiver=request.user, post_id=notif_id, is_read=False).update(is_read=True)
 
         return JsonResponse({'status': 'success'})
+
+
+def search(request):
+    return render(request, 'blogs/search.html')
+
+
+def searchModel(request):
+    if request.method == 'GET':
+        search_txt = request.GET.get('uname')
+        res = {'username': []}
+        if search_txt:
+            suggestions = User.objects.filter(username__startswith=search_txt)
+            #print(suggestions)
+            for i in suggestions:
+                res['username'].append(i.username)
+            #print(res)
+        return JsonResponse(res)
+        
+
 
 
 ''' Function Based View - Index'''

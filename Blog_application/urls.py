@@ -19,11 +19,19 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from .settings import development, production
+from ckeditor_uploader import views as ckeditor_views
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogs.urls')),
     path('', include('users.urls')),
+    path('api/', include('blogs_api.urls')),
+    #path('ckeditor/', include('ckeditor_uploader.urls')),
+    
+    path('ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),
+    path('ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)), name='ckeditor_browse'),
 ]
 
 curr_env = os.environ.get('DJANGO_ENV')
