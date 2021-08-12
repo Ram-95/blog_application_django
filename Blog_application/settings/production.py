@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'storages',
     'ckeditor',
-    'rest_framework'
+    'rest_framework',
+    'ckeditor_uploader',
 ]
 
 
@@ -65,14 +66,33 @@ REST_FRAMEWORK = {
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
+        'width': 'auto',
         'toolbar_Custom': [
             ["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
             ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
              'JustifyRight', 'JustifyBlock'],
             ["Image", "Table", "Link", "Unlink", "Anchor",
-                "SectionLink"], ['Undo', 'Redo'], ["Source"],
+                "SectionLink", "Embed"], ['Undo', 'Redo'], ["CodeSnippet"],
             ["Maximize"]
-        ]
+        ],
+
+        # Remove these dialog tabs (semicolon separated dialog:tab)
+        'removeDialogTabs': ';'.join([
+            'image:advanced',
+            'image:Link',
+            'link:upload',
+            'table:advanced',
+            #'tableProperties:advanced',
+            ]),
+        
+        # Extra plugins to be used in the editor
+        'extraPlugins': ','.join([
+            'mathjax',  # Used to render mathematical formulae
+            'codesnippet',  # Used to add code snippets
+            'image2',  # Loads new and better image dialog
+            'embed',  # Used for embedding media (YouTube/Slideshare etc)
+            'tableresize',  # Used to allow resizing of columns in tables
+        ]),
     }
 
 }
@@ -180,6 +200,7 @@ LOGIN_URL = 'login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
