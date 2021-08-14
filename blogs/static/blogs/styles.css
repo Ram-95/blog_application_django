@@ -372,7 +372,7 @@ pre {
     /*max-width: 400px;*/
     max-height: 400px;
     margin: auto;
-    object-fit: contain;
+    object-fit: fill;
 }
 
 .comments {
@@ -796,7 +796,7 @@ hr {
 
 .index_blog_full_description {
     padding: 1rem 2rem;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .index_blog_full_description img {
@@ -809,8 +809,22 @@ hr {
     cursor: pointer;
 }
 
-.index_blog_full_description a {
-    word-break: break-all;
+.search_section {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.login-btn {
+    border: 1px solid dodgerblue;
+    border-radius: 16px;
+    padding: 5px;
+    margin-right: 1rem;
+    color: black;
+    background: dodgerblue;
+}
+
+.login-btn:hover {
+    padding: 6px;
 }
 
 @media only screen and (max-width: 700px) {
@@ -875,18 +889,18 @@ hr {
         right: -2px;
     }
     .form-inline>div:not(:last-child) {
-        margin-right: 0.1rem;
+        margin-right: -1rem;
     }
     #notifications {
         width: 320px;
-        right: -8rem;
+        right: -5.2rem;
         font-size: 13px;
     }
     #notifications::before {
-        margin-left: 9.25rem;
+        margin-left: 12.15rem;
     }
     .nav_icons {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     .badge {
         margin: -40px 6px 0 0;
