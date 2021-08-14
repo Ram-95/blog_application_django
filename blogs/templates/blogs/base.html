@@ -106,8 +106,8 @@
                 <div><a href="{% url 'profile' user.username %}" title="Profile"><i class="fas fa-user nav_icons"></i></a></div>
                 <div><a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt nav_icons"></i></a></div>
             {% else %}
-            <div><a href="{% url 'login' %}">Login</a></div>
-            <div><a href="{% url 'register' %}">Register</a></div>
+            <div class="login-btn"><a href="{% url 'login' %}">Login</a></div>
+            <!--<div><a href="{% url 'register' %}">Register</a></div>-->
             {% endif %}
         </div>
     </nav>

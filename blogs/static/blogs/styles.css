@@ -814,6 +814,19 @@ hr {
     margin-top: 1rem;
 }
 
+.login-btn {
+    border: 1px solid dodgerblue;
+    border-radius: 16px;
+    padding: 5px;
+    margin-right: 1rem;
+    color: black;
+    background: dodgerblue;
+}
+
+.login-btn:hover {
+    padding: 6px;
+}
+
 @media only screen and (max-width: 700px) {
     .modal-content {
         width: 90%;
@@ -880,11 +893,11 @@ hr {
     }
     #notifications {
         width: 320px;
-        right: -8rem;
+        right: -5.2rem;
         font-size: 13px;
     }
     #notifications::before {
-        margin-left: 9.25rem;
+        margin-left: 12.15rem;
     }
     .nav_icons {
         font-size: 1.2rem;
