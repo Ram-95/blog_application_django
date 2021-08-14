@@ -412,7 +412,7 @@ def searchModel(request):
         search_txt = request.GET.get('uname')
         res = {'username': []}
         if search_txt:
-            suggestions = User.objects.filter(username__startswith=search_txt)
+            suggestions = User.objects.filter(username__istartswith=search_txt)
             #print(suggestions)
             for i in suggestions:
                 res['username'].append(i.username)
