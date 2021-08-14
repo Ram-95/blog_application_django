@@ -372,7 +372,7 @@ pre {
     /*max-width: 400px;*/
     max-height: 400px;
     margin: auto;
-    object-fit: contain;
+    object-fit: fill;
 }
 
 .comments {
