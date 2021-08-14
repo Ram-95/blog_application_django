@@ -47,13 +47,23 @@
     <!-- Navigation bar -->
     <nav class="navbar navbar-dark justify-content-between">
         <h1><a class="navbar-brand" style="font-size: 1.8rem;" href="{% url 'index' %}" title="Home">Blog</a></h1>
-        <!-- Search Bar
+        <!-- Search Bar 
+        <header>
+            <div class="search-box">
+            <input class="form-control" id="searchStr" placeholder="Search">
+            <button class="btn btn-outline-success" type="button"><i class="fas fa-search"></i></button>
+            </div>
+            </header>
+        -->
+        <!--
         <form id="search" method="GET">    
             <input type="text" class="form-control" id="txtSearch">
             <button type="submit" class="btn btn-default btn-submit ml-4"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </form> -->
+        -->
         <div class="form-inline">
+            
             {% if user.is_authenticated %}
+                <div><a href="{% url 'search' %}" title="Profile"><i class="fas fa-search nav_icons"></i></a></div>
                 <div id="noti_container"><a class="notification_anchor" id="noti_Button" href="#" title="Notifications">
                     <i class="fas fa-globe-asia nav_icons"></i>
                     {% if status %}
@@ -96,8 +106,8 @@
                 <div><a href="{% url 'profile' user.username %}" title="Profile"><i class="fas fa-user nav_icons"></i></a></div>
                 <div><a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt nav_icons"></i></a></div>
             {% else %}
-            <div><a href="{% url 'login' %}">Login</a></div>
-            <div><a href="{% url 'register' %}">Register</a></div>
+            <div class="login-btn"><a href="{% url 'login' %}">Login</a></div>
+            <!--<div><a href="{% url 'register' %}">Register</a></div>-->
             {% endif %}
         </div>
     </nav>
