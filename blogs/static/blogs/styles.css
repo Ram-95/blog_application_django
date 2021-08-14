@@ -796,7 +796,7 @@ hr {
 
 .index_blog_full_description {
     padding: 1rem 2rem;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .index_blog_full_description img {
@@ -807,6 +807,11 @@ hr {
     /* To maintain the aspect ration of images */
     object-fit: contain;
     cursor: pointer;
+}
+
+.search_section {
+    text-align: center;
+    margin-top: 1rem;
 }
 
 @media only screen and (max-width: 700px) {
@@ -871,7 +876,7 @@ hr {
         right: -2px;
     }
     .form-inline>div:not(:last-child) {
-        margin-right: 0.1rem;
+        margin-right: -1rem;
     }
     #notifications {
         width: 320px;
@@ -882,7 +887,7 @@ hr {
         margin-left: 9.25rem;
     }
     .nav_icons {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     .badge {
         margin: -40px 6px 0 0;
