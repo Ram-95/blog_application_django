@@ -38,4 +38,5 @@ curr_env = os.environ.get('DJANGO_ENV')
 if curr_env == 'PROD':
     urlpatterns += static(production.MEDIA_URL, document_root=production.MEDIA_ROOT)
 elif curr_env == 'DEV':
+    print(f'\n You are in Development.\n\n')
     urlpatterns += static(development.MEDIA_URL, document_root=development.MEDIA_ROOT)
