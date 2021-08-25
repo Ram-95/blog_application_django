@@ -3,6 +3,7 @@ from blogs.models import Blog, Likes_Table, Blog_comments, Notification
 from django.contrib.auth.models import User
 
 class TestModels(TestCase):
+    """Tests to check Models of Blogs application."""
     def setUp(self):
         self.user1 = User.objects.create(
             username='Test', first_name='Testname', last_name='Last', email='test@gmail.com', password='testing@123')
