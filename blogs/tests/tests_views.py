@@ -3,8 +3,9 @@ from django.urls import resolve, reverse
 from django.contrib.auth.models import User
 from blogs.models import Blog, Likes_Table, Blog_comments, Notification
 
-"""
+
 class TestViews(TestCase):
+    """Tests to check the functionality of Views in Blogs application"""
 
     def setUp(self):
         self.client = Client()
@@ -18,10 +19,9 @@ class TestViews(TestCase):
     def test_blogs_list_GET(self):
         response = self.client.get(self.list_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'blogs/index.html')
 
     def test_blogs_detail_GET(self):
         response = self.client.get(self.detail_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'blogs/view_post.html')
-"""
