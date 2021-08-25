@@ -29,14 +29,21 @@ urlpatterns = [
     path('', include('users.urls')),
     path('api/', include('blogs_api.urls')),
     #path('ckeditor/', include('ckeditor_uploader.urls')),
-    
-    path('ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),
-    path('ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)), name='ckeditor_browse'),
+
+    path('ckeditor/upload/', login_required(ckeditor_views.upload),
+         name='ckeditor_upload'),
+    path('ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)),
+         name='ckeditor_browse'),
 ]
 
 curr_env = os.environ.get('DJANGO_ENV')
 if curr_env == 'PROD':
-    urlpatterns += static(production.MEDIA_URL, document_root=production.MEDIA_ROOT)
+    urlpatterns += static(production.MEDIA_URL,
+                          document_root=production.MEDIA_ROOT)
+
 elif curr_env == 'DEV':
     print(f'\n You are in Development.\n\n')
-    urlpatterns += static(development.MEDIA_URL, document_root=development.MEDIA_ROOT)
+    urlpatterns += static(development.MEDIA_URL,
+                          document_root=development.MEDIA_ROOT)
+    urlpatterns += static(development.STATIC_URL,
+                          document_root=development.STATIC_ROOT)
