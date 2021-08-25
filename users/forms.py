@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from .models import Profile
 
 
@@ -13,6 +14,15 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name',
                   'email', 'password1', 'password2']
+
+    def clean(self):
+        """Form Validations"""
+        cd = self.cleaned_data
+        cd_email = cd.get('email')
+        if User.objects.filter(email=cd_email).exists:
+            raise ValidationError('Account with this email already exists.')
+
+        return cd
 
 
 # Updates the User Model
