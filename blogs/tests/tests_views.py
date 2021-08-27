@@ -25,3 +25,10 @@ class TestViews(TestCase):
         response = self.client.get(self.detail_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'blogs/view_post.html')
+
+    def test_create_blog_POST(self):
+        response = self.client.post('/create_post', {'title': 'Sample', 'description': 'Some sample description'})
+        self.assertEquals(response.status_code, 301)
+
+        
+        
