@@ -18,8 +18,11 @@ class UserRegisterForm(UserCreationForm):
     def clean(self):
         """Form Validations"""
         cd = self.cleaned_data
+        cd_username = cd.get('username')
+        if User.objects.filter(username=cd_username).exists():
+            raise ValidationError('Username already taken.')
         cd_email = cd.get('email')
-        if User.objects.filter(email=cd_email).exists:
+        if User.objects.filter(email=cd_email).exists():
             raise ValidationError('Account with this email already exists.')
 
         return cd
