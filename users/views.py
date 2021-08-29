@@ -89,7 +89,6 @@ def update_profile(request):
 
 
 
-
 @csrf_exempt
 @login_required
 def view_followers(request, username):

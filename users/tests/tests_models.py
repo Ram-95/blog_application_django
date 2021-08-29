@@ -12,6 +12,21 @@ class TestModels(TestCase):
         self.user2 = User.objects.create(
             username='Test2', first_name='Testname2', last_name='Last2', email='test2@gmail.com', password='testing2@123')
 
+    def test_user_label(self):
+        profile = Profile.objects.get(user=self.user1)
+        field_label = profile._meta.get_field('user').verbose_name
+        self.assertEquals(field_label, 'user')
+
+    def test_profile_pic_label(self):
+        profile = Profile.objects.get(user=self.user1)
+        field_label = profile._meta.get_field('profile_pic').verbose_name
+        self.assertEquals(field_label, 'profile pic')
+
+    def test_object_name_is_correct(self):
+        profile = Profile.objects.get(user=self.user1)
+        actual_value = f"{profile.user.username}'s Profile"
+        self.assertEquals(actual_value, str(profile))
+
     def test_if_user_is_created(self):
         u = User.objects.filter(id=self.user1.id).exists()
         self.assertTrue(u)
