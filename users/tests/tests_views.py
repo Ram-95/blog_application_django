@@ -105,6 +105,7 @@ class TestUserViews(TestCase):
 
     def test_unfollow_a_user_if_logged_in(self):
         login = self.client.login(username='Test', password='testing@123')
+        self.assertTrue(login)
         response = self.client.get(reverse('unfollow'))
         self.assertEquals(response.status_code, 200)
 
