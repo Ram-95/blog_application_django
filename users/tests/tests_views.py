@@ -58,17 +58,19 @@ class TestUserViews(TestCase):
 
     def test_profile_GET_if_logged_in_self_profile(self):
         # To login the user
-        login = self.client.login(username=self.user1.username, password='testing@123')
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
         response = self.client.get(
             reverse('profile', args=[self.user1.username]))
         # Check if the user is successfully logged in
         self.assertEquals(str(response.context['user']), self.user1.username)
-        # Check that that status_code is 200 i.e. Success
+        # Check that the status_code is 200 i.e. Success
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/view_profile.html')
 
     def test_profile_GET_if_logged_in_other_profile(self):
-        login = self.client.login(username=self.user1.username, password='testing@123')
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
         response = self.client.get(
             reverse('profile', args=[self.user2.username]))
         self.assertEquals(str(response.context['user']), self.user1.username)
@@ -82,7 +84,8 @@ class TestUserViews(TestCase):
         self.assertRedirects(response, '/login/?next=/view_followers/Test/')
 
     def test_view_followers_GET_if_logged_in(self):
-        login = self.client.login(username=self.user1.username, password='testing@123')
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
         response = self.client.get(
             reverse('view_followers', args=[self.user1.username]))
         self.assertEquals(response.status_code, 200)
@@ -92,12 +95,11 @@ class TestUserViews(TestCase):
         response = self.client.get(reverse('follow'))
         self.assertEquals(response.status_code, 302)
 
-
     def test_follow_a_user_if_logged_in(self):
-        login = self.client.login(username=self.user1.username, password='testing@123')
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
         response = self.client.get(reverse('follow'))
         self.assertEquals(response.status_code, 200)
-
 
     def test_unfollow_a_user_if_not_logged_in(self):
         response = self.client.get(reverse('unfollow'))
@@ -108,7 +110,5 @@ class TestUserViews(TestCase):
         self.assertTrue(login)
         response = self.client.get(reverse('unfollow'))
         self.assertEquals(response.status_code, 200)
-
-    
 
     # Read this thoroughly: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing

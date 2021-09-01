@@ -31,13 +31,14 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertRedirects(response, '/login/?next=/create_post/')
     
-    
     def test_create_blog_if_logged_in_POST(self):
         login = self.client.login(username='Test', password='testing@123')
         self.assertTrue(login)
         response = self.client.post(reverse('create_post'), {'title': 'Sample', 'description': 'Some sample description'})
         post_id = Blog.objects.last()
         self.assertRedirects(response, reverse('view_post', args=[post_id.id, post_id.slug]))
+
+
     
 
         
