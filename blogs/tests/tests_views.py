@@ -102,8 +102,81 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response_json['status'], 'success')
 
-    
     # Vote up and vote down simultaneously
+
+    def test_vote_up_and_vote_down_on_same_post(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        # Upvote
+        response = self.client.post(reverse('vote_up'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
+        # Downvote
+        response = self.client.post(reverse('vote_down'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
     # vote down and vote up simultaneously
+
+    def test_vote_down_and_vote_up_on_same_post(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        # Downvote
+        response = self.client.post(reverse('vote_down'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
+        # Upvote
+        response = self.client.post(reverse('vote_up'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
     # Vote up and vote up on same post
+    def test_vote_up_multiple_times_on_same_post(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        # Upvote
+        response = self.client.post(reverse('vote_up'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
+        # Upvote again
+        response = self.client.post(reverse('vote_up'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'Already Upvoted')
+
     # Vote down and vote down on same post
+
+    def test_vote_down_multiple_times_on_same_post(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        # Downvote
+        response = self.client.post(reverse('vote_down'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'success')
+
+        # Downvote again
+        response = self.client.post(reverse('vote_down'), data={
+                                    'post_id': self.post2.id})
+        response_json = json.loads(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response_json['status'], 'Already Downvoted')

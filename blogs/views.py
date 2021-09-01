@@ -270,7 +270,7 @@ def vote_up(request):
             elif posts_liked.get(post.pk, None) is True:
                 # if the post is already upvoted by the user, No Action
                 print('User has Already Upvoted the post')
-                return JsonResponse({'status': 'Already Upvoted.'})
+                return JsonResponse({'status': 'Already Upvoted'})
             else:
                 # If the post is not present in the table, increment the counter and insert record as True
                 lt_post = Likes_Table(
