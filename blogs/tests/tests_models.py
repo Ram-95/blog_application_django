@@ -39,6 +39,7 @@ class TestModels(TestCase):
 
 
 class TestComments(TestCase):
+    """Tests to check the Blog_comments model."""
     def setUp(self):
         self.user1 = User.objects.create(
             username='Test', first_name='Testname', last_name='Last', email='test@gmail.com', password='testing@123')
