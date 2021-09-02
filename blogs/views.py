@@ -402,11 +402,11 @@ def mark_notification_as_read(request):
 
         return JsonResponse({'status': 'success'})
 
-
+@login_required
 def search(request):
     return render(request, 'blogs/search.html')
 
-
+@login_required
 def searchModel(request):
     if request.method == 'GET':
         search_txt = request.GET.get('uname')
