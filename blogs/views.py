@@ -270,7 +270,7 @@ def vote_up(request):
             elif posts_liked.get(post.pk, None) is True:
                 # if the post is already upvoted by the user, No Action
                 print('User has Already Upvoted the post')
-                return JsonResponse({'status': 'Already Upvoted.'})
+                return JsonResponse({'status': 'Already Upvoted'})
             else:
                 # If the post is not present in the table, increment the counter and insert record as True
                 lt_post = Likes_Table(
@@ -402,11 +402,11 @@ def mark_notification_as_read(request):
 
         return JsonResponse({'status': 'success'})
 
-
+@login_required
 def search(request):
     return render(request, 'blogs/search.html')
 
-
+@login_required
 def searchModel(request):
     if request.method == 'GET':
         search_txt = request.GET.get('uname')
