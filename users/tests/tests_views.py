@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from users.models import Profile, Followers
@@ -93,16 +94,26 @@ class TestUserViews(TestCase):
 
     def test_follow_a_user_if_not_logged_in(self):
         response = self.client.get(reverse('follow'))
+        self.assertRedirects(response, '/login/?next=/follow/')
         self.assertEquals(response.status_code, 302)
 
     def test_follow_a_user_if_logged_in(self):
         login = self.client.login(
             username=self.user1.username, password='testing@123')
-        response = self.client.get(reverse('follow'))
+        self.assertTrue(login)
+        response = self.client.post(reverse('follow'), data={
+                                    'username': self.user2.username})
+        json_status = json.loads(response.content)
         self.assertEquals(response.status_code, 200)
+        self.assertEquals(json_status['status'], 'success')
+        # Checking if entry added to DB
+        f = Followers.objects.get(id=1)
+        self.assertEquals(f.user, self.profile1)
+        self.assertEquals(f.followers, self.profile2)
 
     def test_unfollow_a_user_if_not_logged_in(self):
         response = self.client.get(reverse('unfollow'))
+        self.assertRedirects(response, '/login/?next=/unfollow/')
         self.assertEquals(response.status_code, 302)
 
     def test_unfollow_a_user_if_logged_in(self):

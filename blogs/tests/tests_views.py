@@ -180,3 +180,41 @@ class TestViews(TestCase):
         response_json = json.loads(response.content)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response_json['status'], 'Already Downvoted')
+
+    def test_search_if_not_logged_in(self):
+        response = self.client.get(reverse('search'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/?next=/search/')
+
+    def test_search_user_if_not_logged_in(self):
+        response = self.client.get(reverse('searchUser'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/?next=/searchUser/')
+
+    def test_search_if_logged_in(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        response = self.client.get(reverse('search'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blogs/search.html')
+
+    def test_search_user_if_logged_in(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        response = self.client.get(reverse('searchUser'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_notifications_if_not_logged_in(self):
+        response = self.client.get(reverse('notifications'))
+        self.assertEquals(response.status_code, 302)
+        self.assertRedirects(response, '/login/?next=/notifications/')
+
+    def test_notifications_if_logged_in(self):
+        login = self.client.login(
+            username=self.user1.username, password='testing@123')
+        self.assertTrue(login)
+        response = self.client.get(reverse('notifications'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blogs/notifications.html')
