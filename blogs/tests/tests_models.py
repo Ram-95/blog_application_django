@@ -60,7 +60,6 @@ class TestComments(TestCase):
         self.assertEquals(self.comment.content, 'First Comment')
     
     def test_comment_objects_str_representation(self):
-        print(str(self.comment))
         self.assertEquals(str(self.comment), f'{self.user1.username}, {self.post1.title[:30]}')
     
     def test_comments_of_user_deleted_if_user_is_deleted(self):
