@@ -13,7 +13,7 @@ A Blog application developed using Django framework 3.1. See live at: https://bl
 ```
 DEBUG_VALUE = True
 DJANGO_ENV = DEV
-SECRET_KEY_BLOG = <Generate some secret key>
+SECRET_KEY_BLOG = <Your Secret Key>
 ```
 - #### Run these commands - This will create your application tables (by the Model definition) in the Database.
 ```
