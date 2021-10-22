@@ -21,7 +21,7 @@ python manage.py makemigrations
 
 python manage.py migrate
 ```
-- ##### Create an ```admin``` user by running these following commands
+- #### Create an ```admin``` user by running these following commands
 ```
 python manage.py createsuperuser
 ```
