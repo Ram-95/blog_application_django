@@ -827,6 +827,27 @@ hr {
     padding: 6px;
 }
 
+.search_bar_icon {
+    background: white;
+    margin-left: 0.51rem;
+    margin-bottom: 1.4rem;
+    font-size: 1.25rem;
+    padding: 8px;
+    color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.search_bar_icon:hover {
+    color: darkgreen;
+}
+
+#search_btn {
+    background: none;
+    border: none;
+    outline: none;
+}
+
 @media only screen and (max-width: 700px) {
     .modal-content {
         width: 90%;

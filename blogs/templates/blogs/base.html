@@ -27,7 +27,19 @@
     <!-- Popper.js and JS for Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type='text/javascript'>
+        $(document).ready(function executeQuery() {
+            $('#search_btn').on('click', function () {
+                var search_query = $('.search_form').val();
+                //alert(search_query);
+                if (search_query != '') {
+                    window.location.replace("{% url 'searchUser' %}?uname=" + search_query);
+                }
 
+
+            });
+        });
+    </script>
 
     {% if title %}
     <title>Blog | {{ title }}</title>
@@ -39,81 +51,83 @@
 <body>
     {% if user.is_authenticated %}
     <a href="{% url 'create_post' %}" style="color: black; margin: 0;">
-    <div class="border new_post" title="Create New Post">
-        <i class="fas fa-plus" aria-hidden="true"></i>
-     </div>
+        <div class="border new_post" title="Create New Post">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+        </div>
     </a>
     {% endif %}
     <!-- Navigation bar -->
-    <nav class="navbar navbar-dark justify-content-between">
+    <nav class="navbar navbar-dark justify-content-between navbar-expand-lg">
         <h1><a class="navbar-brand" style="font-size: 1.8rem;" href="{% url 'index' %}" title="Home">Blog</a></h1>
-        <!-- Search Bar 
-        <header>
-            <div class="search-box">
-            <input class="form-control" id="searchStr" placeholder="Search">
-            <button class="btn btn-outline-success" type="button"><i class="fas fa-search"></i></button>
-            </div>
-            </header>
-        -->
-        <!--
-        <form id="search" method="GET">    
-            <input type="text" class="form-control" id="txtSearch">
-            <button type="submit" class="btn btn-default btn-submit ml-4"><i class="fa fa-search" aria-hidden="true"></i></button>
-        -->
         <div class="form-inline">
-            
+
             {% if user.is_authenticated %}
-                <div><a href="{% url 'search' %}" title="Profile"><i class="fas fa-search nav_icons"></i></a></div>
-                <div id="noti_container"><a class="notification_anchor" id="noti_Button" href="#" title="Notifications">
+            <div class="input-group" style="margin-top: 1rem; margin-right: 18rem;">
+                <div class="form-outline">
+                    <input id="search-focus" type="search" class="form-control search_form" placeholder="Search" />
+                </div>
+                <button id="search_btn" type="submit"><i class="fas fa-search search_bar_icon"></i></button>
+            </div>
+
+
+
+
+
+
+            <!--<div><a href="{% url 'search' %}" title="Profile"><i class="fas fa-search nav_icons"></i></a></div>-->
+            <div id="noti_container"><a class="notification_anchor" id="noti_Button" href="#" title="Notifications">
                     <i class="fas fa-globe-asia nav_icons"></i>
                     {% if status %}
-                        <span class="badge" id="noti_counter">{{ notif_count }}</span>
-                    {% endif %} 
-                    </a>
-                    <!--THE NOTIFICATIONS DROPDOWN BOX.-->
-                    <div id="notifications">
-                        <h3>Notifications</h3>
-                        <div style="max-height:300px;" class="notification_icon_text">
-                            {% for notif in unread_notifs %}
-                                {% if notif.n_post_id == -1 %}
-                                    <a id="{{ notif.n_post_id }}" href="{% url 'profile' notif.n_sender %}"
-                                        class="list-group-item unread list-group-item-action notification-list">
-                                    <!--<img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
-                                    {% if notif.n_count > 0 %}
-                                        <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> started following you</span>
-                                    {% else %}
-                                        <span><strong>{{ notif.n_sender }}</strong> started following you</span>
-                                    {% endif %}
-                                    <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
-                                    </a>
-                                {% else %}
-                                    <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
-                                        class="list-group-item unread list-group-item-action notification-list">
-                                    <!--img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
-                                    {% if notif.n_count > 0 %}
-                                        <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{ notif.n_count|pluralize }}</strong> commented on your post</span>
-                                    {% else %}
-                                        <span><strong>{{ notif.n_sender }}</strong> commented on your post</span>
-                                    {% endif %}
-                                    <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
-                                    </a>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="seeAll"><a class="seeAll"  href="{% url 'notifications' %}">View All</a></div>
+                    <span class="badge" id="noti_counter">{{ notif_count }}</span>
+                    {% endif %}
+                </a>
+                <!--THE NOTIFICATIONS DROPDOWN BOX.-->
+                <div id="notifications">
+                    <h3>Notifications</h3>
+                    <div style="max-height:300px;" class="notification_icon_text">
+                        {% for notif in unread_notifs %}
+                        {% if notif.n_post_id == -1 %}
+                        <a id="{{ notif.n_post_id }}" href="{% url 'profile' notif.n_sender %}"
+                            class="list-group-item unread list-group-item-action notification-list">
+                            <!--<img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
+                            {% if notif.n_count > 0 %}
+                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{
+                                    notif.n_count|pluralize }}</strong> started following you</span>
+                            {% else %}
+                            <span><strong>{{ notif.n_sender }}</strong> started following you</span>
+                            {% endif %}
+                            <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+                        </a>
+                        {% else %}
+                        <a id="{{ notif.n_post_id }}" href="{% url 'view_post' notif.n_post_id %}"
+                            class="list-group-item unread list-group-item-action notification-list">
+                            <!--img class="rounded-circle round_profile_pics mr-2" src="{{ notif.n_profile_pic }}">-->
+                            {% if notif.n_count > 0 %}
+                            <span><strong>{{ notif.n_sender }}</strong> and <strong>{{ notif.n_count }} other{{
+                                    notif.n_count|pluralize }}</strong> commented on your post</span>
+                            {% else %}
+                            <span><strong>{{ notif.n_sender }}</strong> commented on your post</span>
+                            {% endif %}
+                            <small class="notif_timestamp">{{ notif.n_timestamp|naturaltime }}</small>
+                        </a>
+                        {% endif %}
+                        {% endfor %}
                     </div>
+                    <div class="seeAll"><a class="seeAll" href="{% url 'notifications' %}">View All</a></div>
                 </div>
-                <div><a href="{% url 'profile' user.username %}" title="Profile"><i class="fas fa-user nav_icons"></i></a></div>
-                <div><a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt nav_icons"></i></a></div>
+            </div>
+            <div><a href="{% url 'profile' user.username %}" title="Profile"><i class="fas fa-user nav_icons"></i></a>
+            </div>
+            <div><a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt nav_icons"></i></a></div>
             {% else %}
             <div class="login-btn"><a href="{% url 'login' %}">Login</a></div>
             <!--<div><a href="{% url 'register' %}">Register</a></div>-->
             {% endif %}
         </div>
     </nav>
-<!--End of Navigation bar -->
+    <!--End of Navigation bar -->
 
-<!-- Main Container -->
+    <!-- Main Container -->
     <main role="main" class="main_container">
         <!-- Notification section -->
         <div class="col">
@@ -167,7 +181,7 @@
             </div>
         </div>
         <!--End of Modal-->
-        
+
     </main>
     <footer>
         <hr>

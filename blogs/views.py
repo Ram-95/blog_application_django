@@ -402,22 +402,28 @@ def mark_notification_as_read(request):
 
         return JsonResponse({'status': 'success'})
 
+
 @login_required
 def search(request):
     return render(request, 'blogs/search.html')
+
+
 
 @login_required
 def searchModel(request):
     if request.method == 'GET':
         search_txt = request.GET.get('uname')
-        res = {'username': []}
+        res = {'results': []}   # {'results': [{'user': 'user1', 'profile_pic': 'image_url'},.,.,]}
         if search_txt:
-            suggestions = User.objects.filter(username__istartswith=search_txt)
-            #print(suggestions)
+            suggestions = User.objects.filter(username__icontains=search_txt)
+            
             for i in suggestions:
-                res['username'].append(i.username)
+                temp = {'user': '', 'profile_pic': ''}
+                temp['user'], temp['profile_pic'] = i.username, i.profile.profile_pic.url
+                res['results'].append(temp)
             #print(res)
-        return JsonResponse(res)
+        #return JsonResponse(res)
+        return render(request, 'blogs/search.html', res)
         
 
 
