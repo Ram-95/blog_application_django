@@ -2,7 +2,7 @@
 
 ### What is Serialization ?
 * Data serialization is the process of converting structured data to a format that allows sharing or storage of the data in a form that allows recovery of its original structure
-* Read it [here](https://docs.python-guide.org/scenarios/serialization/). [Video](https://www.youtube.com/watch?v=B38aDwUpcFc).
+* Read it [here](https://docs.python-guide.org/scenarios/serialization/). Notes based on this [Video](https://www.youtube.com/watch?v=B38aDwUpcFc).
 
 In the shell
 
