@@ -13,7 +13,7 @@ class BlogSerializer(serializers.ModelSerializer):
         model = Blog
         fields = '__all__'
 
-# In the shell
+
 ser = serializers.BlogSerializer()
 print(repr(ser))    # will give the fields used in this serializer
 
@@ -64,6 +64,7 @@ from rest_framework.views import APIView
 ```
 
 ```views.py```
+**Function based API Views**
 ```python
 @api_view(['GET', 'POST'])
 def blog_list(request):
@@ -108,7 +109,7 @@ def blog_detail(request, pk):
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 ```
 
-**Class Based Views (CBV) of the above FBVs using APIView.**
+**Class Based API Views of the above FBVs using APIView.**
 
 ```python
 class BlogAPIView(APIView):
@@ -156,7 +157,7 @@ class BlogDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 ```
 
-**Class Based Views (CBV) of the above FBVs using GenericAPIViews.**
+**Class Based API Views (CBV) of the above FBVs using GenericAPIViews.**
 
 ```python
 class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
