@@ -21,7 +21,7 @@ class Blog(models.Model):
     likes = models.BigIntegerField(default=0)
     image = models.ImageField(upload_to='posts_images', blank=True, null=True)
     views = models.BigIntegerField(default=0)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, unique=True,blank=True)
         
     # Generates a slug and saves to the model
     def save(self, *args, **kwargs):

@@ -10,6 +10,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'first_name', 'last_name', 'email']
 
 
+class UserSerializerPOST(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 class BlogSerializer(serializers.ModelSerializer):
     ''' To show Posts data '''
     class Meta:
