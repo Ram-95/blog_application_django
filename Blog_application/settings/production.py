@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
     'ckeditor_uploader',
-    'users_chat',
 ]
 
 

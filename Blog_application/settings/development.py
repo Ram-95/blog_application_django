@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
-    'users_chat',
 ]
 
 # Makes the API to show only JSON Data
