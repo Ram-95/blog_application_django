@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from rest_framework.fields import SerializerMethodField
 from blogs.models import Blog, Blog_comments
 from .serializers import UserSerializer, BlogSerializer, ViewPostSerializer
-from rest_framework import serializers, viewsets, generics
+from rest_framework import serializers, viewsets, generics, mixins
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework import status
@@ -76,6 +76,8 @@ def blog_detail(request, pk):
 ######################### END of Function based API Views ######################################
 
 ######################### CBV APIViews of Function based API Views above. ######################################
+
+
 class BlogAPIView(APIView):
     """Class Based View similar to blog_list FBV above."""
 
@@ -101,7 +103,6 @@ class BlogDetailAPIView(APIView):
             return blog
         except Blog.DoesNotExist:
             raise NotFound()
-            
 
     def get(self, request, pk):
         blog = self.get_object(pk)
@@ -122,6 +123,34 @@ class BlogDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 ######################### End of CBV APIViews of Function based API Views above. ###########################
 
+######################### CBV Generic APIViews ###################################
+class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+
+    def get(self, request):
+        return self.list(request)
+    
+    def post(self, request):
+        return self.create(request)
+
+
+class BlogGenericDetailAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+    lookup_field = 'pk'
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+
+    def post(self, request):
+        return self.create(request)
+
+    def put(self, request, pk):
+        return self.update(request, pk)
+
+    def delete(self, request, pk):
+        return self.destroy(request, pk)
 
 
 class BlogViewSet(generics.ListAPIView):
