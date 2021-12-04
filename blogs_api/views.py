@@ -123,7 +123,7 @@ class BlogDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 ######################### End of CBV APIViews of Function based API Views above. ###########################
 
-######################### CBV Generic APIViews ###################################
+############################ CBV Generic APIViews ###################################
 class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
     serializer_class = BlogSerializer
     queryset = Blog.objects.all()
@@ -151,6 +151,8 @@ class BlogGenericDetailAPIView(generics.GenericAPIView, mixins.ListModelMixin, m
 
     def delete(self, request, pk):
         return self.destroy(request, pk)
+
+############################ END of CBV Generic APIViews ###################################
 
 
 class BlogViewSet(generics.ListAPIView):
