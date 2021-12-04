@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers, urlpatterns
-from .views import UserViewSet, BlogViewSet, ViewPostViewSet, blog_list,blog_detail
+from .views import UserViewSet, BlogViewSet, ViewPostViewSet, blog_list,blog_detail, BlogAPIView, BlogDetailAPIView
 
 router = routers.DefaultRouter()
 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('users/', UserViewSet.as_view({'get': 'list'})),
     path('posts/', BlogViewSet.as_view()),
     path('view_post/', ViewPostViewSet.as_view()),
-    path('blogs/', blog_list),
-    path('blog/<int:pk>/', blog_detail),
+    #path('blogs/', blog_list),
+    path('blogs/', BlogAPIView.as_view()),
+    #path('blog/<int:pk>/', blog_detail),
+    path('blog/<int:pk>/', BlogDetailAPIView.as_view()),
 ]

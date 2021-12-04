@@ -8,10 +8,10 @@ from blogs.models import Blog, Blog_comments
 from .serializers import UserSerializer, BlogSerializer, ViewPostSerializer
 from rest_framework import serializers, viewsets, generics
 from rest_framework.exceptions import NotFound
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,6 +30,7 @@ class UserViewSet(viewsets.ModelViewSet):
             raise NotFound()
 
 
+######################### Function based API Views ######################################
 @api_view(['GET', 'POST'])
 def blog_list(request):
     blogs = Blog.objects.all()
@@ -44,8 +45,9 @@ def blog_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'POST'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def blog_detail(request, pk):
+    """API to GET, PUT and DELETE a blogpost."""
     try:
         blog = Blog.objects.get(pk=pk)
     except Blog.DoesNotExist:
@@ -67,6 +69,59 @@ def blog_detail(request, pk):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        blog.delete()
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+
+######################### END of Function based API Views ######################################
+
+######################### CBV APIViews of Function based API Views above. ######################################
+class BlogAPIView(APIView):
+    """Class Based View similar to blog_list FBV above."""
+
+    def get(self, request):
+        blogs = Blog.objects.all()
+        serializer = BlogSerializer(blogs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = BlogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,  status=status.HTTP_400_BAD_REQUEST)
+
+
+class BlogDetailAPIView(APIView):
+    """Class Based View of blog_detail FBV above."""
+
+    def get_object(self, pk):
+        try:
+            blog = Blog.objects.get(pk=pk)
+            return blog
+        except Blog.DoesNotExist:
+            raise NotFound()
+            
+
+    def get(self, request, pk):
+        blog = self.get_object(pk)
+        serializer = BlogSerializer(blog)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        blog = self.get_object(pk)
+        serializer = BlogSerializer(blog, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        blog = self.get_object(pk)
+        blog.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+######################### End of CBV APIViews of Function based API Views above. ###########################
+
 
 
 class BlogViewSet(generics.ListAPIView):
