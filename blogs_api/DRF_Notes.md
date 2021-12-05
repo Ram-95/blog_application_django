@@ -47,7 +47,6 @@ class BlogSerializer(serializers.ModelSerializer):
 
 **Required Imports**
 ```python
-from http.client import SERVICE_UNAVAILABLE
 from django.db.models import query
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -59,8 +58,10 @@ from rest_framework import serializers, viewsets, generics, mixins
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.views import APIView
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 ```
 
 ```views.py```
@@ -156,6 +157,27 @@ class BlogDetailAPIView(APIView):
         blog.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 ```
+
+##### To use authentications like BasicAuthentication, SessionAuthentication and TokenAuthentication
+Use the below inside the API classes for BasicAuthentication, SessionAuthentication
+
+```python
+# If SessionAuthentication is present that is used else BasicAuthentication will be used - That is why a list.
+authentication_classes = [SessionAuthentication, BasicAuthentication]
+permission_classes = [IsAuthenticated]
+```
+
+**For TokenAuthentication:**
+
+* Add ```rest_framework.authtoken``` to the ```INSTALLED_APPS``` to the ```settings.py``` file.
+* Inside the Class Based API Views. Add this
+    ```python
+        authentication_classes = [TokenAuthentication]
+        permission_classes = [IsAuthenticated]
+    ```
+* Make migrations and this will create a table called ```Tokens``` where the tokens of users will be stored. By default no tokens are created. We must create the tokens explicitly.
+* In Postman, Add this ```Token``` as Authorization and only then we can access the API.
+
 
 **Class Based API Views (CBV) of the above FBVs using GenericAPIViews.**
 

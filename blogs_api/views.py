@@ -10,8 +10,10 @@ from rest_framework import serializers, viewsets, generics, mixins
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.views import APIView
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -127,6 +129,10 @@ class BlogDetailAPIView(APIView):
 class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
     serializer_class = BlogSerializer
     queryset = Blog.objects.all()
+    # If SessionAuthentication is present that is used else BasicAuthentication will be used - That is why a list.
+    #authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         return self.list(request)
@@ -139,6 +145,11 @@ class BlogGenericDetailAPIView(generics.GenericAPIView, mixins.ListModelMixin, m
     serializer_class = BlogSerializer
     queryset = Blog.objects.all()
     lookup_field = 'pk'
+    # If SessionAuthentication is present that is used else BasicAuthentication will be used - That is why a list.
+    #authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
 
     def get(self, request, pk):
         return self.retrieve(request, pk)

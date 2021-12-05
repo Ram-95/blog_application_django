@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'storages',
     'rest_framework',
+    'rest_framework.authtoken',     #To use Token Authentication in Rest framework
     'ckeditor',
     'ckeditor_uploader',
 ]

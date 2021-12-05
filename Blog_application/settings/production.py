@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'storages',
     'ckeditor',
     'rest_framework',
+    'rest_framework.authtoken',
     'ckeditor_uploader',
 ]
 
