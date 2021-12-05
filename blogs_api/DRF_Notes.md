@@ -158,13 +158,29 @@ class BlogDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 ```
 
-##### To use authentications like BasicAuthentication, SessionAuthentication and TokenAuthentication
-Use the below inside the API classes for BasicAuthentication, SessionAuthentication
+#### To use authentications like BasicAuthentication, SessionAuthentication and TokenAuthentication
+**Use the below inside the API classes for BasicAuthentication, SessionAuthentication**
 
 ```python
 # If SessionAuthentication is present that is used else BasicAuthentication will be used - That is why a list.
 authentication_classes = [SessionAuthentication, BasicAuthentication]
 permission_classes = [IsAuthenticated]
+```
+
+##### Example:
+```python
+class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+    # If SessionAuthentication is present that is used else BasicAuthentication will be used - That is why a list.
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return self.list(request)
+    
+    def post(self, request):
+        return self.create(request)
 ```
 
 **For TokenAuthentication:**
@@ -177,6 +193,22 @@ permission_classes = [IsAuthenticated]
     ```
 * Make migrations and this will create a table called ```Tokens``` where the tokens of users will be stored. By default no tokens are created. We must create the tokens explicitly.
 * In Postman, Add this ```Token``` as Authorization and only then we can access the API.
+
+##### Example:
+```python
+class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return self.list(request)
+    
+    def post(self, request):
+        return self.create(request)
+```
 
 
 **Class Based API Views (CBV) of the above FBVs using GenericAPIViews.**
@@ -210,3 +242,45 @@ class BlogGenericDetailAPIView(generics.GenericAPIView, mixins.ListModelMixin, m
     def delete(self, request, pk):
         return self.destroy(request, pk)
 ```
+
+#### [ModelViewSet](https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset)
+
+The ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes.
+
+The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
+**```views.py```**
+
+```python
+class PostsViewSet(viewsets.ModelViewSet):
+    serializer_class = ViewPostSerializer
+    queryset = Blog.objects.all()
+```
+
+**```urls.py```**
+
+```python
+router = routers.DefaultRouter()
+router.register('post', PostsViewSet, basename='post')
+
+urlpatterns = [
+    path('viewset/', include(router.urls)),
+    path('viewset/<int:pk>/', include(router.urls)),
+    ]
+```
+
+
+### Blog Application API Endpoints
+
+- GET ```/api/v1/viewset/users``` - Returns the list of all users registered.
+
+#### Blogposts API Endpoints
+- GET ```/api/v1/viewset/posts``` - Returns the list of all posts by all users.
+- POST ```/api/v1/viewset/posts``` - Creates a new post. 
+    > Data required = ```{"title": "Title", "description": "Description", "author": "Author ID"}```
+- GET ```/api/v1/viewset/posts/<id>``` - Returns a post by it's post ID.
+- PUT ```/api/v1/viewset/posts/<id>``` - Updates a post by it's post ID.
+- DELETE ```/api/v1/viewset/posts/<id>``` - Deletes a post by it's post ID.
+- GET ```/api/v1/posts/?username=<username>``` - Returns a list of all posts by a specific user by his username.
+
+
+#### API Documentation - https://documenter.getpostman.com/view/18647792/UVJhDuVC
