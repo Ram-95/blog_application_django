@@ -3,17 +3,12 @@ from blogs.models import Blog, Blog_comments
 from rest_framework import serializers
 
 
+
 class UserSerializer(serializers.ModelSerializer):
     ''' To show User data '''
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
-
-
-class UserSerializerPOST(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
 
 
 class BlogSerializer(serializers.ModelSerializer):

@@ -126,6 +126,8 @@ class BlogDetailAPIView(APIView):
 ######################### End of CBV APIViews of Function based API Views above. ###########################
 
 ############################ CBV Generic APIViews ###################################
+
+
 class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
     serializer_class = BlogSerializer
     queryset = Blog.objects.all()
@@ -136,7 +138,7 @@ class BlogGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixin, mixin
 
     def get(self, request):
         return self.list(request)
-    
+
     def post(self, request):
         return self.create(request)
 
@@ -149,7 +151,6 @@ class BlogGenericDetailAPIView(generics.GenericAPIView, mixins.ListModelMixin, m
     #authentication_classes = [SessionAuthentication, BasicAuthentication]
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
 
     def get(self, request, pk):
         return self.retrieve(request, pk)
@@ -196,3 +197,16 @@ class ViewPostViewSet(generics.ListAPIView):
             if queryset.exists():
                 return queryset
         raise NotFound()
+
+
+################## ModelViewSet #####################
+class PostsViewSet(viewsets.ModelViewSet):
+    serializer_class = ViewPostSerializer
+    queryset = Blog.objects.all()
+
+
+class UsersModelViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
