@@ -68,6 +68,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'width': 'auto',
+        'embed_provider': '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
         'toolbar_Custom': [
             ["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
             ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
