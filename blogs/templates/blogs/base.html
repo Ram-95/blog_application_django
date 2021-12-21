@@ -62,16 +62,12 @@
         <div class="form-inline">
 
             {% if user.is_authenticated %}
-            <div class="input-group" style="margin-top: 1rem; margin-right: 18rem;">
+            <div class="input-group" id="search_user_part" style="margin-top: 1rem; margin-right: 18rem;">
                 <div class="form-outline">
                     <input id="search-focus" type="search" class="form-control search_form" placeholder="Search" />
                 </div>
                 <button id="search_btn" type="submit"><i class="fas fa-search search_bar_icon"></i></button>
             </div>
-
-
-
-
 
 
             <!--<div><a href="{% url 'search' %}" title="Profile"><i class="fas fa-search nav_icons"></i></a></div>-->

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Hind+Siliguri&family=Nunito:wght@300&family=Roboto+Slab&display=swap');
+
 * {
     box-sizing: border-box;
     /*font-family: 'Hind Siliguri', sans-serif;*/
@@ -766,6 +767,7 @@ hr {
     from {
         transform: scale(0)
     }
+
     to {
         transform: scale(1)
     }
@@ -853,6 +855,10 @@ hr {
         width: 90%;
         height: auto;
     }
+
+    div#search_user_part {
+        display: none;
+    }
 }
 
 /* END of Image Viewer - CSS */
@@ -863,71 +869,93 @@ hr {
     .profile_pane h2 {
         font-size: 24px;
     }
+
     .profile_pane img {
         height: 110px;
         width: 110px;
     }
+
     .side_container {
         visibility: hidden;
         display: none;
     }
+
     .blog_container {
         max-width: 100%;
         padding: 0;
     }
+
     .main_container {
         padding: 0;
         margin: 0;
     }
+
     .col {
         padding: 10px;
     }
+
     .my_btn {
         padding: 5px;
         font-weight: 500;
         font-size: 11px;
     }
+
     .navbar {
         height: auto;
         padding: .2rem;
     }
+
     .navbar li>a {
         padding: 0;
     }
+
     .navbar h1 {
         font-size: 1.8rem;
         font-weight: 800;
     }
+
     .pagination a {
         padding: 0.4rem;
     }
+
     .new_post {
         right: 2rem;
         bottom: 2rem;
     }
+
     .badge {
         top: auto;
         right: -2px;
     }
+
     .form-inline>div:not(:last-child) {
         margin-right: -1rem;
     }
+
     #notifications {
         width: 320px;
         right: -5.2rem;
         font-size: 13px;
     }
+
     #notifications::before {
         margin-left: 12.15rem;
     }
+
     .nav_icons {
         font-size: 1.2rem;
     }
+
     .badge {
         margin: -40px 6px 0 0;
     }
+
     .notif_timestamp {
         margin-top: 0;
         font-size: 10px;
+    }
+
+    div#search_user_part {
+        display: none;
     }
 }
