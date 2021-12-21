@@ -1,4 +1,4 @@
-aiohttp==3.7.4
+aiohttp
 altgraph==0.17
 asgiref==3.2.10
 astroid==2.4.2
@@ -42,14 +42,14 @@ pyOpenSSL==19.1.0
 PySocks==1.7.1
 pytz==2020.1
 pywin32-ctypes==0.2.0
-requests==2.24.0
-requests-oauthlib==1.3.0
+requests
+requests
 six==1.15.0
 soupsieve==2.0.1
 sqlparse==0.3.1
 toml==0.10.1
 typing-extensions==3.7.4.3
-urllib3==1.26.5
+urllib3
 whitenoise==5.2.0
 wrapt==1.12.1
 yarl==1.6.3
