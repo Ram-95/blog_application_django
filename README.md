@@ -32,16 +32,16 @@ python manage.py test
 
 ### Blog Application API Endpoints
 
-- GET ```/api/v1/viewset/users``` - Returns the list of all users registered.
+- GET ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/users``` - Returns the list of all users registered.
 
 #### Blogposts API Endpoints
-- GET ```/api/v1/viewset/posts``` - Returns the list of all posts by all users.
-- POST ```/api/v1/viewset/posts``` - Creates a new post. 
+- GET ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/posts``` - Returns the list of all posts by all users.
+- POST ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/posts``` - Creates a new post. 
     > Data required = ```{"title": "Title", "description": "Description", "author": "Author ID"}```
-- GET ```/api/v1/viewset/posts/<id>``` - Returns a post by it's post ID.
-- PUT ```/api/v1/viewset/posts/<id>``` - Updates a post by it's post ID.
-- DELETE ```/api/v1/viewset/posts/<id>``` - Deletes a post by it's post ID.
-- GET ```/api/v1/posts/?username=<username>``` - Returns a list of all posts by a specific user by his username.
+- GET ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/posts/<id>``` - Returns a post by it's post ID.
+- PUT ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/posts/<id>``` - Updates a post by it's post ID.
+- DELETE ```https://blog-app-pydj.herokuapp.com/api/v1/viewset/posts/<id>``` - Deletes a post by it's post ID.
+- GET ```https://blog-app-pydj.herokuapp.com/api/v1/posts/?username=<username>``` - Returns a list of all posts by a specific user by his username.
 
 
 #### API Documentation - https://documenter.getpostman.com/view/18647792/UVJhDuVC
