@@ -1,3 +1,15 @@
+from .base import *
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY_BLOG')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
+
+# To check the site on Mobile and localhost
+ALLOWED_HOSTS = ['192.168.29.49', 'localhost']
+
+#########################################################
 """
 Django settings for Blog_application project.
 
@@ -8,7 +20,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
-"""
+
 
 import os
 import django_heroku
@@ -232,3 +244,4 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 #django_heroku.settings(locals())
+"""

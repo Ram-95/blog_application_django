@@ -1,16 +1,3 @@
-from .base import *
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
-
-# To check the site on Mobile and localhost
-ALLOWED_HOSTS = ['blog-app-pydj.herokuapp.com']
-
-
-################################################################################
 """
 Django settings for Blog_application project.
 
@@ -21,10 +8,11 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
-
+"""
 
 import os
 import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
@@ -34,18 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
-
-# To check the site on Mobile and localhost
-ALLOWED_HOSTS = ['blog-app-pydj.herokuapp.com']
-
-
 # Application definition
-
 INSTALLED_APPS = [
     'blogs.apps.BlogsConfig',
     'users.apps.UsersConfig',
@@ -60,12 +37,11 @@ INSTALLED_APPS = [
     'django_cleanup',
     'django.contrib.humanize',
     'storages',
-    'ckeditor',
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken',  # To use Token Authentication in Rest framework
+    'ckeditor',
     'ckeditor_uploader',
 ]
-
 
 # Makes the API to show only JSON Data
 REST_FRAMEWORK = {
@@ -76,6 +52,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     )
 }
+
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -97,9 +74,9 @@ CKEDITOR_CONFIGS = {
             'image:Link',
             'link:upload',
             'table:advanced',
-            #'tableProperties:advanced',
-            ]),
-        
+            # 'tableProperties:advanced',
+        ]),
+
         # Extra plugins to be used in the editor
         'extraPlugins': ','.join([
             'mathjax',  # Used to render mathematical formulae
@@ -192,10 +169,9 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 
 # Extra places for collectstatic to find static files.
 '''
@@ -211,11 +187,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
 
-# This is the Directory where the Uploaded images are kept on the File System
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -225,7 +201,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
-# AWS Credentials
+
 # AWS Credentials
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -242,5 +218,4 @@ AWS_S3_ADDRESSING_STYLE = "virtual"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-django_heroku.settings(locals())
-"""
+# django_heroku.settings(locals())
